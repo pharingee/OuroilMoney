@@ -1,0 +1,23 @@
+
+# Sphinx documentation
+docs/_build/
+
+
+
+# GIT
+.editorconfig
+.gitattributes
+
+# Vim
+
+*~
+*.swp
+*.swo
+
+
+#heroku
+heroku.log
+
+.env
+
+staticfiles
