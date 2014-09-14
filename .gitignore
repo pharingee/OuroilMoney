@@ -20,4 +20,6 @@ heroku.log
 
 .env
 
-staticfiles*.pyc
+staticfiles
+
+*.pyc
