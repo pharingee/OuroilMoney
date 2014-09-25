@@ -1,4 +1,7 @@
 
+#settings
+settings/dev.py
+
 # Sphinx documentation
 docs/_build/
 
@@ -18,6 +21,7 @@ docs/_build/
 #heroku
 heroku.log
 
+#secret settings
 .env
 
 staticfiles

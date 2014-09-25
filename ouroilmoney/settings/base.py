@@ -29,9 +29,6 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: keep the secret key used in production secret!
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', True)
-
-TEMPLATE_DEBUG = DEBUG
 
 
 #  todo: verify allowed_host based on enviroments
@@ -51,14 +48,20 @@ INSTALLED_APPS = (
 
 
 THIRD_PARTY_APPS =  (
-    'rest_framework',)
+    'grappelli',
+    'rest_framework',
+    'corsheaders',
+    )
 
-LOCAL_APPS =()
+LOCAL_APPS =(
+    'ouroilmoney.apps.reports',
+    )
 
-INSTALLED_APPS = INSTALLED_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+INSTALLED_APPS =  THIRD_PARTY_APPS +INSTALLED_APPS  + LOCAL_APPS
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -95,5 +98,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
+# provide specific url from /api/v1.o/
+CORS_URL_REGEX = r'^/api/.*$'
 
-STATIC_URL = os.environ.get('STATIC_URL')
+
+#
+GRAPPELLI_ADMIN_TITLE = 'OuroilMoney'
