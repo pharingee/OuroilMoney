@@ -27,3 +27,7 @@ heroku.log
 staticfiles
 
 *.pyc
+
+
+#env_dir
+envdir/
