@@ -55,6 +55,8 @@ THIRD_PARTY_APPS =  (
 
 LOCAL_APPS =(
     'ouroilmoney.apps.reports',
+    'ouroilmoney.apps.liftings',
+    'ouroilmoney.apps.revenues',
     )
 
 INSTALLED_APPS =  THIRD_PARTY_APPS +INSTALLED_APPS  + LOCAL_APPS
