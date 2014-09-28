@@ -1,1 +1,1 @@
-web: gunicorn ouroilmoney.wsgi
+web: gunicorn ouroilmoney.wsgi --log-file -
