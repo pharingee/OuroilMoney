@@ -17,4 +17,4 @@ INSTALLED_APPS += ()
 MIDDLEWARE_CLASSES += ()
 
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '.herokuapp.com').split(':')
+ALLOWED_HOSTS=os.environ.get('ALLOWED_HOSTS', '*.herokuapp.com').split(',')
