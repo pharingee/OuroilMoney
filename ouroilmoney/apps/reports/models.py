@@ -3,31 +3,40 @@ from django.db import models
 # Create your models here.
 
 
-class Reports(models.Model):
-    FIRST_QUARTER = '1st Quarter Report'
-    SECOND_QUARTER = '2nd Quater Report'
-    THIRD_QUARTER = '3rd Quater Report'
-    FOURTH_QUARTER = '4th Quarter Report'
-    FIRST_REPORT = 'ANNUAL BUDGET REPORT'
-    OTHER = 'None of the above'
+class Report(models.Model):
+    FIRST_REPORT = 'ABR'
+    FIRST_QUARTER = '1Q'
+    SECOND_QUARTER = '2Q'
+    THIRD_QUARTER = '3Q'
+    FOURTH_QUARTER = '4Q'
+    OTHER = 'NFTA'
 
     REPORT_TYPE_CHOICES = (
-        ('1Q', FIRST_QUARTER),
-        ('2Q', SECOND_QUARTER),
-        ('3Q', THIRD_QUARTER),
-        ('4Q', FOURTH_QUARTER),
-        ('YR', FIRST_REPORT),
-        ('NONE OF THE ABOVE', OTHER))
+        (FIRST_REPORT, 'ANNUAL BUDGET REPORT'),
+        (FIRST_QUARTER, '1ST QUARTER REPORT'),
+        (SECOND_QUARTER, '2ND QUARTER REPORT'),
+        (THIRD_QUARTER, '3RD QUARTER REPORT'),
+        (FOURTH_QUARTER, 'ANNUAL BUDGET REPORT'),
+        (OTHER, 'NONE OF THE ABOVE'))
 
     # todo:change quarter choices to commaseperatedcharacterfield
-    title = models.CharField(max_length=500)
-    report_type = models.CharField(max_length=2, choices=REPORT_TYPE_CHOICES)
-    date = models.DateField(max_length=4)
-    source = models.CharField(max_length=500)
-    source_url = models.URLField(max_length=500, blank=True, null=True)
+    title = models.CharField(max_length=500, verbose_name='title Of Report')
+    report_type = models.CharField(
+        max_length=5, choices=REPORT_TYPE_CHOICES,
+        verbose_name='type Of Report', default=FIRST_REPORT)
 
+    date = models.DateField(max_length=4, verbose_name='date Issued')
+    source_of_report = models.CharField(
+        max_length=500, verbose_name='source Of Report')
+
+    source_url = models.URLField(
+        max_length=500, blank=True, null=True,
+        help_text='Optional', verbose_name='url To Source')
+
+    # add report type
     def __unicode__(self):
-        return '{year} {title} '.format(title=self.title, year=self.year)
+        return '{date} {title} '.format(
+            title=self.title, date=self.date)
 
     class Meta:
         ordering = ('-date',)

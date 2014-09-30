@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from ouroilmoney.apps.reports.models import Reports
+from ouroilmoney.apps.reports.models import Report
 
 
-class  ReportsSerializer(serializers.ModelSerializer):
+class ReportSerializer(serializers.ModelSerializer):
     class Meta:
-        model= Reports
+        model = Report

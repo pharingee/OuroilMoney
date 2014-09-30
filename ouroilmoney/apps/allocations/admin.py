@@ -1,16 +1,13 @@
 from django.contrib import admin
-from ouroilmoney.apps.allocations.models import (Allocations, SubAllocations)
+from ouroilmoney.apps.allocations.models import (Allocation)
 
 # Register your models here.
 
 
-class AllocationsAdmin(admin.ModelAdmin):
-    fields = ['title', 'amount', 'revenue']
+class AllocationAdmin(admin.ModelAdmin):
+    fields = ['title', 'amount','year']
 
 
-class SubAllocationsAdmin(admin.ModelAdmin):
-    fields = ['title', 'amount', 'allocation']
 
+admin.site.register(Allocation, AllocationAdmin)
 
-admin.site.register(Allocations, AllocationsAdmin)
-admin.site.register(SubAllocations, SubAllocationsAdmin)

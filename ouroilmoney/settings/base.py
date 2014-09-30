@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import dj_database_url
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 
 
 PROJECT_DIR =  os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
@@ -38,6 +39,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'suit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,7 +50,6 @@ INSTALLED_APPS = (
 
 
 THIRD_PARTY_APPS =  (
-    'grappelli',
     'rest_framework',
     'corsheaders',
     )
@@ -57,6 +58,7 @@ LOCAL_APPS =(
     'ouroilmoney.apps.reports',
     'ouroilmoney.apps.liftings',
     'ouroilmoney.apps.revenues',
+    'ouroilmoney.apps.allocations',
     )
 
 INSTALLED_APPS =  THIRD_PARTY_APPS +INSTALLED_APPS  + LOCAL_APPS
@@ -104,5 +106,15 @@ USE_TZ = True
 CORS_URL_REGEX = r'^/api/.*$'
 
 
-#
-GRAPPELLI_ADMIN_TITLE = 'OuroilMoney'
+
+SUIT_CONFIG = {
+    # header
+    'ADMIN_NAME': 'Ouroilmoney',
+    'MENU_EXCLUDE':('auth.group','auth')
+
+}
+
+
+TEMPLATE_CONTEXT_PROCESSORS = TCP + (
+    'django.core.context_processors.request',
+)

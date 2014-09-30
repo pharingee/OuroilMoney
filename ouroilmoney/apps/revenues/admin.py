@@ -3,15 +3,15 @@ from django.contrib import admin
 # Register your models here.
 
 
-from ouroilmoney.apps.revenues.models import  Revenues
+from ouroilmoney.apps.revenues.models import  Revenue
 
 
 
-class RevenuesAdmin(admin.ModelAdmin):
+class RevenueAdmin(admin.ModelAdmin):
         fields = ['year','report', 'title', 'amount']
 
 
 
 
 
-admin.site.register(Revenues, RevenuesAdmin)
+admin.site.register(Revenue, RevenueAdmin)
