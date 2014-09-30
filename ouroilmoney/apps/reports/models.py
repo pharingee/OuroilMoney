@@ -21,7 +21,6 @@ class Reports(models.Model):
 
     # todo:change quarter choices to commaseperatedcharacterfield
     title = models.CharField(max_length=500)
-    summary = models.TextField()
     report_type = models.CharField(max_length=2, choices=REPORT_TYPE_CHOICES)
     date = models.DateField(max_length=4)
     source = models.CharField(max_length=500)
