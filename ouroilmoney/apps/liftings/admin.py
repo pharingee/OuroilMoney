@@ -4,13 +4,13 @@ from django.contrib import admin
 from ouroilmoney.apps.liftings.models import Lifting
 
 
-
+@admin.register(Lifting)
 class LiftingAdmin(admin.ModelAdmin):
-    fields= ['revenue','volume', 'barrel_price', 'lifting_proceed']
+    list_display = (
+        'report', 'date',
+        'volume_of_lifting', 'price',
+        'lifting_proceed', 'is_published')
 
-
-
-
-admin.site.register(Lifting, LiftingAdmin)
-
-
+    fields = [
+        'report', 'date', 'volume_of_lifting',
+        'selling_price', 'lifting_proceed', 'is_published']

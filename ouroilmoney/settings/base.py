@@ -55,10 +55,12 @@ THIRD_PARTY_APPS =  (
     )
 
 LOCAL_APPS =(
+    'ouroilmoney.utils',
     'ouroilmoney.apps.reports',
-    'ouroilmoney.apps.liftings',
     'ouroilmoney.apps.revenues',
     'ouroilmoney.apps.allocations',
+    'ouroilmoney.apps.liftings',
+    'ouroilmoney.apps.projects',
     )
 
 INSTALLED_APPS =  THIRD_PARTY_APPS +INSTALLED_APPS  + LOCAL_APPS
@@ -110,7 +112,25 @@ CORS_URL_REGEX = r'^/api/.*$'
 SUIT_CONFIG = {
     # header
     'ADMIN_NAME': 'Ouroilmoney',
-    'MENU_EXCLUDE':('auth.group','auth')
+    'MENU':  (
+        'sites',
+        {'label': 'Settings', 'icon':'icon-cog', 'models': (
+            'auth.group' ,
+            {'model': 'auth.user', 'label': 'Staff'}
+        )},
+
+        {'app':'reports', 'label': 'Reports', 'icon': 'icon-file'},
+        {'app':'revenues', 'label': 'Revenues', 'icon': 'icon-tint'},
+        {'app':'liftings', 'label': 'Liftings', 'icon': 'icon-leaf'},
+        {'app':'allocations', 'label': 'Allocations', 'icon': 'icon-calendar' , 'models':(
+            'allocations.annualbudgetallocation',
+            'allocations.confirmallocation')},
+
+        {'app':'projects', 'label': 'Projects', 'icon': 'icon-calendar', 'models':(
+            'projects.annualbudgetsector', 'projects.annualbudgetproject',
+            'projects.confirmsector','projects.confirmproject'
+            '')},
+        )
 
 }
 

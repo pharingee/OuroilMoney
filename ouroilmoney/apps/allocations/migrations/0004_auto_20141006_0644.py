@@ -7,13 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('revenues', '0005_auto_20140930_0520'),
+        ('allocations', '0003_auto_20141005_2337'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='revenue',
-            name='amount',
-            field=models.DecimalField(max_digits=19, decimal_places=10),
+            model_name='confirmallocation',
+            name='report',
+            field=models.ForeignKey(verbose_name=b'Other Report in the same year', to='reports.ConfirmReport'),
         ),
     ]

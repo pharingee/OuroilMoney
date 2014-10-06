@@ -1,34 +1,42 @@
 from django.db import models
-from ouroilmoney.apps.revenues.models import Revenue
+from django.core.exceptions import ValidationError
+from ouroilmoney.apps.reports.models import ConfirmReport
+from ouroilmoney.utils.models import TimeStampedPublishModel
 
 
 # Create your models here.
+class Lifting(TimeStampedPublishModel):
+    report = models.ForeignKey(ConfirmReport)
 
-
-class Lifting(models.Model):
-    revenue = models.ForeignKey(Revenue)
     date = models.DateField()
-    volume = models.IntegerField()
-    barrel_price = models.IntegerField()
-    lifting_proceed = models.IntegerField()
-
+    volume_of_lifting = models.IntegerField()
+    selling_price = models.DecimalField(max_digits=10, decimal_places=3)
+    lifting_proceed= models.DecimalField(max_digits=19, decimal_places=3)
     # todo: automatically populate lifting_proceed on save
     # todo: make sure lifting _proceed is multiplication of the barrel_price
     # and the volume
-    # the revenue tied to a lifting can be
-    # anything else other than the annual budget
     # did not add other liftings
+    # make sure u check for if choices have different years than what was chose
+    # in the lifting
 
     @property
     def price(self):
-        return '${barrel_price}'.format(barrel_price=self.barrel_price)
+        return '${selling_price}'.format(selling_price=self.selling_price)
 
     def __unicode__(self):
         return '{lifting_proceed} {date} {volume}'.format(
             lifting_proceed=self.lifting_proceed,
-            date=self.date, volume=self.volume)
+            date=self.date, volume=self.volume_of_lifting)
+
+    def clean(self):
+        if self.date.year != self.report.date.year:
+            raise ValidationError(
+                'Please check date field, year of the date must be equal to the report')
+        if (self.volume_of_lifting * self.selling_price) != self.lifting_proceed:
+                    raise ValidationError(
+                        'liftings proceeds must be volume of lifting x selling price')
 
     class Meta:
         ordering = ('-date',)
-        verbose_name = 'Lifting'
-        verbose_name_plural = 'Liftings'
+        verbose_name = 'Lifting from Report'
+        verbose_name_plural = 'Liftings from Reports'

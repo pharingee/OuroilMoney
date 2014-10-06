@@ -7,13 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('revenues', '0004_auto_20140930_0442'),
+        ('revenues', '0001_initial'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='revenue',
-            name='amount',
-            field=models.DecimalField(max_length=10, max_digits=10, decimal_places=2),
+            model_name='annualbudgetreportrevenue',
+            name='year',
+            field=models.IntegerField(default=2014, max_length=4),
         ),
     ]
