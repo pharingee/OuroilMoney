@@ -139,3 +139,13 @@ SUIT_CONFIG = {
 TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'django.core.context_processors.request',
 )
+
+
+
+SWAGGER_SETTINGS = {
+    "exclude_namespaces": [],
+    "api_version": '1.0',  # Specify your API's version
+
+    "is_authenticated": False,  # Set to True to enforce user authentication,
+    "is_superuser": False,  # Set to True to enforce admin only access
+}
