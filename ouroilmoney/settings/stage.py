@@ -13,11 +13,10 @@ INSTALLED_APPS += ()
 
 MIDDLEWARE_CLASSES += ()
 
-ALLOWED_HOSTS=os.environ.get('ALLOWED_HOSTS', '.herokuapp.com').split(':')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '.herokuapp.com').split(':')
 
 
 CORS_ORIGIN_ALLOW_ALL = True
-
 
 
 SWAGGER_SETTINGS = {
@@ -30,7 +29,7 @@ SWAGGER_SETTINGS = {
         'patch',
         'delete'
     ],
-    "api_key": '', # An API key
+    "api_key": '',  # An API key
     "is_authenticated": True,  # Set to True to enforce user authentication,
     "is_superuser": True,  # Set to True to enforce admin only access
 }
