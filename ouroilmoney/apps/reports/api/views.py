@@ -1,12 +1,24 @@
 from rest_framework import viewsets
 from ouroilmoney.apps.reports.models import AnnualBudgetReport
+from ouroilmoney.apps.reports.models import ConfirmReport
 from ouroilmoney.apps.reports.api.serializers import (
-    AnnualBudgetReportSerializer)
+    AnnualBudgetReportSerializer, OtherReportSerializer,
+    ReportSerializer)
 
 
-class ReportsViewSet(viewsets.ReadOnlyModelViewSet):
-    """
-    A simple ViewSet for viewing accounts.
-    """
-    queryset = AnnualBudgetReport.objects.all()
+class AnnualBudgetReportViewSet(viewsets.ReadOnlyModelViewSet):
+
+    queryset = AnnualBudgetReport.objects.exclude(is_published=False)
     serializer_class = AnnualBudgetReportSerializer
+
+
+class OtherReportViewSet(viewsets.ReadOnlyModelViewSet):
+
+    queryset = ConfirmReport.objects.exclude(is_published=False)
+    serializer_class = OtherReportSerializer
+
+
+class ReportViewSet(viewsets.ReadOnlyModelViewSet):
+
+    queryset = AnnualBudgetReport.objects.exclude(is_published=False)
+    serializer_class = ReportSerializer

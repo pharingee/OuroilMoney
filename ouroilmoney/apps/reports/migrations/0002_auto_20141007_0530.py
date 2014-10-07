@@ -7,13 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('allocations', '0003_auto_20141005_2337'),
+        ('reports', '0001_initial'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='confirmallocation',
-            name='report',
-            field=models.ForeignKey(verbose_name=b'Other Report in the same year', to='reports.ConfirmReport'),
+            model_name='confirmreport',
+            name='annual_budget_report',
+            field=models.ForeignKey(related_name=b'otherreports', to='reports.AnnualBudgetReport'),
         ),
     ]

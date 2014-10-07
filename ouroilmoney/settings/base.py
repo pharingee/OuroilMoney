@@ -51,7 +51,8 @@ INSTALLED_APPS = (
 
 THIRD_PARTY_APPS =  (
     'rest_framework',
-    'corsheaders',
+    'rest_framework_swagger',
+    'corsheaders'
     )
 
 LOCAL_APPS =(

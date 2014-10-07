@@ -1,5 +1,6 @@
 from django.db import models
 from ouroilmoney.utils.models import TimeStampedPublishModel
+from django.core.exceptions import ValidationError
 
 
 # Create your models here.
@@ -33,10 +34,10 @@ class AnnualBudgetReport(TimeStampedPublishModel, ReportModel):
 
 class ConfirmReport(TimeStampedPublishModel, ReportModel):
 
-    FIRST_QUARTER = '1Q'
-    SECOND_QUARTER = '2Q'
-    THIRD_QUARTER = '3Q'
-    FOURTH_QUARTER = '4Q'
+    FIRST_QUARTER = '1ST QUARTER REPORT'
+    SECOND_QUARTER = '2ND QUARTER REPORT'
+    THIRD_QUARTER = '3RD QUARTER REPORT'
+    FOURTH_QUARTER = '4TH QUARTER REPORT'
     OTHER = 'NFTA'
 
     REPORT_TYPE_CHOICES = (
@@ -47,15 +48,21 @@ class ConfirmReport(TimeStampedPublishModel, ReportModel):
         (OTHER, 'NONE OF THE ABOVE'))
 
     # todo:change quarter choices to commaseperatedcharacterfield
-    annual_budget_report = models.ForeignKey(AnnualBudgetReport)
+    annual_budget_report = models.ForeignKey(
+        AnnualBudgetReport, related_name='otherreports')
     report_type = models.CharField(
-        max_length=5, choices=REPORT_TYPE_CHOICES,
+        max_length=20, choices=REPORT_TYPE_CHOICES,
         verbose_name='type Of Report', default=FIRST_QUARTER)
 
     # add report type
     def __unicode__(self):
         return '{date} {title} {report_type}'.format(
             title=self.title, date=self.date, report_type=self.report_type)
+
+    def clean(self):
+        if self.date.year != self.annual_budget_report.date.year:
+            raise ValidationError(
+                'Year of the date released must be the same as the year for the annual budget report ')
 
     class Meta:
         ordering = ('-date',)

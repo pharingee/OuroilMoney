@@ -1,12 +1,15 @@
 from django.db import models
 from ouroilmoney.apps.reports.models import AnnualBudgetReport
+from ouroilmoney.utils.models import TimeStampedPublishModel
+from django.core.exceptions import ValidationError
 
 
 # Create your models here.
-class AnnualBudgetReportRevenue(models.Model):
+class AnnualBudgetReportRevenue(TimeStampedPublishModel):
     #ABR refers to the annual budget report
     report = models.ForeignKey(
-        AnnualBudgetReport,  verbose_name='choose Annual Budget Report')
+        AnnualBudgetReport,
+        verbose_name='choose Annual Budget Report', related_name="revenues")
 
     title = models.CharField(max_length=500, verbose_name='title Of Revenue')
     amount = models.CommaSeparatedIntegerField(
@@ -14,6 +17,11 @@ class AnnualBudgetReportRevenue(models.Model):
     # todo:limit date based on the date from the revenue chosen
     year = models.IntegerField(max_length=4, default=2014)
     # todo: year validation seems not to be working
+
+    def clean(self):
+        if self.year != self.report.date.year:
+            raise ValidationError(
+                'year must equal to the year report was released')
 
     @property
     def revenue_amount(self):

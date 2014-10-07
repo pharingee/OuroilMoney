@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterField(
             model_name='annualbudgetreportrevenue',
-            name='year',
-            field=models.IntegerField(default=2014, max_length=4),
+            name='report',
+            field=models.ForeignKey(related_name=b'revenues', verbose_name=b'choose Annual Budget Report', to='reports.AnnualBudgetReport'),
         ),
     ]

@@ -17,3 +17,5 @@ INSTALLED_APPS += ()
 MIDDLEWARE_CLASSES += ()
 
 ALLOWED_HOSTS=os.environ.get('ALLOWED_HOSTS', '*.herokuapp.com').split(',')
+
+CORS_ORIGIN_ALLOW_ALL = True
