@@ -54,15 +54,17 @@ class ConfirmReport(TimeStampedPublishModel, ReportModel):
         max_length=20, choices=REPORT_TYPE_CHOICES,
         verbose_name='type Of Report', default=FIRST_QUARTER)
 
+
     # add report type
     def __unicode__(self):
         return '{date} {title} {report_type}'.format(
             title=self.title, date=self.date, report_type=self.report_type)
 
     def clean(self):
-        if self.date.year != self.annual_budget_report.date.year:
-            raise ValidationError(
-                'Year of the date released must be the same as the year for the annual budget report ')
+        if self.date is not None:
+            if self.date.year != self.annual_budget_report.date.year:
+                raise ValidationError(
+                    'Year of the date released must be the same as the year for the annual budget report ')
 
     class Meta:
         ordering = ('-date',)
