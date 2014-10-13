@@ -14,6 +14,9 @@ from apps.projects.api.views import (
     ConfirmSectorViewSet,
     AnnualBudgetProjectViewSet,
     ConfirmProjectViewSet)
+from apps.allocations.api.views import (
+    AnnualBudgetAllocationViewSet,
+    ConfirmAllocationViewSet)
 
 
 router = DefaultRouter()
@@ -22,6 +25,8 @@ router.register(r'annualbudgetreports', AnnualBudgetReportViewSet)
 router.register(r'otherreports', OtherReportViewSet)
 router.register(r'revenues', AnnualBudgetRevenueViewSet)
 router.register(r'liftings', LiftingViewSet)
+router.register(r'annualbudgetallocations', AnnualBudgetAllocationViewSet)
+router.register(r'otherallocations', ConfirmAllocationViewSet)
 router.register(r'annualbudgetsectors', AnnualBudgetSectorViewSet)
 router.register(r'othersectors', ConfirmSectorViewSet)
 router.register(r'annualbudgetprojects', AnnualBudgetProjectViewSet)
