@@ -1,7 +1,7 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 from ouroilmoney.apps.reports.models import AnnualBudgetReport
 from ouroilmoney.utils.models import TimeStampedPublishModel
-from django.core.exceptions import ValidationError
 
 
 # Create your models here.
@@ -15,13 +15,14 @@ class AnnualBudgetReportRevenue(TimeStampedPublishModel):
     amount = models.CommaSeparatedIntegerField(
         max_length=40, verbose_name='amount Of Money  ')
     # todo:limit date based on the date from the revenue chosen
-    year = models.IntegerField(max_length=4, default=2014)
+    year = models.IntegerField(max_length=4)
     # todo: year validation seems not to be working
 
     def clean(self):
-        if self.year != self.report.date.year:
-            raise ValidationError(
-                'year must equal to the year report was released')
+        if self.year:
+            if self.year != self.report.date.year:
+                raise ValidationError(
+                    'year must equal to the year report was released')
 
     @property
     def revenue_amount(self):
