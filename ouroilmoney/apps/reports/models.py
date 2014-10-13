@@ -61,7 +61,7 @@ class ConfirmReport(TimeStampedPublishModel, ReportModel):
             title=self.title, date=self.date, report_type=self.report_type)
 
     def clean(self):
-        if self.date is not None:
+        if self.date:
             if self.date.year != self.annual_budget_report.date.year:
                 raise ValidationError(
                     'Year of the date released must be the same as the year for the annual budget report ')

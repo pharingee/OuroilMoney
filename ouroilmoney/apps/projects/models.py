@@ -72,7 +72,7 @@ class AnnualBudgetProject(TimeStampedPublishModel):
 
 
     def clean(self):
-        if self.sector.amount:
+        if self.amount:
             if self.amount > self.sector.amount:
                 raise ValidationError("Amount for this Project cannot be more than that provided for it's sector")
 
@@ -103,7 +103,7 @@ class ConfirmProject(TimeStampedPublishModel):
         return '${amount}'.format(amount=self.amount)
 
     def clean(self):
-        if self.sector.amount:
+        if self.amount:
             if self.amount > self.sector.amount:
                 raise ValidationError("Amount for this Project cannot be more than that provided for it's sector")
 
