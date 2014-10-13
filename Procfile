@@ -1,1 +1,1 @@
-web: gunicorn ouroilmoney.wsgi --log-file -
+web: waitress-serve --port=$PORT ouroilmoney.wsgi:application --log-file -
