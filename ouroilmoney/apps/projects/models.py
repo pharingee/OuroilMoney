@@ -75,7 +75,7 @@ class AnnualBudgetProject(TimeStampedPublishModel):
                     be more than that provided for it's sector")
 
     def __unicode__(self):
-        return '{name} {amount}'.format(name=self.name, amount=self.amount)
+        return '{title} {amount}'.format(title=self.title, amount=self.amount)
 
     class Meta:
         ordering = ('-sector',)
