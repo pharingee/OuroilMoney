@@ -19,7 +19,7 @@ class AnnualBudgetSectorViewSet(viewsets.ReadOnlyModelViewSet):
 
 class ConfirmSectorViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = ConfirmSector.objects.exclude(
-        is_published=False).order_by(' annual_budget_sector__title')
+        is_published=False).order_by('annual_budget_sector__title')
     serializer_class = ConfirmSectorSerializer
 
 
