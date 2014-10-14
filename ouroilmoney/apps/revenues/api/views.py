@@ -15,6 +15,6 @@ class AnnualBudgetRevenueViewSet(viewsets.ReadOnlyModelViewSet):
 
     @list_route(methods=["get"])
     def titles(self, request):
-        title=AnnualBudgetReportRevenue.objects.values('title').distinct()
+        title=AnnualBudgetReportRevenue.objects.values('title').order_by('title').distinct('title')
         return  Response(title)
 
