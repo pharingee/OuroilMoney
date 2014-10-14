@@ -21,7 +21,7 @@ class AnnualBudgetSector(TimeStampedPublishModel):
 
     def __unicode__(self):
         return '{title} {amount}'.format(
-            title= self.title, amount=self.total_amount)
+            title=self.title, amount=self.total_amount)
 
     class Meta:
         ordering = ('-allocation',)
@@ -48,7 +48,7 @@ class ConfirmSector(TimeStampedPublishModel):
 
     def __unicode__(self):
         return '{title} {amount}'.format(
-            title=self.title,amount=self.total_amount)
+            title=self.title, amount=self.total_amount)
 
     class Meta:
         ordering = ('-allocation',)
@@ -56,28 +56,26 @@ class ConfirmSector(TimeStampedPublishModel):
         verbose_name_plural = 'Other Reports Sectors'
 
 
-
 class AnnualBudgetProject(TimeStampedPublishModel):
-    amount = models.DecimalField(
-       decimal_places=3, max_digits=19)
+    amount = models.DecimalField(decimal_places=3, max_digits=19)
     name = models.CharField(max_length=500, verbose_name='name of Project')
     sector = models.ForeignKey(
         AnnualBudgetSector,
         verbose_name='choose Sector From Annual Budget Reports')
 
-
     @property
     def amount_from_annual_project(self):
         return '${amount}'.format(amount=self.amount)
 
-
     def clean(self):
         if self.amount:
             if self.amount > self.sector.amount:
-                raise ValidationError("Amount for this Project cannot be more than that provided for it's sector")
+                raise ValidationError(
+                    "Amount for this Project cannot \
+                    be more than that provided for it's sector")
 
     def __unicode__(self):
-        return '{name} {amount}'.format(name=self.name,amount=self.total_amount)
+        return '{name} {amount}'.format(name=self.name, amount=self.amount)
 
     class Meta:
         ordering = ('-sector',)
@@ -86,13 +84,11 @@ class AnnualBudgetProject(TimeStampedPublishModel):
 
 
 class ConfirmProject(TimeStampedPublishModel):
-    amount = models.DecimalField(
-       decimal_places=3, max_digits=19)
-    sector = models.ForeignKey(ConfirmSector, verbose_name='choose Sector From Other Reports')
-    project = models.ForeignKey(AnnualBudgetProject, verbose_name='choose Project ')
-
-
-
+    amount = models.DecimalField(decimal_places=3, max_digits=19)
+    sector = models.ForeignKey(
+        ConfirmSector, verbose_name='choose Sector From Other Reports')
+    project = models.ForeignKey(
+        AnnualBudgetProject, verbose_name='choose Project ')
 
     @property
     def amount_from_annual_project(self):
@@ -105,10 +101,13 @@ class ConfirmProject(TimeStampedPublishModel):
     def clean(self):
         if self.amount:
             if self.amount > self.sector.amount:
-                raise ValidationError("Amount for this Project cannot be more than that provided for it's sector")
+                raise ValidationError(
+                    "Amount for this Project \
+                    cannot be more than that provided for it's sector")
 
     def __unicode__(self):
-        return '{name} {amount}'.format(name=self.name, amount=self.total_amount)
+        return '{name} {amount}'.format(
+            name=self.name, amount=self.total_amount)
 
     class Meta:
         ordering = ('-sector',)
