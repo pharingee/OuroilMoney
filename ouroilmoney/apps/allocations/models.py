@@ -29,6 +29,7 @@ class AnnualBudgetAllocation(TimeStampedPublishModel):
 
     class Meta:
         ordering = ('report',)
+        unique_together = ('title', 'report')
         verbose_name = 'Annual Budget Allocation'
         verbose_name_plural = 'Annual Budget Allocations'
 
@@ -49,13 +50,15 @@ class ConfirmAllocation(TimeStampedPublishModel):
         return '${amount}'.format(amount=self. annual_budget_allocation.amount)
 
     def clean(self):
-        if self.report.date.year < self.annual_budget_allocation.report.date.year:
-            raise ValidationError(
-                'Report Year cannot have a report whose year is less than the year for  annual budget allocation. They must have the same year')
+        #todo:validate this when everything is empty there is an error
+        if self.report:
+            if self.report.date.year < self.annual_budget_allocation.report.date.year:
+                raise ValidationError(
+                    'Report Year cannot have a report whose year is less than the year for  annual budget allocation. They must have the same year')
 
-        elif self.report.date.year > self.annual_budget_allocation.report.date.year:
-            raise ValidationError(
-                'Report field cannot have a report whose year is greater than the year for  annual budget allocation. They must have the same year')
+            elif self.report.date.year > self.annual_budget_allocation.report.date.year:
+                raise ValidationError(
+                    'Report field cannot have a report whose year is greater than the year for  annual budget allocation. They must have the same year')
 
     def __unicode__(self):
         return ' {amount} {report}'.format(

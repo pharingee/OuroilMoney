@@ -34,5 +34,6 @@ class AnnualBudgetReportRevenue(TimeStampedPublishModel):
 
     class Meta:
         ordering = ('-year', )
+        unique_together = (('title','year'),)
         verbose_name = 'Revenue from Annual Budget Report'
         verbose_name_plural = 'Revenues from Annual Budget Report'
