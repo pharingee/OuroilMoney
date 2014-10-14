@@ -84,7 +84,8 @@ class AnnualBudgetProject(TimeStampedPublishModel):
 
 
 class ConfirmProject(TimeStampedPublishModel):
-    amount = models.DecimalField(decimal_places=3, max_digits=19)
+    amount = models.DecimalField(
+        decimal_places=3, max_digits=19, verbose_name='total Amount')
     sector = models.ForeignKey(
         ConfirmSector, verbose_name='choose Sector From Other Reports')
     project = models.ForeignKey(
