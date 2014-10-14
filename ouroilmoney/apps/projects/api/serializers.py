@@ -1,13 +1,20 @@
 from rest_framework import serializers
-from ouroilmoney.apps.projects.models import AnnualBudgetSector
-from ouroilmoney.apps.projects.models import ConfirmSector
-from ouroilmoney.apps.projects.models import AnnualBudgetProject
-from ouroilmoney.apps.projects.models import ConfirmProject
+from ouroilmoney.apps.projects.models import (
+    AnnualBudgetSector,
+    ConfirmSector,
+    AnnualBudgetProject,
+    ConfirmProject)
+
+from ouroilmoney.apps.allocations.api.serializers import AnnualBudgetAllocationSerializer
+
 
 
 class AnnualBudgetSectorSerializer(serializers.ModelSerializer):
+    allocation =  AnnualBudgetAllocationSerializer()
+
     class Meta:
         model = AnnualBudgetSector
+        fields = ('title','amount','allocation')
 
 
 class ConfirmSectorSerializer(serializers.ModelSerializer):

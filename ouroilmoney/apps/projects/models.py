@@ -8,7 +8,7 @@ from ouroilmoney.apps.allocations.models import ConfirmAllocation
 
 class AnnualBudgetSector(TimeStampedPublishModel):
     title = models.CharField(max_length=500, verbose_name='title of Sector')
-    total_amount = models.DecimalField(
+    amount = models.DecimalField(
         decimal_places=3, max_digits=19,
         null=True,  blank=True)
     allocation = models.ForeignKey(
@@ -16,12 +16,13 @@ class AnnualBudgetSector(TimeStampedPublishModel):
         limit_choices_to={'title': 'ABFA'})
 
     @property
-    def amount(self):
-        return '${amount}'.format(amount=self.total_amount)
+    def amount_from_annual_budget(self):
+        if self.amount is not None:
+            return '${amount}'.format(amount=self.amount)
 
     def __unicode__(self):
         return '{title} {amount}'.format(
-            title=self.title, amount=self.total_amount)
+            title=self.title, amount=self.amount)
 
     class Meta:
         ordering = ('-allocation',)
@@ -30,7 +31,7 @@ class AnnualBudgetSector(TimeStampedPublishModel):
 
 
 class ConfirmSector(TimeStampedPublishModel):
-    total_amount = models.DecimalField(
+    amount = models.DecimalField(
         decimal_places=3, max_digits=19, null=True, blank=True)
     allocation = models.ForeignKey(
         ConfirmAllocation, verbose_name='choose Allocation From Other Report')
@@ -39,16 +40,17 @@ class ConfirmSector(TimeStampedPublishModel):
         verbose_name="choose Sector From Annual Budget Report")
 
     @property
-    def amount_annual_budget(self):
-        return '${amount}'.format(amount=self.total_amount)
+    def amount_from_annual_budget(self):
+        return '${amount}'.format(
+            amount=self.annual_budget_sector.amount)
 
     @property
     def amount_another_report(self):
-        return '${amount}'.format(amount=self.total_amount)
+        return '${amount}'.format(amount=self.amount)
 
     def __unicode__(self):
         return '{title} {amount}'.format(
-            title=self.title, amount=self.total_amount)
+            title=self.title, amount=self.amount)
 
     class Meta:
         ordering = ('-allocation',)
