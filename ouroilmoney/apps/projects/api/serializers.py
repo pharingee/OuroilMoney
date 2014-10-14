@@ -16,9 +16,14 @@ class ConfirmSectorSerializer(serializers.ModelSerializer):
 
 
 class AnnualBudgetProjectSerializer(serializers.ModelSerializer):
+    sector = AnnualBudgetSectorSerializer()
+
     class Meta:
         model = AnnualBudgetProject
+        fields = ('id', 'title','amount', 'sector','created','modified')
+
 
 class ConfirmProjectSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = ConfirmProject

@@ -9,24 +9,24 @@ from ouroilmoney.apps.projects.models import ConfirmProject
 
 @admin.register(AnnualBudgetSector)
 class AnnualBudgetSectorAdmin(admin.ModelAdmin):
-    fields = ['title', 'total_amount', 'allocation']
-    list_display = ('allocation', 'title', 'amount')
+    fields = ['title', 'total_amount', 'allocation','is_published']
+    list_display = ('allocation', 'title', 'amount','is_published')
 
 
 @admin.register(ConfirmSector)
 class ConfirmSectorAdmin(admin.ModelAdmin):
-    fields = ['total_amount', 'allocation', 'annual_budget_sector']
-    list_display = ('allocation','annual_budget_sector', 'amount_annual_budget', 'amount_another_report',)
+    fields = ['total_amount', 'allocation', 'annual_budget_sector','is_published']
+    list_display = ('allocation','annual_budget_sector', 'amount_annual_budget', 'amount_another_report','is_published')
 
 
 
 
 @admin.register(AnnualBudgetProject)
 class AnnualBudgetProjectAdmin(admin.ModelAdmin):
-     fields= ['name','sector', 'amount']
-     list_display = ('name', 'sector' ,'amount_from_annual_project')
+     fields= ['title','sector', 'amount','is_published']
+     list_display = ('title', 'sector' ,'amount_from_annual_project','is_published')
 
 @admin.register(ConfirmProject)
 class ConfirmProjectAdmin(admin.ModelAdmin):
-     fields= ['amount','sector', 'project']
-     list_display = ('sector' ,'amount_from_other_project', 'amount_from_annual_project')
+     fields= ['amount','sector', 'project','is_published']
+     list_display = ('sector' ,'amount_from_other_project', 'amount_from_annual_project','is_published')

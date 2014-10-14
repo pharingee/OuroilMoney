@@ -58,7 +58,7 @@ class ConfirmSector(TimeStampedPublishModel):
 
 class AnnualBudgetProject(TimeStampedPublishModel):
     amount = models.DecimalField(decimal_places=3, max_digits=19)
-    name = models.CharField(max_length=500, verbose_name='name of Project')
+    title = models.CharField(max_length=500, verbose_name='name of Project')
     sector = models.ForeignKey(
         AnnualBudgetSector,
         verbose_name='choose Sector From Annual Budget Reports')
