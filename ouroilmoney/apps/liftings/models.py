@@ -32,9 +32,11 @@ class Lifting(TimeStampedPublishModel):
         if self.date.year != self.report.date.year:
             raise ValidationError(
                 'Please check date field, year of the date must be equal to the report')
-        if (self.volume_of_lifting * self.selling_price) != self.lifting_proceed:
-                    raise ValidationError(
-                        'liftings proceeds must be volume of lifting x selling price')
+        # todo:flag rather dont stop it
+        # if (self.volume_of_lifting * self.selling_price) != self.lifting_proceed:
+        #             raise ValidationError(
+        #                 'liftings proceeds must be volume of lifting x selling price')
+
 
     class Meta:
         ordering = ('-date',)
