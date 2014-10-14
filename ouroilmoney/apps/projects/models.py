@@ -33,10 +33,10 @@ class ConfirmSector(TimeStampedPublishModel):
     total_amount = models.DecimalField(
         decimal_places=3, max_digits=19, null=True, blank=True)
     allocation = models.ForeignKey(
-        ConfirmAllocation, verbose_name='allocation from other report')
+        ConfirmAllocation, verbose_name='choose Allocation From Other Report')
     annual_budget_sector = models.ForeignKey(
         AnnualBudgetSector,
-        verbose_name="sector from annual budget Report")
+        verbose_name="choose Sector From Annual Budget Report")
 
     @property
     def amount_annual_budget(self):
@@ -88,7 +88,7 @@ class ConfirmProject(TimeStampedPublishModel):
     sector = models.ForeignKey(
         ConfirmSector, verbose_name='choose Sector From Other Reports')
     project = models.ForeignKey(
-        AnnualBudgetProject, verbose_name='choose Project ')
+        AnnualBudgetProject, verbose_name='choose Project  From Other Reports')
 
     @property
     def amount_from_annual_project(self):

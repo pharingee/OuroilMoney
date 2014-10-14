@@ -15,7 +15,7 @@ class AnnualBudgetSectorAdmin(admin.ModelAdmin):
 
 @admin.register(ConfirmSector)
 class ConfirmSectorAdmin(admin.ModelAdmin):
-    fields = [ 'total_amount', 'allocation']
+    fields = [ 'total_amount', 'allocation','annual_budget_sector']
     list_display = ('allocation','annual_budget_sector', 'amount_annual_budget', 'amount_another_report',)
 
 
@@ -28,5 +28,5 @@ class AnnualBudgetProjectAdmin(admin.ModelAdmin):
 
 @admin.register(ConfirmProject)
 class ConfirmProjectAdmin(admin.ModelAdmin):
-     fields= ['sector', 'amount']
+     fields= ['sector', 'amount','project']
      list_display = ('sector' ,'amount_from_other_project', 'amount_from_annual_project')
