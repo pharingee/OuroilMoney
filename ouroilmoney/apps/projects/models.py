@@ -49,8 +49,8 @@ class ConfirmSector(TimeStampedPublishModel):
         return '${amount}'.format(amount=self.amount)
 
     def __unicode__(self):
-        return '{title} {amount}'.format(
-            title=self.title, amount=self.amount)
+        return '{allocation}  {allocation_amount} {amount}'.format(
+            allocation=self.allocation, amount=self.amount, allocation_amount=self.allocation.amount)
 
     class Meta:
         ordering = ('-allocation',)
