@@ -5,7 +5,6 @@ from ouroilmoney.apps.allocations.models import (
 
 
 class AnnualBudgetAllocationSerializer(serializers.ModelSerializer):
-    amount = serializers.Field(source='allocated_amount')
 
     class Meta:
         model = AnnualBudgetAllocation
@@ -13,7 +12,6 @@ class AnnualBudgetAllocationSerializer(serializers.ModelSerializer):
 
 
 class ConfirmAllocationSerializer(serializers.ModelSerializer):
-    amount = serializers.Field(source="allocated_amount")
 
     class Meta:
         model = ConfirmAllocation
