@@ -50,7 +50,8 @@ class ConfirmSector(TimeStampedPublishModel):
 
     def __unicode__(self):
         return '{allocation}  {allocation_amount} {amount}'.format(
-            allocation=self.allocation, amount=self.amount, allocation_amount=self.allocation.amount)
+            allocation=self.allocation, amount=self.amount,
+            allocation_amount=self.allocation.amount)
 
     class Meta:
         ordering = ('-allocation',)
@@ -87,7 +88,7 @@ class AnnualBudgetProject(TimeStampedPublishModel):
 
 class ConfirmProject(TimeStampedPublishModel):
     amount = models.DecimalField(
-        decimal_places=3, max_digits=19, verbose_name='total Amount')
+        decimal_places=3, max_digits=19)
     sector = models.ForeignKey(
         ConfirmSector, verbose_name='choose Sector From Other Reports')
     project = models.ForeignKey(
@@ -109,8 +110,8 @@ class ConfirmProject(TimeStampedPublishModel):
                     cannot be more than that provided for it's sector")
 
     def __unicode__(self):
-        return '{name} {amount}'.format(
-            name=self.name, amount=self.total_amount)
+        return '{project} {amount}  {sector}'.format(
+            project=self.project, sector=self.sector, amount=self.amount)
 
     class Meta:
         ordering = ('-sector',)
