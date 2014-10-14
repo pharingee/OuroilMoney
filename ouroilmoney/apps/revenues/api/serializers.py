@@ -7,3 +7,10 @@ class AnnualBudgetRevenueSerializer(serializers.ModelSerializer):
     class Meta:
         model = AnnualBudgetReportRevenue
         fields = ('id', 'title', 'amount', 'year')
+
+
+class RevenueTitleSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = AnnualBudgetReportRevenue
+        fields = ('title',)

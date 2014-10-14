@@ -7,7 +7,7 @@ from apps.reports.api.views import (
     AnnualBudgetReportViewSet,
     OtherReportViewSet)
 
-from apps.revenues.api.views import AnnualBudgetRevenueViewSet
+from apps.revenues.api.views import (AnnualBudgetRevenueViewSet,RevenueTitleViewSet)
 from apps.liftings.api.views import LiftingViewSet
 from apps.projects.api.views import (
     AnnualBudgetSectorViewSet,
@@ -24,6 +24,7 @@ router.register(r'reports', ReportViewSet,base_name="reports")
 router.register(r'annualbudgetreports', AnnualBudgetReportViewSet)
 router.register(r'otherreports', OtherReportViewSet)
 router.register(r'revenues', AnnualBudgetRevenueViewSet)
+router.register(r'revenuetitles', RevenueTitleViewSet, base_name="revenuetitles")
 router.register(r'liftings', LiftingViewSet)
 router.register(r'annualbudgetallocations', AnnualBudgetAllocationViewSet)
 router.register(r'otherallocations', ConfirmAllocationViewSet)
