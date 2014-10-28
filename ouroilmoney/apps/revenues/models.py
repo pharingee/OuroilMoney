@@ -2,6 +2,15 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from ouroilmoney.apps.reports.models import AnnualBudgetReport
 from ouroilmoney.utils.models import TimeStampedPublishModel
+from ouroilmoney.apps.liftings.models import Lifting
+from django.db.models import Max
+
+
+class AnnualBudgetReportManager(models.Manager):
+
+    def totalRevenue(self):
+        total_revenue = Lifting.objects.all().aggregate(Max('lifting_proceed'))
+        return total_revenue['lifting_proceed__max']
 
 
 # Create your models here.
@@ -17,6 +26,8 @@ class AnnualBudgetReportRevenue(TimeStampedPublishModel):
     # todo:limit date based on the date from the revenue chosen
     year = models.IntegerField(max_length=4)
     # todo: year validation seems not to be working
+    objects = models.Manager()
+    revenue_objects = AnnualBudgetReportManager()
 
     def clean(self):
         if self.year:
@@ -34,6 +45,6 @@ class AnnualBudgetReportRevenue(TimeStampedPublishModel):
 
     class Meta:
         ordering = ('-year', )
-        unique_together = (('title','year'),)
+        unique_together = (('title', 'year'),)
         verbose_name = 'Revenue from Annual Budget Report'
         verbose_name_plural = 'Revenues from Annual Budget Report'

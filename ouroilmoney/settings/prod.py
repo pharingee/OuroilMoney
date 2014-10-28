@@ -2,7 +2,7 @@
 # settings/dev.py
 
 from base import *
-
+import os
 
 DEBUG = False
 
@@ -12,7 +12,7 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = 'staticfiles'
 
-INSTALLED_APPS += ()
+INSTALLED_APPS += ('storages')
 
 MIDDLEWARE_CLASSES += ()
 
@@ -37,3 +37,9 @@ SWAGGER_SETTINGS = {
     "is_authenticated": True,  # Set to True to enforce user authentication,
     "is_superuser": True,  # Set to True to enforce admin only access
 }
+
+
+AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+STATIC_URL = S3_URL
