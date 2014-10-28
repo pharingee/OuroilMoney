@@ -6,7 +6,6 @@ from ouroilmoney.apps.revenues.api.serializers import (
     AnnualBudgetRevenueSerializer,)
 
 
-
 class AnnualBudgetRevenueViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = AnnualBudgetReportRevenue.objects.exclude(
@@ -15,7 +14,9 @@ class AnnualBudgetRevenueViewSet(viewsets.ReadOnlyModelViewSet):
 
     @list_route(methods=["get"])
     def titles(self, request):
-        title=AnnualBudgetReportRevenue.objects.values_list(
-                'title', flat=True).order_by('title').distinct('title')
-        return  Response(title)
+        title = AnnualBudgetReportRevenue.objects.values_list('title',flat=True).order_by('title').distinct('title')
+        return Response(title)
 
+    @list_route(methods=["get"])
+    def total(self, request):
+        return Response({'total': AnnualBudgetReportRevenue.revenue_objects.totalRevenue()})

@@ -13,6 +13,8 @@ from ouroilmoney.apps.projects.api.serializers import (
     ConfirmProjectSerializer)
 
 
+# todo: group projects into sectors
+
 class AnnualBudgetSectorViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = AnnualBudgetSector.objects.exclude(
         is_published=False).order_by('title')

@@ -6,6 +6,8 @@ from ouroilmoney.apps.allocations.models import AnnualBudgetAllocation
 from ouroilmoney.apps.allocations.models import ConfirmAllocation
 
 
+# todo:annual budget sectors should have choices
+
 class AnnualBudgetSector(TimeStampedPublishModel):
     title = models.CharField(max_length=500, verbose_name='title of Sector')
     amount = models.DecimalField(

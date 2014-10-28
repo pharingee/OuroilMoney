@@ -64,7 +64,7 @@ LOCAL_APPS =(
     'ouroilmoney.apps.projects',
     )
 
-INSTALLED_APPS =  THIRD_PARTY_APPS +INSTALLED_APPS  + LOCAL_APPS
+INSTALLED_APPS =  THIRD_PARTY_APPS + INSTALLED_APPS  + LOCAL_APPS
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -149,3 +149,5 @@ SWAGGER_SETTINGS = {
     "is_authenticated": False,  # Set to True to enforce user authentication,
     "is_superuser": False,  # Set to True to enforce admin only access
 }
+
+
