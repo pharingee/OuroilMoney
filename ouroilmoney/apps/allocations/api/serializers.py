@@ -13,6 +13,8 @@ class AnnualBudgetAllocationSerializer(serializers.ModelSerializer):
     def type(self, obj):
         return 'Annual Budget Report Allocation'
 
+
+
     class Meta:
         model = AnnualBudgetAllocation
         fields = (

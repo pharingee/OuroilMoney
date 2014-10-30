@@ -52,8 +52,13 @@ INSTALLED_APPS = (
 THIRD_PARTY_APPS =  (
     'rest_framework',
     'rest_framework_swagger',
+<<<<<<< Updated upstream
     'corsheaders',
     'haystack',
+=======
+    'rest_framework.authtoken',
+    'corsheaders'
+>>>>>>> Stashed changes
     )
 
 LOCAL_APPS =(
@@ -149,6 +154,7 @@ SWAGGER_SETTINGS = {
 
     "is_authenticated": False,  # Set to True to enforce user authentication,
     "is_superuser": False,  # Set to True to enforce admin only access
+<<<<<<< Updated upstream
 }
 
 
@@ -159,3 +165,12 @@ HAYSTACK_CONNECTIONS = {
         'PATH': BASE_DIR('whoosh_index'),
     },
 }
+=======
+    "enabled_methods": [
+    'get',
+    'post'
+    ]
+
+
+}
+>>>>>>> Stashed changes

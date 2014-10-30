@@ -10,6 +10,7 @@ class OtherReportSerializer(serializers.ModelSerializer):
         model = ConfirmReport
 
 
+
 class AnnualBudgetReportSerializer(serializers.ModelSerializer):
     report_type = serializers.SerializerMethodField('type')
 
