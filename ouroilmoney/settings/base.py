@@ -52,7 +52,8 @@ INSTALLED_APPS = (
 THIRD_PARTY_APPS =  (
     'rest_framework',
     'rest_framework_swagger',
-    'corsheaders'
+    'corsheaders',
+    'haystack',
     )
 
 LOCAL_APPS =(
@@ -151,3 +152,10 @@ SWAGGER_SETTINGS = {
 }
 
 
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': BASE_DIR('whoosh_index'),
+    },
+}
