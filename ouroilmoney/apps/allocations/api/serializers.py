@@ -5,23 +5,6 @@ from ouroilmoney.apps.allocations.models import (
 from ouroilmoney.apps.reports.api.serializers import (
     AnnualBudgetReportSerializer, OtherReportSerializer)
 
-
-class AnnualBudgetAllocationSerializer(serializers.ModelSerializer):
-    report = AnnualBudgetReportSerializer()
-    allocation_type = serializers.SerializerMethodField('type')
-
-    def type(self, obj):
-        return 'Annual Budget Report Allocation'
-
-    class Meta:
-        model = AnnualBudgetAllocation
-        fields = (
-            'id', 'report', 'title',
-            'allocation_type',
-            'amount', 'created',
-            'modified')
-
-
 class ConfirmAllocationSerializer(serializers.ModelSerializer):
     report = OtherReportSerializer()
     allocation_type = serializers.SerializerMethodField('type')
@@ -35,3 +18,24 @@ class ConfirmAllocationSerializer(serializers.ModelSerializer):
             'id', 'allocation_type',
             'annual_budget_allocation',
             'report', 'amount')
+
+
+class AnnualBudgetAllocationSerializer(serializers.ModelSerializer):
+    report = AnnualBudgetReportSerializer()
+    allocation_type = serializers.SerializerMethodField('type')
+    otherallocations = ConfirmAllocationSerializer(many=True)
+
+    def type(self, obj):
+        return 'Annual Budget Report Allocation'
+
+
+
+    class Meta:
+        model = AnnualBudgetAllocation
+        fields = (
+            'id', 'report', 'title',
+            'allocation_type','otherallocations',
+            'amount', 'created',
+            'modified',)
+
+

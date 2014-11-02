@@ -38,13 +38,15 @@ class ConfirmReport(TimeStampedPublishModel, ReportModel):
     SECOND_QUARTER = '2ND QUARTER REPORT'
     THIRD_QUARTER = '3RD QUARTER REPORT'
     FOURTH_QUARTER = '4TH QUARTER REPORT'
-    OTHER = 'NFTA'
+    MONITORING_REPORT = 'MONITORING REPORT'
+    OTHER = 'NONE OF THE ABOVE'
 
     REPORT_TYPE_CHOICES = (
         (FIRST_QUARTER, '1ST QUARTER REPORT'),
         (SECOND_QUARTER, '2ND QUARTER REPORT'),
         (THIRD_QUARTER, '3RD QUARTER REPORT'),
         (FOURTH_QUARTER, '4TH QUARTER REPORT'),
+        (MONITORING_REPORT, 'MONITORING REPORT'),
         (OTHER, 'NONE OF THE ABOVE'))
 
     # todo:change quarter choices to commaseperatedcharacterfield

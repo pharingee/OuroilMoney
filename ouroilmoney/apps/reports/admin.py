@@ -13,8 +13,9 @@ class ConfirmReportAdmin(admin.ModelAdmin):
 
         fieldsets = (
             (None, {
-                'fields': (('title', 'annual_budget_report', 'date'),
-                           'summary')
+                'fields': ((
+                    'title', 'annual_budget_report', 'date', 'report_type'),
+                    'summary')
             }),
 
             (None, {
@@ -22,7 +23,7 @@ class ConfirmReportAdmin(admin.ModelAdmin):
             })
         )
 
-        list_display = ('title', 'date', 'is_published')
+        list_display = ('title','report_type', 'date', 'is_published')
 
 
 class AnnualBudgetReportAdmin(admin.ModelAdmin):

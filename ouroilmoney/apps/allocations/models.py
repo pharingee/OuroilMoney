@@ -36,7 +36,7 @@ class AnnualBudgetAllocation(TimeStampedPublishModel):
 
 class ConfirmAllocation(TimeStampedPublishModel):
 
-    annual_budget_allocation = models.ForeignKey(AnnualBudgetAllocation)
+    annual_budget_allocation = models.ForeignKey(AnnualBudgetAllocation,related_name='otherallocations')
     report = models.ForeignKey(ConfirmReport, verbose_name='Other Report in the same year')
     amount = models.CommaSeparatedIntegerField(
         max_length=40, verbose_name='amount Of Money')
