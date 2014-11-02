@@ -17,17 +17,10 @@ class AnnualBudgetRevenueViewSet(viewsets.ReadOnlyModelViewSet):
 
     @list_route(methods=["get"])
     def titles(self, request):
-<<<<<<< Updated upstream
         title = AnnualBudgetReportRevenue.objects.values_list('title',flat=True).order_by('title').distinct('title')
         return Response(title)
 
     @list_route(methods=["get"])
     def total(self, request):
         return Response({'total': AnnualBudgetReportRevenue.revenue_objects.totalRevenue()})
-=======
-        """
-        Get the  titles of all Revenues
-        """
-        title = AnnualBudgetReportRevenue.objects.values_list('title', flat=True).order_by('title').distinct('title')
-        return Response(title)
->>>>>>> Stashed changes
+

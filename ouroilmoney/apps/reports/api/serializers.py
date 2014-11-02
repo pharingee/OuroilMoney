@@ -13,6 +13,7 @@ class OtherReportSerializer(serializers.ModelSerializer):
 
 class AnnualBudgetReportSerializer(serializers.ModelSerializer):
     report_type = serializers.SerializerMethodField('type')
+    otherreports = OtherReportSerializer(many=True)
 
     def type(self, obj):
         return 'Annual Budget Report'
@@ -20,7 +21,7 @@ class AnnualBudgetReportSerializer(serializers.ModelSerializer):
     class Meta:
         model = AnnualBudgetReport
         fields = (
-            'report_type', 'title', 'date',
+            'report_type', 'title', 'date','otherreports',
             'source_of_report', 'source_url')
 
 

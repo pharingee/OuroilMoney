@@ -1,12 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from rest_framework.routers import DefaultRouter
-# ViewSet
-from apps.reports.api.views import (
-    ReportViewSet,
-    AnnualBudgetReportViewSet,
-    OtherReportViewSet)
-
+from apps.reports.api.views import (ReportViewSet, AnnualBudgetReportViewSet,OtherReportViewSet)
 from apps.revenues.api.views import (AnnualBudgetRevenueViewSet)
 from apps.liftings.api.views import LiftingViewSet
 from apps.projects.api.views import (
