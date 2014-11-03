@@ -12,7 +12,7 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = 'staticfiles'
 
-INSTALLED_APPS += ('storages')
+INSTALLED_APPS += ('storages',)
 
 MIDDLEWARE_CLASSES += ()
 
