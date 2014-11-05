@@ -9,7 +9,12 @@ TEMPLATE_DEBUG = DEBUG
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = 'staticfiles'
+STATIC_ROOT = BASE_DIR('staticfiles')
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = BASE_DIR('media')
+
 
 CORS_ORIGIN_REGEX_WHITELIST = ('localhost', "local.host")
 
