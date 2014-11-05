@@ -9,8 +9,10 @@ class LiftingAdmin(admin.ModelAdmin):
     list_display = (
         'report', 'date',
         'volume_of_lifting', 'price',
-        'lifting_proceed', 'is_published')
+        'lifting_proceed', 'is_published','lifting_has_receipt')
 
     fields = [
         'report', 'date', 'volume_of_lifting',
         'selling_price', 'lifting_proceed', 'is_published']
+
+    list_filter  = ('report','volume_of_lifting','selling_price','date','is_published')
