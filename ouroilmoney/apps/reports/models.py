@@ -15,6 +15,15 @@ class ReportModel(models.Model):
         max_length=500, blank=True, null=True,
         help_text='Optional', verbose_name='url To Source')
 
+    docfile = models.FileField(upload_to='documents/%Y/%m/%d', blank=True, null=True ,verbose_name='upload Docs and Publications')
+
+    def report_has_document(self):
+        if self.docfile:
+            return  True
+        return False
+    report_has_document.boolean = True
+
+
     class Meta:
         abstract = True
 
@@ -61,6 +70,7 @@ class ConfirmReport(TimeStampedPublishModel, ReportModel):
     def __unicode__(self):
         return '{date} {title} {report_type}'.format(
             title=self.title, date=self.date, report_type=self.report_type)
+
 
     def clean(self):
         if self.date:
