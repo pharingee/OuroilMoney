@@ -61,12 +61,48 @@ class ConfirmSector(TimeStampedPublishModel):
         verbose_name_plural = 'Other Reports Sectors'
 
 
-class AnnualBudgetProject(TimeStampedPublishModel):
-    amount = models.DecimalField(decimal_places=3, max_digits=19)
+class ProjectModel(TimeStampedPublishModel):
+    GREATER = 'GREATER REGION'
+    ASHANTI = 'ASHANTI REGION'
+    NORTHERN = 'NORTHERN REGION'
+    UPPER_EAST = 'UPPER EAST REGION'
+    UPPER_WEST = 'UPPER WEST REGION'
+    EASTERN = 'EASTERN REGION'
+    WESTERN = 'WESTERN REGION'
+    CENTRAL = 'CENTRAL REGION'
+    VOLTA = 'VOLTA REGION'
+    BRONG_AHAFO = 'BRONG AHAFO REGION'
+
+    REGIONS =((GREATER, 'GREATER REGION'),
+        (ASHANTI,'ASHANTI REGION'),
+        (NORTHERN,'NORTHERN REGION'),
+        (UPPER_WEST,'UPPER WEST REGION'),
+        (UPPER_EAST,'UPPER EAST REGION'),
+        (EASTERN,'EASTERN REGION'),
+        (WESTERN, 'WESTERN REGION'),
+        (CENTRAL, 'CENTRAL REGION'),
+        (VOLTA,'VOLTA REGION'),
+        (BRONG_AHAFO,'BRONG AHAFO REGION'))
+
+    amount = models.DecimalField(
+        decimal_places=3, max_digits=19)
+
+    region = models.CharField(max_length=20,
+        verbose_name='region of Project',
+        choices=REGIONS,
+        blank=True,null=True)
+
+
+    class Meta:
+        abstract=True
+
+class AnnualBudgetProject(ProjectModel):
+
     title = models.CharField(max_length=500, verbose_name='name of Project')
     sector = models.ForeignKey(
         AnnualBudgetSector,
         verbose_name='choose Sector From Annual Budget Reports')
+
 
     @property
     def amount_from_annual_project(self):
@@ -88,13 +124,20 @@ class AnnualBudgetProject(TimeStampedPublishModel):
         verbose_name_plural = ('Annual Budget Reports Projects')
 
 
-class ConfirmProject(TimeStampedPublishModel):
-    amount = models.DecimalField(
-        decimal_places=3, max_digits=19)
+class ConfirmProject(ProjectModel):
+    ONGOIN ='ONGOING'
+    FULFILLED = 'FULFILLED'
+    FAILED = 'FAILED'
+
+    REMARKS = ((FAILED,'FAILED'),
+        (ONGOIN,'ONGOING'),
+        (FULFILLED,'FULFILLED'))
+
     sector = models.ForeignKey(
         ConfirmSector, verbose_name='choose Sector From Other Reports')
     project = models.ForeignKey(
         AnnualBudgetProject, verbose_name='choose Project  From Other Reports', related_name='otherprojects')
+    remarks =  models.CharField(max_length=10, choices=REMARKS,blank=True,null=True)
 
     @property
     def amount_from_annual_project(self):
