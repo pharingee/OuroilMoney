@@ -35,7 +35,7 @@ class AnnualBudgetReportAdmin(admin.ModelAdmin):
             }),
 
             (None, {
-                'fields': (('source_of_report', 'source_url'), 'is_published','docfile')
+                'fields': (('source_of_report', 'source_url'), 'is_published','document')
             })
 
         )
