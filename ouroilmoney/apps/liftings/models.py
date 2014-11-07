@@ -18,6 +18,14 @@ class Lifting(TimeStampedPublishModel):
     # did not add other liftings
     # make sure u check for if choices have different years than what was chose
     # in the lifting
+    lifting_receipt = models.FileField(upload_to='liftings/%Y/%m/%d', blank=True, null=True ,verbose_name='upload Lifting Receipts')
+
+    def lifting_has_receipt(self):
+        if self.lifting_receipt:
+            return  True
+        return False
+    lifting_receipt.boolean = True
+
 
     @property
     def price(self):

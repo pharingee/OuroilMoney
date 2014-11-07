@@ -23,7 +23,8 @@ class ConfirmReportAdmin(admin.ModelAdmin):
             })
         )
 
-        list_display = ('title','report_type', 'date', 'is_published')
+        list_display = ('title','report_type', 'date', 'is_published','report_has_document')
+        list_filter  = ('date','is_published','title')
 
 
 class AnnualBudgetReportAdmin(admin.ModelAdmin):
@@ -34,12 +35,13 @@ class AnnualBudgetReportAdmin(admin.ModelAdmin):
             }),
 
             (None, {
-                'fields': (('source_of_report', 'source_url'), 'is_published')
+                'fields': (('source_of_report', 'source_url'), 'is_published','docfile')
             })
 
         )
 
-        list_display = ('title', 'date', 'is_published')
+        list_display = ('title', 'date', 'is_published','report_has_document')
+        list_filter  = ('date','is_published','title')
         inlines = [ConfirmReportInline, ]
 
 

@@ -1,3 +1,4 @@
+
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from rest_framework.routers import DefaultRouter
@@ -12,7 +13,6 @@ from apps.projects.api.views import (
 from apps.allocations.api.views import (
     AnnualBudgetAllocationViewSet,
     ConfirmAllocationViewSet)
-
 
 router = DefaultRouter()
 router.register(r'reports', ReportViewSet,base_name="reports")
@@ -32,3 +32,5 @@ urlpatterns = patterns('',
     url(r'^api/v1.0/docs/', include('rest_framework_swagger.urls')),
     url(r'api/v1.0/', include(router.urls)),
 )
+
+

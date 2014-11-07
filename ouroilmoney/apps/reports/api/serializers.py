@@ -13,16 +13,23 @@ class OtherReportSerializer(serializers.ModelSerializer):
 
 class AnnualBudgetReportSerializer(serializers.ModelSerializer):
     report_type = serializers.SerializerMethodField('type')
+    document_url = serializers.SerializerMethodField('url')
     otherreports = OtherReportSerializer(many=True)
 
     def type(self, obj):
         return 'Annual Budget Report'
+    def url(self,obj):
+        if obj.docfile:
+            print obj.docfile
+            return obj.docfile.url
+        else: return ''
+
 
     class Meta:
         model = AnnualBudgetReport
         fields = (
             'report_type', 'title', 'date','otherreports',
-            'source_of_report', 'source_url')
+            'source_of_report', 'source_url','document_url')
 
 
 class ReportSerializer(serializers.ModelSerializer):
