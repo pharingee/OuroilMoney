@@ -31,3 +31,5 @@ staticfiles
 
 #env_dir
 envdir
+media
+staticfiles/
