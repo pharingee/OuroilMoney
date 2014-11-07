@@ -15,9 +15,6 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = BASE_DIR('media')
 
-
-CORS_ORIGIN_REGEX_WHITELIST = ('localhost', "local.host")
-
 INSTALLED_APPS += ()
 
 MIDDLEWARE_CLASSES += ()
