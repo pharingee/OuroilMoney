@@ -2,8 +2,6 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from ouroilmoney.apps.reports.models import ConfirmReport
 from ouroilmoney.utils.models import TimeStampedPublishModel
-import os
-from django.conf import settings
 
 # Create your models here.
 class Lifting(TimeStampedPublishModel):

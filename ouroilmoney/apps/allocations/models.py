@@ -10,6 +10,11 @@ from ouroilmoney.utils.models import TimeStampedPublishModel
 
 class AnnualBudgetAllocation(TimeStampedPublishModel):
     #choose a default revenu
+
+    GHANACEDI = 'GHS'
+    DOLLARS = '$'
+
+    CURRENCY = ((GHANACEDI,'GHS(GHANA CEDI)'), (DOLLARS,'$ (DOLLARS)'))
     report = models.ForeignKey(AnnualBudgetReport)
     title = models.CharField(
         max_length=500, default='ABFA',
@@ -18,6 +23,9 @@ class AnnualBudgetAllocation(TimeStampedPublishModel):
 
     amount = models.CommaSeparatedIntegerField(
         max_length=40, verbose_name='amount Of Money')
+
+    currency= models.CharField(max_length='5', choices=CURRENCY, default=GHANACEDI)
+
 
     @property
     def allocated_amount(self):
@@ -36,18 +44,24 @@ class AnnualBudgetAllocation(TimeStampedPublishModel):
 
 class ConfirmAllocation(TimeStampedPublishModel):
 
+    GHANACEDI = 'GHS'
+    DOLLARS = '$'
+
+    CURRENCY = ((GHANACEDI,'GHS(GHANA CEDI)'), (DOLLARS,'$ (DOLLARS)'))
+
     annual_budget_allocation = models.ForeignKey(AnnualBudgetAllocation,related_name='otherallocations')
     report = models.ForeignKey(ConfirmReport, verbose_name='Other Report in the same year')
+    currency= models.CharField(max_length='5', choices=CURRENCY, default=GHANACEDI)
     amount = models.CommaSeparatedIntegerField(
         max_length=40, verbose_name='amount Of Money')
 
     @property
     def allocated_amount(self):
-        return '${amount}'.format(amount=self.amount)
+        return '{currency} {amount}'.format(currency=self.currency ,amount=self.amount)
 
     @property
     def annual_budget_allocation_amount(self):
-        return '${amount}'.format(amount=self. annual_budget_allocation.amount)
+        return '{currency} {amount}'.format(currency=self.currency,amount=self. annual_budget_allocation.amount)
 
     def clean(self):
         #todo:validate this when everything is empty there is an error

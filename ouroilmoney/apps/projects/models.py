@@ -1,18 +1,15 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 # Create your models here.
-from ouroilmoney.utils.models import TimeStampedPublishModel
+from ouroilmoney.utils.models import TimeStampedPublishModel, AmountModel
 from ouroilmoney.apps.allocations.models import AnnualBudgetAllocation
 from ouroilmoney.apps.allocations.models import ConfirmAllocation
 
 
 # todo:annual budget sectors should have choices
 
-class AnnualBudgetSector(TimeStampedPublishModel):
+class AnnualBudgetSector(AmountModel,TimeStampedPublishModel):
     title = models.CharField(max_length=500, verbose_name='title of Sector')
-    amount = models.DecimalField(
-        decimal_places=3, max_digits=19,
-        null=True,  blank=True)
     allocation = models.ForeignKey(
         AnnualBudgetAllocation,
         limit_choices_to={'title': 'ABFA'})
@@ -20,11 +17,11 @@ class AnnualBudgetSector(TimeStampedPublishModel):
     @property
     def amount_from_annual_budget(self):
         if self.amount is not None:
-            return '${amount}'.format(amount=self.amount)
+            return '{currency} {amount}'.format(currency=self.currency, amount=self.amount)
 
     def __unicode__(self):
-        return '{title} {amount}'.format(
-            title=self.title, amount=self.amount)
+        return '{title} {currency} {amount}'.format(
+            title=self.title, currency=self.currency, amount=self.amount)
 
     class Meta:
         ordering = ('-allocation',)
@@ -32,9 +29,7 @@ class AnnualBudgetSector(TimeStampedPublishModel):
         verbose_name_plural = 'Annual Budget Reports Sectors'
 
 
-class ConfirmSector(TimeStampedPublishModel):
-    amount = models.DecimalField(
-        decimal_places=3, max_digits=19, null=True, blank=True)
+class ConfirmSector(AmountModel,TimeStampedPublishModel):
     allocation = models.ForeignKey(
         ConfirmAllocation, verbose_name='choose Allocation From Other Report')
     annual_budget_sector = models.ForeignKey(
@@ -61,7 +56,7 @@ class ConfirmSector(TimeStampedPublishModel):
         verbose_name_plural = 'Other Reports Sectors'
 
 
-class ProjectModel(TimeStampedPublishModel):
+class ProjectModel(AmountModel, TimeStampedPublishModel):
     GREATER = 'GREATER REGION'
     ASHANTI = 'ASHANTI REGION'
     NORTHERN = 'NORTHERN REGION'
@@ -84,8 +79,6 @@ class ProjectModel(TimeStampedPublishModel):
         (VOLTA,'VOLTA REGION'),
         (BRONG_AHAFO,'BRONG AHAFO REGION'))
 
-    amount = models.DecimalField(
-        decimal_places=3, max_digits=19)
 
     region = models.CharField(max_length=20,
         verbose_name='region of Project',
@@ -106,7 +99,7 @@ class AnnualBudgetProject(ProjectModel):
 
     @property
     def amount_from_annual_project(self):
-        return '${amount}'.format(amount=self.amount)
+        return '{currency} {amount}'.format(currency=self.currency,amount=self.amount)
 
     def clean(self):
         if self.amount:
@@ -141,11 +134,11 @@ class ConfirmProject(ProjectModel):
 
     @property
     def amount_from_annual_project(self):
-        return '${amount}'.format(amount=self.project.amount)
+        return '{currency} {amount}'.format(currency=self.currrency, amount=self.project.amount)
 
     @property
     def amount_from_other_project(self):
-        return '${amount}'.format(amount=self.amount)
+        return '{currency} {amount}'.format(currency=self.currrency, amount=self.amount)
 
     def clean(self):
         if self.amount:
