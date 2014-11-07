@@ -134,11 +134,11 @@ class ConfirmProject(ProjectModel):
 
     @property
     def amount_from_annual_project(self):
-        return '{currency} {amount}'.format(currency=self.currrency, amount=self.project.amount)
+        return '{currency} {amount}'.format(currency=self.currency, amount=self.project.amount)
 
     @property
     def amount_from_other_project(self):
-        return '{currency} {amount}'.format(currency=self.currrency, amount=self.amount)
+        return '{currency} {amount}'.format(currency=self.currency, amount=self.amount)
 
     def clean(self):
         if self.amount:
