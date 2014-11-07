@@ -18,7 +18,7 @@ class ReportModel(models.Model):
     document = models.FileField(upload_to='documents/%Y/%m/%d/', blank=True, null=True ,verbose_name='upload Docs and Publications')
 
     def report_has_document(self):
-        if self.docfile:
+        if self.document:
             return  True
         return False
     report_has_document.boolean = True
