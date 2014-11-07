@@ -34,9 +34,9 @@ SWAGGER_SETTINGS = {
 
 
 
-STATICFILES_STORAGE = 'ouroilmoney.apps.utils.s3.StaticRootS3BotoStorage'
+STATICFILES_STORAGE = 'ouroilmoney.utils.s3.StaticRootS3BotoStorage'
 
-DEFAULT_FILE_STORAGE ='ouroilmoney.apps.utils.s3.MediaRootS3BotoStorage'
+DEFAULT_FILE_STORAGE ='ouroilmoney.utils.s3.MediaRootS3BotoStorage'
 
 THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE
 
