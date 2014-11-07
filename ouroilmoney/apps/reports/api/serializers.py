@@ -6,8 +6,13 @@ from ouroilmoney.apps.revenues.api.serializers import (
 
 
 class OtherReportSerializer(serializers.ModelSerializer):
+    document_url= serializers.Field(source='get_document')
+
     class Meta:
         model = ConfirmReport
+        fields = ('id','created', 'document_url','is_published', 'summary',
+            'title', 'date','source_of_report','source_url',
+            'annual_budget_report','report_type')
 
 
 
@@ -24,7 +29,7 @@ class AnnualBudgetReportSerializer(serializers.ModelSerializer):
     class Meta:
         model = AnnualBudgetReport
         fields = (
-            'report_type', 'title', 'date','otherreports',
+           'id', 'report_type', 'title', 'date','otherreports',
             'source_of_report', 'source_url','document_url')
 
 
