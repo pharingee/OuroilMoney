@@ -14,6 +14,7 @@ class OtherReportSerializer(serializers.ModelSerializer):
 class AnnualBudgetReportSerializer(serializers.ModelSerializer):
     report_type = serializers.SerializerMethodField('type')
     otherreports = OtherReportSerializer(many=True)
+    document_url= serializers.Field(source='get_document')
 
     def type(self, obj):
         return 'Annual Budget Report'
@@ -24,13 +25,15 @@ class AnnualBudgetReportSerializer(serializers.ModelSerializer):
         model = AnnualBudgetReport
         fields = (
             'report_type', 'title', 'date','otherreports',
-            'source_of_report', 'source_url','document')
+            'source_of_report', 'source_url','document_url')
 
 
 class ReportSerializer(serializers.ModelSerializer):
     otherreports = OtherReportSerializer(many=True)
     revenues = AnnualBudgetRevenueSerializer(many=True)
     report_type = serializers.SerializerMethodField('type')
+    document_url= serializers.Field(source='get_document')
+
 
     def type(self, obj):
         return 'Annual Budget Report'
@@ -40,5 +43,5 @@ class ReportSerializer(serializers.ModelSerializer):
         fields = (
             'id', 'title', 'date', 'report_type',
             'source_of_report',
-            'source_url', 'otherreports',
+            'source_url','document_url', 'otherreports',
             'revenues', 'created', 'modified')

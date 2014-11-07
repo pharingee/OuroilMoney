@@ -2,7 +2,8 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from ouroilmoney.apps.reports.models import ConfirmReport
 from ouroilmoney.utils.models import TimeStampedPublishModel
-
+import os
+from django.conf import settings
 
 # Create your models here.
 class Lifting(TimeStampedPublishModel):
@@ -25,6 +26,11 @@ class Lifting(TimeStampedPublishModel):
             return  True
         return False
     lifting_receipt.boolean = True
+
+    def get_lifting_receipt(self):
+       if self.lifting_receipt:
+           return os.path.join(settings.MEDIA_URL,self.lifting_receipt.url)
+       return None
 
 
     @property

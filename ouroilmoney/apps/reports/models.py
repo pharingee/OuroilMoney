@@ -1,6 +1,9 @@
 from django.db import models
 from ouroilmoney.utils.models import TimeStampedPublishModel
 from django.core.exceptions import ValidationError
+from django.conf import settings
+import os
+
 
 
 # Create your models here.
@@ -21,7 +24,14 @@ class ReportModel(models.Model):
         if self.document:
             return  True
         return False
-    report_has_document.boolean = True
+
+    # report_has_document.boolean = True
+
+    def get_document(self):
+        if self.document:
+            return os.path.join(settings.MEDIA_URL,self.document.url)
+        return None
+
 
 
     class Meta:
