@@ -10,4 +10,4 @@ class LiftingSerializer(serializers.ModelSerializer):
         model = Lifting
         fields = (
             'report', 'date', 'volume_of_lifting',
-            'selling_price', 'lifting_proceed')
+            'selling_price', 'lifting_proceed','lifting_receipt')

@@ -15,7 +15,7 @@ class ReportModel(models.Model):
         max_length=500, blank=True, null=True,
         help_text='Optional', verbose_name='url To Source')
 
-    docfile = models.FileField(upload_to='documents/%Y/%m/%d', blank=True, null=True ,verbose_name='upload Docs and Publications')
+    document = models.FileField(upload_to='documents/%Y/%m/%d/', blank=True, null=True ,verbose_name='upload Docs and Publications')
 
     def report_has_document(self):
         if self.docfile:
