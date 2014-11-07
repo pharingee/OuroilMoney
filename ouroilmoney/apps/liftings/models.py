@@ -29,7 +29,7 @@ class Lifting(TimeStampedPublishModel):
 
     def get_lifting_receipt(self):
        if self.lifting_receipt:
-           return os.path.join(settings.MEDIA_URL,self.lifting_receipt.url)
+           return self.lifting_receipt.url
        return None
 
 

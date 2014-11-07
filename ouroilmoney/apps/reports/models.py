@@ -29,7 +29,7 @@ class ReportModel(models.Model):
 
     def get_document(self):
         if self.document:
-            return os.path.join(settings.MEDIA_URL,self.document.url)
+            return self.document.url
         return None
 
 
