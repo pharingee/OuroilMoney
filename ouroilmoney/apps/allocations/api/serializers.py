@@ -17,7 +17,7 @@ class ConfirmAllocationSerializer(serializers.ModelSerializer):
         fields = (
             'id', 'allocation_type',
             'annual_budget_allocation',
-            'report', 'amount')
+            'report', 'amount','currency','created', 'modified')
 
 
 class AnnualBudgetAllocationSerializer(serializers.ModelSerializer):
@@ -35,7 +35,7 @@ class AnnualBudgetAllocationSerializer(serializers.ModelSerializer):
         fields = (
             'id', 'report', 'title',
             'allocation_type','otherallocations',
-            'amount', 'created',
+            'amount', 'currency','created',
             'modified',)
 
 

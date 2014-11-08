@@ -11,7 +11,7 @@ class AmountModel(models.Model):
 
     amount = models.DecimalField(decimal_places=2, max_digits=19,null=True,  blank=True)
 
-    currency= models.CharField(max_length='5', choices=CURRENCY, default=GHANACEDI)
+    currency= models.CharField(max_length='5', choices=CURRENCY, default=DOLLARS)
 
     class Meta:
         abstract=True

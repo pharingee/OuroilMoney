@@ -17,7 +17,7 @@ class ConfirmSectorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ConfirmSector
-        fields = ('amount','annual_budget_sector','allocation')
+        fields = ('amount','currency','annual_budget_sector','allocation', 'currency')
 
 
 
@@ -27,7 +27,7 @@ class AnnualBudgetSectorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AnnualBudgetSector
-        fields = ('title','amount','allocation','othersectors')
+        fields = ('title','amount', 'currency','allocation','othersectors')
 
 
 class ConfirmProjectSerializer(serializers.ModelSerializer):
@@ -35,7 +35,7 @@ class ConfirmProjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ConfirmProject
-        fields = ('id', 'amount', 'sector','created','modified')
+        fields = ('id', 'amount', 'currency','sector','created','modified')
 
 
 
@@ -46,6 +46,6 @@ class AnnualBudgetProjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AnnualBudgetProject
-        fields = ('id', 'title','amount', 'sector','otherprojects','created','modified')
+        fields = ('id', 'title','amount','currency', 'sector','otherprojects','created','modified')
 
 

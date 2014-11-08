@@ -16,15 +16,26 @@ class AnnualBudgetReportManager(models.Manager):
 # Create your models here.
 class AnnualBudgetReportRevenue(TimeStampedPublishModel):
     #ABR refers to the annual budget report
+
+    GHANACEDI = 'GHS'
+    DOLLARS = '$'
+
+    CURRENCY = ((GHANACEDI,'GHS(GHANA CEDI)'), (DOLLARS,'$ (DOLLARS)'))
+
+    currency= models.CharField(max_length='5', choices=CURRENCY, default=DOLLARS)
+
     report = models.ForeignKey(
         AnnualBudgetReport,
         verbose_name='choose Annual Budget Report', related_name="revenues")
 
     title = models.CharField(max_length=500, verbose_name='title Of Revenue')
+
     amount = models.CommaSeparatedIntegerField(
         max_length=40, verbose_name='amount Of Money  ')
+
     # todo:limit date based on the date from the revenue chosen
     year = models.IntegerField(max_length=4)
+
     # todo: year validation seems not to be working
     objects = models.Manager()
     revenue_objects = AnnualBudgetReportManager()
@@ -37,7 +48,7 @@ class AnnualBudgetReportRevenue(TimeStampedPublishModel):
 
     @property
     def revenue_amount(self):
-        return '${amount}'.format(amount=self.amount)
+        return '{currency} {amount}'.format(self.currency,amount=self.amount)
 
     def __unicode__(self):
         return '{title} {year} {amount}'.format(

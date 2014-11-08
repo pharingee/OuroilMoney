@@ -5,4 +5,4 @@ class AnnualBudgetRevenueSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AnnualBudgetReportRevenue
-        fields = ('id', 'title', 'amount', 'year')
+        fields = ('id', 'title', 'amount', 'currency','year')
