@@ -4,7 +4,7 @@ from ouroilmoney.apps.knowledgehubs.models import KnowledgeHub
 
 # Register your models here.
 @admin.register(KnowledgeHub)
-class ConfirmAllocationAdmin(admin.ModelAdmin):
+class KnowledgeHubAdmin(admin.ModelAdmin):
     fields = ['title', 'date', 'document', 'is_published']
     list_display = (
         'title',
