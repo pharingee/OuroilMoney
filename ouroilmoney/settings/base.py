@@ -64,6 +64,7 @@ LOCAL_APPS =(
     'ouroilmoney.apps.allocations',
     'ouroilmoney.apps.liftings',
     'ouroilmoney.apps.projects',
+    'ouroilmoney.apps.knowledgehubs',
     )
 
 INSTALLED_APPS =  THIRD_PARTY_APPS + INSTALLED_APPS  + LOCAL_APPS
@@ -133,7 +134,9 @@ SUIT_CONFIG = {
             'projects.annualbudgetsector', 'projects.annualbudgetproject',
             'projects.confirmsector','projects.confirmproject'
             '')},
-        )
+        {'app':'knowledgehubs', 'label': 'Knowledge Hub', 'icon': 'icon-upload'}
+
+        ),
 
 }
 

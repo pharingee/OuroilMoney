@@ -1,8 +1,6 @@
 from django.db import models
 from ouroilmoney.utils.models import TimeStampedPublishModel
 from django.core.exceptions import ValidationError
-from django.conf import settings
-import os
 
 
 
@@ -71,6 +69,7 @@ class ConfirmReport(TimeStampedPublishModel, ReportModel):
     # todo:change quarter choices to commaseperatedcharacterfield
     annual_budget_report = models.ForeignKey(
         AnnualBudgetReport, related_name='otherreports')
+
     report_type = models.CharField(
         max_length=20, choices=REPORT_TYPE_CHOICES,
         verbose_name='type Of Report', default=FIRST_QUARTER)

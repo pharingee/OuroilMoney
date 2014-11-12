@@ -13,6 +13,9 @@ from apps.projects.api.views import (
 from apps.allocations.api.views import (
     AnnualBudgetAllocationViewSet,
     ConfirmAllocationViewSet)
+from apps.knowledgehubs.api.views import (
+    KnowledgeHubViewSet)
+
 
 router = DefaultRouter()
 router.register(r'reports', ReportViewSet,base_name="reports")
@@ -26,6 +29,7 @@ router.register(r'annualbudgetsectors', AnnualBudgetSectorViewSet)
 router.register(r'othersectors', ConfirmSectorViewSet)
 router.register(r'annualbudgetprojects', AnnualBudgetProjectViewSet)
 router.register(r'otherprojects', ConfirmProjectViewSet)
+router.register(r'knowledgehubs', KnowledgeHubViewSet)
 
 urlpatterns = patterns('',
     url(r'', include(admin.site.urls)),
