@@ -20,9 +20,12 @@ class AnnualBudgetReportRevenue(TimeStampedPublishModel):
     GHANACEDI = 'GHS'
     DOLLARS = '$'
 
-    CURRENCY = ((GHANACEDI,'GHS(GHANA CEDI)'), (DOLLARS,'$ (DOLLARS)'))
+    CURRENCY = ((GHANACEDI, 'GHS(GHANA CEDI)'), (DOLLARS, '$ (DOLLARS)'))
 
-    currency= models.CharField(max_length='5', choices=CURRENCY, default=DOLLARS)
+    currency = models.CharField(
+        max_length='5',
+        choices=CURRENCY,
+        default=DOLLARS)
 
     report = models.ForeignKey(
         AnnualBudgetReport,
@@ -48,7 +51,9 @@ class AnnualBudgetReportRevenue(TimeStampedPublishModel):
 
     @property
     def revenue_amount(self):
-        return '{currency} {amount}'.format(self.currency,amount=self.amount)
+        return '{currency} {amount}'.format(
+            currency=self.currency,
+            amount=self.amount)
 
     def __unicode__(self):
         return '{title} {year} {amount}'.format(
