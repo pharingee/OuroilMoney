@@ -22,5 +22,9 @@ class AnnualBudgetRevenueViewSet(viewsets.ReadOnlyModelViewSet):
 
     @list_route(methods=["get"])
     def total(self, request):
-        return Response({'total': AnnualBudgetReportRevenue.revenue_objects.totalRevenue()})
+        response = {
+            'total': AnnualBudgetReportRevenue.revenue_objects.totalRevenue(),
+            'lastDate':AnnualBudgetReportRevenue.revenue_objects.latest_revenue_date()
+        }
+        return Response(response)
 

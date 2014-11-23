@@ -12,6 +12,10 @@ class AnnualBudgetReportManager(models.Manager):
         total_revenue = Lifting.objects.all().aggregate(Max('lifting_proceed'))
         return total_revenue['lifting_proceed__max']
 
+    def latest_revenue_date(self):
+        lastest_date = Lifting.objects.all().latest()
+        return lastest_date.date
+
 
 # Create your models here.
 class AnnualBudgetReportRevenue(TimeStampedPublishModel):

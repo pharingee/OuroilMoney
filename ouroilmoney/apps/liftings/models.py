@@ -3,6 +3,9 @@ from django.core.exceptions import ValidationError
 from ouroilmoney.apps.reports.models import ConfirmReport
 from ouroilmoney.utils.models import TimeStampedPublishModel
 
+
+
+
 # Create your models here.
 class Lifting(TimeStampedPublishModel):
     report = models.ForeignKey(ConfirmReport)
@@ -54,3 +57,4 @@ class Lifting(TimeStampedPublishModel):
         ordering = ('-date',)
         verbose_name = 'Lifting from Report'
         verbose_name_plural = 'Liftings from Reports'
+        get_latest_by = 'date'
