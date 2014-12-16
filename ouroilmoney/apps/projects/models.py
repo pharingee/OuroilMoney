@@ -158,8 +158,7 @@ class ConfirmProject(ProjectModel):
 
     def admin_image(self):
             if self.image:
-                print self.image.url,'hmmdml'
-                return '<img src="%s"/>' % self.image.url
+                return '<img src="%s/%s"/>' % (settings.MEDIA_ROOT, self.image)
     admin_image.allow_tags = True
 
     @property
