@@ -1,5 +1,4 @@
 from django.db import models
-from django.conf import settings
 from django.core.exceptions import ValidationError
 # Create your models here.
 from ouroilmoney.utils.models import TimeStampedPublishModel, AmountModel
@@ -10,7 +9,23 @@ from ouroilmoney.apps.allocations.models import ConfirmAllocation
 # todo:annual budget sectors should have choices
 
 class AnnualBudgetSector(AmountModel, TimeStampedPublishModel):
-    title = models.CharField(max_length=500, verbose_name='title of Sector')
+    CAPITAL_EXPENDITURE = 'CAPITAL EXPENDITURE'
+    RECURRENCE_EXPENDITURE = 'RECURRENCE EXPENDITURE'
+
+    EXPENDITURE = (
+        (CAPITAL_EXPENDITURE, 'CAPITAL EXPENDITURE'),
+        (RECURRENCE_EXPENDITURE, 'RECURRENCE EXPENDITURE'))
+
+    title = models.CharField(
+        max_length=500,
+        verbose_name='title of Sector')
+
+    expenditure = models.CharField(
+        max_length=500,
+        choices=EXPENDITURE,
+        verbose_name='Capital Expenditure or Recurrence Expenditure',
+        default='CAPITAL EXPENDITURE')
+
     allocation = models.ForeignKey(
         AnnualBudgetAllocation,
         limit_choices_to={'title': 'ABFA'})
@@ -158,7 +173,10 @@ class ConfirmProject(ProjectModel):
 
     def admin_image(self):
             if self.image:
-                return '<img style="width:80px; height:80px;"class="img-rounded" src="%s"/>' %self.image.url
+                return '<img style="width:80px; \
+                height:80px;"class="img-rounded" src="%s"/>'\
+                % self.image.url
+
     admin_image.allow_tags = True
 
     @property

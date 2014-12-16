@@ -9,9 +9,9 @@ from ouroilmoney.apps.projects.models import ConfirmProject
 
 @admin.register(AnnualBudgetSector)
 class AnnualBudgetSectorAdmin(admin.ModelAdmin):
-    fields = ['title', 'amount', 'allocation','currency','is_published']
-    list_display = ('allocation', 'title', 'amount_from_annual_budget','is_published')
-    list_filter = ('allocation', 'title', 'currency','is_published')
+    fields = ['title', 'amount', 'allocation', 'expenditure' ,'currency','is_published']
+    list_display = ('allocation' ,'title','expenditure', 'amount_from_annual_budget','is_published')
+    list_filter = ('allocation', 'title','expenditure', 'currency','is_published')
 
 
 @admin.register(ConfirmSector)
