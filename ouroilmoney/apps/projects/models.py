@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.core.exceptions import ValidationError
 # Create your models here.
 from ouroilmoney.utils.models import TimeStampedPublishModel, AmountModel
@@ -8,7 +9,7 @@ from ouroilmoney.apps.allocations.models import ConfirmAllocation
 
 # todo:annual budget sectors should have choices
 
-class AnnualBudgetSector(AmountModel,TimeStampedPublishModel):
+class AnnualBudgetSector(AmountModel, TimeStampedPublishModel):
     title = models.CharField(max_length=500, verbose_name='title of Sector')
     allocation = models.ForeignKey(
         AnnualBudgetAllocation,
@@ -17,7 +18,9 @@ class AnnualBudgetSector(AmountModel,TimeStampedPublishModel):
     @property
     def amount_from_annual_budget(self):
         if self.amount is not None:
-            return '{currency} {amount}'.format(currency=self.currency, amount=self.amount)
+            return '{currency} {amount}'.format(
+                currency=self.currency,
+                amount=self.amount)
 
     def __unicode__(self):
         return '{title} {currency} {amount}'.format(
@@ -29,12 +32,13 @@ class AnnualBudgetSector(AmountModel,TimeStampedPublishModel):
         verbose_name_plural = 'Annual Budget Reports Sectors'
 
 
-class ConfirmSector(AmountModel,TimeStampedPublishModel):
+class ConfirmSector(AmountModel, TimeStampedPublishModel):
     allocation = models.ForeignKey(
         ConfirmAllocation, verbose_name='choose Allocation From Other Report')
     annual_budget_sector = models.ForeignKey(
         AnnualBudgetSector,
-        verbose_name="choose Sector From Annual Budget Report", related_name='othersectors')
+        verbose_name="choose Sector From Annual Budget Report",
+        related_name='othersectors')
 
     @property
     def amount_from_annual_budget(self):
@@ -68,26 +72,30 @@ class ProjectModel(AmountModel, TimeStampedPublishModel):
     VOLTA = 'VOLTA REGION'
     BRONG_AHAFO = 'BRONG AHAFO REGION'
 
-    REGIONS =((GREATER, 'GREATER REGION'),
-        (ASHANTI,'ASHANTI REGION'),
-        (NORTHERN,'NORTHERN REGION'),
-        (UPPER_WEST,'UPPER WEST REGION'),
-        (UPPER_EAST,'UPPER EAST REGION'),
-        (EASTERN,'EASTERN REGION'),
+    REGIONS = (
+        (GREATER, 'GREATER REGION'),
+        (ASHANTI, 'ASHANTI REGION'),
+        (NORTHERN, 'NORTHERN REGION'),
+        (UPPER_WEST, 'UPPER WEST REGION'),
+        (UPPER_EAST, 'UPPER EAST REGION'),
+        (EASTERN, 'EASTERN REGION'),
         (WESTERN, 'WESTERN REGION'),
         (CENTRAL, 'CENTRAL REGION'),
-        (VOLTA,'VOLTA REGION'),
-        (BRONG_AHAFO,'BRONG AHAFO REGION'))
+        (VOLTA, 'VOLTA REGION'),
+        (BRONG_AHAFO, 'BRONG AHAFO REGION'))
 
-
-    region = models.CharField(max_length=20,
+    region = models.CharField(
+        max_length=20,
         verbose_name='region of Project',
         choices=REGIONS,
-        blank=True,null=True)
+        blank=True,
+        null=True)
 
+    # add town
 
     class Meta:
-        abstract=True
+        abstract = True
+
 
 class AnnualBudgetProject(ProjectModel):
 
@@ -96,10 +104,11 @@ class AnnualBudgetProject(ProjectModel):
         AnnualBudgetSector,
         verbose_name='choose Sector From Annual Budget Reports')
 
-
     @property
     def amount_from_annual_project(self):
-        return '{currency} {amount}'.format(currency=self.currency,amount=self.amount)
+        return '{currency} {amount}'.format(
+            currency=self.currency,
+            amount=self.amount)
 
     def clean(self):
         if self.amount:
@@ -118,27 +127,51 @@ class AnnualBudgetProject(ProjectModel):
 
 
 class ConfirmProject(ProjectModel):
-    ONGOIN ='ONGOING'
+    ONGOIN = 'ONGOING'
     FULFILLED = 'FULFILLED'
     FAILED = 'FAILED'
 
-    REMARKS = ((FAILED,'FAILED'),
-        (ONGOIN,'ONGOING'),
-        (FULFILLED,'FULFILLED'))
+    REMARKS = (
+        (FAILED, 'FAILED'),
+        (ONGOIN, 'ONGOING'),
+        (FULFILLED, 'FULFILLED'))
 
     sector = models.ForeignKey(
         ConfirmSector, verbose_name='choose Sector From Other Reports')
+
+    image = models.ImageField(
+        upload_to='documents/monitoringprojects/%Y/%m/%d/',
+        blank=True,
+        default=None,
+        null=True, verbose_name='Upload Image For Project')
+
     project = models.ForeignKey(
-        AnnualBudgetProject, verbose_name='choose Project  From Other Reports', related_name='otherprojects')
-    remarks =  models.CharField(max_length=10, choices=REMARKS,blank=True,null=True)
+        AnnualBudgetProject,
+        verbose_name='choose Project  From Other Reports',
+        related_name='otherprojects')
+
+    remarks = models.CharField(
+        max_length=10,
+        choices=REMARKS,
+        blank=True,
+        null=True)
+
+    def admin_image(self):
+            if self.image:
+                return '<img src="%s/%s"/>' % (settings.MEDIA_ROOT, self.image)
+    admin_image.allow_tags = True
 
     @property
     def amount_from_annual_project(self):
-        return '{currency} {amount}'.format(currency=self.currency, amount=self.project.amount)
+        return '{currency} {amount}'.format(
+            currency=self.currency,
+            amount=self.project.amount)
 
     @property
     def amount_from_other_project(self):
-        return '{currency} {amount}'.format(currency=self.currency, amount=self.amount)
+        return '{currency} {amount}'.format(
+            currency=self.currency,
+            amount=self.amount)
 
     def clean(self):
         if self.amount:
@@ -153,5 +186,5 @@ class ConfirmProject(ProjectModel):
 
     class Meta:
         ordering = ('-sector',)
-        verbose_name = ('Project From Other Report')
-        verbose_name_plural = ('Other Reports Projects')
+        verbose_name = ('Monitoring Report on Project')
+        verbose_name_plural = ('Monitoring Reports on Projects')
