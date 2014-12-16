@@ -158,7 +158,7 @@ class ConfirmProject(ProjectModel):
 
     def admin_image(self):
             if self.image:
-                return '<img src="%s"/>' %self.image.url
+                return '<img class="img-rounded" src="%s"/>' %self.image.url
     admin_image.allow_tags = True
 
     @property
