@@ -24,12 +24,12 @@ class ConfirmSectorAdmin(admin.ModelAdmin):
 
 @admin.register(AnnualBudgetProject)
 class AnnualBudgetProjectAdmin(admin.ModelAdmin):
-     fields= ['title','sector', 'amount','region','currency','is_published']
-     list_display = ('title', 'sector' ,'amount_from_annual_project','region','is_published')
-     list_filter  = ('title','sector', 'region','currency','is_published')
+     fields= ['title','sector', 'amount','region','town','currency','is_published']
+     list_display = ('title', 'sector' ,'amount_from_annual_project','region','town','is_published')
+     list_filter  = ('title','sector', 'region','town','currency','is_published')
 
 @admin.register(ConfirmProject)
 class ConfirmProjectAdmin(admin.ModelAdmin):
-     fields= ['image','amount','sector', 'project','region','remarks','currency','is_published']
-     list_display = ('sector' ,'admin_image','amount_from_other_project', 'amount_from_annual_project','region','remarks','is_published')
-     list_filter  = ('sector', 'region','is_published','remarks','currency')
+     fields= ['image','amount','sector', 'project','region','town','remarks','currency','is_published']
+     list_display = ('sector' ,'admin_image','amount_from_other_project', 'amount_from_annual_project','region','town','remarks','is_published')
+     list_filter  = ('sector', 'region','town','is_published','remarks','currency')

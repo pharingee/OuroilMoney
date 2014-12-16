@@ -106,6 +106,12 @@ class ProjectModel(AmountModel, TimeStampedPublishModel):
         blank=True,
         null=True)
 
+    town = models.CharField(
+        max_length=100,
+        verbose_name='town of Project',
+        blank=True,
+        null=True)
+
     # add town
 
     class Meta:
