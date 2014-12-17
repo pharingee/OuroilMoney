@@ -131,6 +131,10 @@ class AnnualBudgetProject(ProjectModel):
             currency=self.currency,
             amount=self.amount)
 
+    @property
+    def sector_title(self):
+        return self.sector.title
+
     def clean(self):
         if self.amount:
             if self.amount > self.sector.amount:

@@ -51,4 +51,4 @@ class ProjectListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AnnualBudgetProject
-        fields = ('id', 'title')
+        fields = ('id', 'title', 'sector_title')
