@@ -2,7 +2,10 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from rest_framework.routers import DefaultRouter
-from apps.reports.api.views import (ReportViewSet, AnnualBudgetReportViewSet,OtherReportViewSet)
+from apps.reports.api.views import (
+    ReportViewSet,
+    AnnualBudgetReportViewSet,
+    OtherReportViewSet)
 from apps.revenues.api.views import (AnnualBudgetRevenueViewSet)
 from apps.liftings.api.views import LiftingViewSet
 from apps.projects.api.views import (
@@ -18,7 +21,7 @@ from apps.knowledgehubs.api.views import (
 
 
 router = DefaultRouter()
-router.register(r'reports', ReportViewSet,base_name="reports")
+router.register(r'reports', ReportViewSet, base_name="reports")
 router.register(r'annualbudgetreports', AnnualBudgetReportViewSet)
 router.register(r'otherreports', OtherReportViewSet)
 router.register(r'revenues', AnnualBudgetRevenueViewSet)
@@ -31,10 +34,9 @@ router.register(r'annualbudgetprojects', AnnualBudgetProjectViewSet)
 router.register(r'otherprojects', ConfirmProjectViewSet)
 router.register(r'knowledgehubs', KnowledgeHubViewSet)
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
     url(r'', include(admin.site.urls)),
     url(r'^api/v1.0/docs/', include('rest_framework_swagger.urls')),
     url(r'api/v1.0/', include(router.urls)),
 )
-
-

@@ -1,7 +1,21 @@
 from django.db import models
 from ouroilmoney.utils.models import TimeStampedPublishModel
 from django.core.exceptions import ValidationError
+from datetime import date
 
+
+class CalendarOfReport(TimeStampedPublishModel):
+    date = models.DateField(max_length=4, verbose_name='date Released')
+    title = models.CharField(max_length=500, verbose_name='title Of Report')
+
+    def clean(self):
+        if self.date:
+            if date.today() > self.date:
+                raise ValidationError(
+                    'Year of the date released must be ahead of the current date')
+
+    def __unicodes__(self):
+        return '{title} {date}'.format(title=self.title, date=self.date)
 
 
 # Create your models here.
@@ -29,8 +43,6 @@ class ReportModel(models.Model):
         if self.document:
             return self.document.url
         return None
-
-
 
     class Meta:
         abstract = True
@@ -74,18 +86,17 @@ class ConfirmReport(TimeStampedPublishModel, ReportModel):
         max_length=20, choices=REPORT_TYPE_CHOICES,
         verbose_name='type Of Report', default=FIRST_QUARTER)
 
-
     # add report type
     def __unicode__(self):
         return '{date} {title} {report_type}'.format(
             title=self.title, date=self.date, report_type=self.report_type)
 
-
     def clean(self):
         if self.date:
             if self.date.year != self.annual_budget_report.date.year:
                 raise ValidationError(
-                    'Year of the date released must be the same as the year for the annual budget report ')
+                    'Year of the date released must be the same\
+                     as the year for the annual budget report ')
 
     class Meta:
         ordering = ('-date',)
