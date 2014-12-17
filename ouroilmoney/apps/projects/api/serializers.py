@@ -48,6 +48,7 @@ class AnnualBudgetProjectSerializer(serializers.ModelSerializer):
 
 
 class ProjectListSerializer(serializers.ModelSerializer):
+    sector_title = serializers.CharField()
 
     class Meta:
         model = AnnualBudgetProject
