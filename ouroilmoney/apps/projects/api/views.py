@@ -10,7 +10,8 @@ from ouroilmoney.apps.projects.api.serializers import (
     AnnualBudgetSectorSerializer,
     ConfirmSectorSerializer,
     AnnualBudgetProjectSerializer,
-    ConfirmProjectSerializer)
+    ConfirmProjectSerializer,
+    ProjectListSerializer)
 
 
 # todo: group projects into sectors
@@ -57,9 +58,9 @@ class AnnualBudgetProjectViewSet(viewsets.ReadOnlyModelViewSet):
         """
         Get the titles of all Projects
         """
-        title = AnnualBudgetProject.objects.values_list(
-            'title', flat=True).order_by('title').distinct('title')
-        return Response(title)
+        titles = AnnualBudgetProject.objects.all()
+        titles = ProjectListSerializer(titles, many=True)
+        return Response(titles.data)
 
 
 class ConfirmProjectViewSet(viewsets.ReadOnlyModelViewSet):
