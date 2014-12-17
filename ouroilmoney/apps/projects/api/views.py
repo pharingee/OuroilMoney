@@ -70,3 +70,6 @@ class ConfirmProjectViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = ConfirmProject.objects.exclude(
         is_published=False)
     serializer_class = ConfirmProjectSerializer
+    paginate_by = 10
+    paginate_by_param = 'page_size'
+    max_paginate_by = 100
