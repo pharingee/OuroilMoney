@@ -135,12 +135,12 @@ class AnnualBudgetProject(ProjectModel):
     def sector_title(self):
         return self.sector.title
 
-    def clean(self):
-        if self.amount:
-            if self.amount > self.sector.amount:
-                raise ValidationError(
-                    "Amount for this Project cannot \
-                    be more than that provided for it's sector")
+    # def clean(self):
+    #     if self.amount:
+    #         if self.amount > self.sector.amount:
+    #             raise ValidationError(
+    #                 "Amount for this Project cannot \
+    #                 be more than that provided for it's sector")
 
     def __unicode__(self):
         return '{title} {amount}'.format(title=self.title, amount=self.amount)
@@ -201,12 +201,12 @@ class ConfirmProject(ProjectModel):
             currency=self.currency,
             amount=self.amount)
 
-    def clean(self):
-        if self.amount:
-            if self.amount > self.sector.amount:
-                raise ValidationError(
-                    "Amount for this Project \
-                    cannot be more than that provided for it's sector")
+    # def clean(self):
+    #     if self.amount:
+    #         if self.amount > self.sector.amount:
+    #             raise ValidationError(
+    #                 "Amount for this Project \
+    #                 cannot be more than that provided for it's sector")
 
     def __unicode__(self):
         return '{project} {amount}  {sector}'.format(
