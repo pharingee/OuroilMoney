@@ -76,7 +76,7 @@ class ConfirmSector(AmountModel, TimeStampedPublishModel):
 
 
 class ProjectModel(AmountModel, TimeStampedPublishModel):
-    GREATER = 'GREATER REGION'
+    GREATER = 'GREATER ACCRA REGION'
     ASHANTI = 'ASHANTI REGION'
     NORTHERN = 'NORTHERN REGION'
     UPPER_EAST = 'UPPER EAST REGION'
