@@ -1,12 +1,32 @@
 from django.db import models
-from django.core.exceptions import ValidationError
+# from django.core.exceptions import ValidationError
 # Create your models here.
-from ouroilmoney.utils.models import TimeStampedPublishModel, AmountModel
+from ouroilmoney.utils.models import (
+    TimeStampedPublishModel,
+    AmountModel,
+    Region)
+
 from ouroilmoney.apps.allocations.models import AnnualBudgetAllocation
 from ouroilmoney.apps.allocations.models import ConfirmAllocation
 
 
+class ProjectModel(AmountModel, TimeStampedPublishModel):
+
+    regions = models.ManyToManyField(Region)
+
+    town = models.CharField(
+        max_length=100,
+        verbose_name='town of Project',
+        blank=True,
+        null=True)
+
+    # add town
+
+    class Meta:
+        abstract = True
+
 # todo:annual budget sectors should have choices
+
 
 class AnnualBudgetSector(AmountModel, TimeStampedPublishModel):
     CAPITAL_EXPENDITURE = 'CAPITAL EXPENDITURE'
@@ -43,8 +63,8 @@ class AnnualBudgetSector(AmountModel, TimeStampedPublishModel):
 
     class Meta:
         ordering = ('-allocation',)
-        verbose_name = 'Annual Budget Report Sector'
-        verbose_name_plural = 'Annual Budget Reports Sectors'
+        verbose_name = 'Annual Budget Sector'
+        verbose_name_plural = 'Annual Budget Sectors'
 
 
 class ConfirmSector(AmountModel, TimeStampedPublishModel):
@@ -75,51 +95,7 @@ class ConfirmSector(AmountModel, TimeStampedPublishModel):
         verbose_name_plural = 'Other Reports Sectors'
 
 
-class ProjectModel(AmountModel, TimeStampedPublishModel):
-    GREATER = 'GREATER ACCRA REGION'
-    ASHANTI = 'ASHANTI REGION'
-    NORTHERN = 'NORTHERN REGION'
-    UPPER_EAST = 'UPPER EAST REGION'
-    UPPER_WEST = 'UPPER WEST REGION'
-    EASTERN = 'EASTERN REGION'
-    WESTERN = 'WESTERN REGION'
-    CENTRAL = 'CENTRAL REGION'
-    VOLTA = 'VOLTA REGION'
-    BRONG_AHAFO = 'BRONG AHAFO REGION'
-
-    REGIONS = (
-        (GREATER, 'GREATER REGION'),
-        (ASHANTI, 'ASHANTI REGION'),
-        (NORTHERN, 'NORTHERN REGION'),
-        (UPPER_WEST, 'UPPER WEST REGION'),
-        (UPPER_EAST, 'UPPER EAST REGION'),
-        (EASTERN, 'EASTERN REGION'),
-        (WESTERN, 'WESTERN REGION'),
-        (CENTRAL, 'CENTRAL REGION'),
-        (VOLTA, 'VOLTA REGION'),
-        (BRONG_AHAFO, 'BRONG AHAFO REGION'))
-
-    region = models.CharField(
-        max_length=20,
-        verbose_name='region of Project',
-        choices=REGIONS,
-        blank=True,
-        null=True)
-
-    town = models.CharField(
-        max_length=100,
-        verbose_name='town of Project',
-        blank=True,
-        null=True)
-
-    # add town
-
-    class Meta:
-        abstract = True
-
-
 class AnnualBudgetProject(ProjectModel):
-
     title = models.CharField(max_length=500, verbose_name='name of Project')
     sector = models.ForeignKey(
         AnnualBudgetSector,
@@ -147,8 +123,8 @@ class AnnualBudgetProject(ProjectModel):
 
     class Meta:
         ordering = ('-sector',)
-        verbose_name = ('Annual Budget Report Project')
-        verbose_name_plural = ('Annual Budget Reports Projects')
+        verbose_name = ('Annual Budget Project')
+        verbose_name_plural = ('Annual Budget Projects')
 
 
 class ConfirmProject(ProjectModel):
@@ -180,6 +156,11 @@ class ConfirmProject(ProjectModel):
         choices=REMARKS,
         blank=True,
         null=True)
+
+    video = models.FileField(
+        upload_to='documents/video/%Y/%m/%d/',
+        verbose_name='upload Videos', null=True, blank=True)
+    # may be we could restrict this field to avoid adding other documents
 
     def admin_image(self):
             if self.image:

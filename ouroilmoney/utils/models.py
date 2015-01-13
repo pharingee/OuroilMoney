@@ -28,3 +28,49 @@ class TimeStampedPublishModel(models.Model):
 
     class Meta:
         abstract = True
+
+
+
+
+
+class Region(models.Model):
+    # todo:write validations to avoid adding regions if dey already exists.
+    # or if you are about to delete a region dat does not exist.
+    GREATER = 'GREATER ACCRA REGION'
+    ASHANTI = 'ASHANTI REGION'
+    NORTHERN = 'NORTHERN REGION'
+    UPPER_EAST = 'UPPER EAST REGION'
+    UPPER_WEST = 'UPPER WEST REGION'
+    EASTERN = 'EASTERN REGION'
+    WESTERN = 'WESTERN REGION'
+    CENTRAL = 'CENTRAL REGION'
+    VOLTA = 'VOLTA REGION'
+    BRONG_AHAFO = 'BRONG AHAFO REGION'
+
+    REGIONS = (
+        (GREATER, 'GREATER REGION'),
+        (ASHANTI, 'ASHANTI REGION'),
+        (NORTHERN, 'NORTHERN REGION'),
+        (UPPER_WEST, 'UPPER WEST REGION'),
+        (UPPER_EAST, 'UPPER EAST REGION'),
+        (EASTERN, 'EASTERN REGION'),
+        (WESTERN, 'WESTERN REGION'),
+        (CENTRAL, 'CENTRAL REGION'),
+        (VOLTA, 'VOLTA REGION'),
+        (BRONG_AHAFO, 'BRONG AHAFO REGION'))
+
+    region = models.CharField(
+        max_length=20,
+        verbose_name='region of Project',
+        choices=REGIONS,
+        blank=True,
+        null=True)
+
+
+    def __unicode__(self):
+        return self.region
+
+
+    class Meta:
+        verbose_name = 'Region'
+        verbose_name_plural  = "Regions"

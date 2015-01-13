@@ -134,7 +134,8 @@ SUIT_CONFIG = {
             'projects.annualbudgetsector', 'projects.annualbudgetproject',
             'projects.confirmsector','projects.confirmproject'
             '')},
-        {'app':'knowledgehubs', 'label': 'Knowledge Hub', 'icon': 'icon-upload'}
+        {'app':'knowledgehubs', 'label': 'Knowledge Hub', 'icon': 'icon-upload'},
+        {'app':'utils', 'label': 'Configurations', 'icon': 'icon-upload', 'models':('Region')}
 
         ),
 
