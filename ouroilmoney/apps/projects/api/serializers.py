@@ -46,7 +46,7 @@ class AnnualBudgetProjectSerializer(serializers.ModelSerializer):
         model = AnnualBudgetProject
         fields = (
             'id', 'title','amount','currency', 'sector','otherprojects',
-            'created','modified','region', 'town')
+            'created','modified','regions', 'town')
 
 
 class ProjectListSerializer(serializers.ModelSerializer):
