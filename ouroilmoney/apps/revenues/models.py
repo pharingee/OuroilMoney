@@ -13,7 +13,7 @@ class AnnualBudgetReportManager(models.Manager):
         return total_revenue['lifting_proceed__max']
 
     def latest_revenue_date(self):
-        lastest_date = Lifting.objects.all().latest()
+        lastest_date = self.objects.all().latest()
         return lastest_date.date
 
 
@@ -37,8 +37,8 @@ class AnnualBudgetReportRevenue(TimeStampedPublishModel):
 
     title = models.CharField(max_length=500, verbose_name='title Of Revenue')
 
-    amount = models.CommaSeparatedIntegerField(
-        max_length=40, verbose_name='amount Of Money  ')
+    amount = models.DecimalField(decimal_places=2, max_digits=19,null=True,  blank=True)
+
 
     # todo:limit date based on the date from the revenue chosen
     year = models.IntegerField(max_length=4)

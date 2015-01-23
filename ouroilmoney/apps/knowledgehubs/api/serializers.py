@@ -9,6 +9,7 @@ class KnowledgeHubSerializer(serializers.ModelSerializer):
         model = KnowledgeHub
         fields = (
             'id', 'created',
+            'category',
             'document_url',
             'is_published',
             'title', 'date')
