@@ -12,8 +12,15 @@ class AnnualBudgetReportManager(models.Manager):
         return total_revenue['amount__sum']
 
     def latest_revenue_date(self):
-        lastest_date = self.latest('report')
-        return lastest_date.report.date
+        try:
+            lastest_date = self.latest('report')
+        except self.model.DoesNotExist:
+            latest_date=None
+        else:
+            lastest_date.report.date
+
+        return latest_date
+
 
 
 # Create your models here.
