@@ -2,19 +2,18 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from ouroilmoney.apps.reports.models import AnnualBudgetReport
 from ouroilmoney.utils.models import TimeStampedPublishModel
-from ouroilmoney.apps.liftings.models import Lifting
-from django.db.models import Max
+from django.db.models import Sum
 
 
 class AnnualBudgetReportManager(models.Manager):
 
     def totalRevenue(self):
-        total_revenue = Lifting.objects.all().aggregate(Max('lifting_proceed'))
-        return total_revenue['lifting_proceed__max']
+        total_revenue = self.aggregate(Sum('amount'))
+        return total_revenue['amount__sum']
 
     def latest_revenue_date(self):
-        lastest_date = self.objects.all().latest()
-        return lastest_date.date
+        lastest_date = self.latest('report')
+        return lastest_date.report.date
 
 
 # Create your models here.
