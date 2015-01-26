@@ -56,7 +56,6 @@ class AnnualBudgetReport(TimeStampedPublishModel, ReportModel):
             title=self.title, date=self.date)
 
     class Meta:
-        get_latest_by = "date"
         ordering = ('-date',)
         verbose_name = 'Annual Budget Report'
         verbose_name_plural = 'Annual Budget Reports'

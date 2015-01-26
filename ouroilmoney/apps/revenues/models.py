@@ -12,12 +12,9 @@ class AnnualBudgetReportManager(models.Manager):
         return total_revenue['amount__sum']
 
     def latest_revenue_date(self):
-        try:
-            lastest_date = self.latest('report')
-        except self.model.DoesNotExist:
-            return None;
-        else:
-            return lastest_date.report.date
+        latest_date = AnnualBudgetReport.objects.latest('date')
+        print latest_date
+        return latest_date.date
 
 
 
@@ -69,7 +66,8 @@ class AnnualBudgetReportRevenue(TimeStampedPublishModel):
             title=self.title, year=self.year, amount=self.amount)
 
     class Meta:
-        ordering = ('-year', )
+        get_latest_by='report'
+        ordering = ('-year',)
         unique_together = (('title', 'year'),)
         verbose_name = 'Revenue from Annual Budget Report'
         verbose_name_plural = 'Revenues from Annual Budget Report'
