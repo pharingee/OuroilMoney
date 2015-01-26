@@ -12,9 +12,12 @@ class AnnualBudgetReportManager(models.Manager):
         return total_revenue['amount__sum']
 
     def latest_revenue_date(self):
-        latest_date = AnnualBudgetReport.objects.latest('date')
-        print latest_date
-        return latest_date.date
+        exist=AnnualBudgetReportRevenue.objects.exists()
+        if exist:
+            latest_date = AnnualBudgetReport.objects.latest('date')
+            return latest_date.date
+        return None
+
 
 
 
