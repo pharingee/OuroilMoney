@@ -34,7 +34,7 @@ router.register(r'othersectors', ConfirmSectorViewSet)
 router.register(r'annualbudgetprojects', AnnualBudgetProjectViewSet)
 router.register(r'otherprojects', ConfirmProjectViewSet)
 router.register(r'knowledgehubs', KnowledgeHubViewSet)
-router.register(r'comment', SmsMessageViewSet)
+router.register(r'comments', SmsMessageViewSet)
 
 urlpatterns = patterns(
     '',
