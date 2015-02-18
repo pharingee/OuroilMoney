@@ -74,3 +74,40 @@ class Region(models.Model):
     class Meta:
         verbose_name = 'Region'
         verbose_name_plural  = "Regions"
+
+
+
+
+class SMSMessage(models.Model):
+    UNVERIFIED = '1'
+    VERIFIED = '2'
+    DELETED = '3'
+
+
+    STATUS = (
+    (UNVERIFIED, 'Unverified'),
+    (VERIFIED, 'Verified'),
+    (DELETED, 'Deleted')
+)
+
+
+    message = models.CharField(max_length=160)
+    user = models.CharField(max_length=50)
+    status = models.CharField(
+        choices=STATUS, max_length=1, default=UNVERIFIED)
+
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+    is_published = models.BooleanField(default=True, verbose_name='publish')
+
+    class Meta:
+        verbose_name = 'SMS Message'
+        verbose_name_plural = 'SMS Messages'
+
+    @property
+    def comment(self):
+        return "%s: %s" % (self.user, self.message)
+
+    @property
+    def get_status(self):
+        return self.status
