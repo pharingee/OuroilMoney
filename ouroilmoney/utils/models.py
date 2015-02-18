@@ -104,6 +104,9 @@ class SmsMessage(models.Model):
         verbose_name = 'Sms Message'
         verbose_name_plural = 'Sms Messages'
 
+    def __unicode__(self):
+        return self.user
+
     @property
     def comment(self):
         return "%s: %s" % (self.user, self.message)

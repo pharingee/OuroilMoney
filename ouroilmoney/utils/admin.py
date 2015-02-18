@@ -14,3 +14,7 @@ class RegionAdmin(admin.ModelAdmin):
 @admin.register(SmsMessage)
 class SmsCommentAdmin(admin.ModelAdmin):
     fields = ['message', 'user', 'status']
+    list_display = (
+        'user',
+        'message',
+        'status')
