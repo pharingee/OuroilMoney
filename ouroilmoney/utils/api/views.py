@@ -38,3 +38,11 @@ class SmsMessageViewSet(viewsets.ReadOnlyModelViewSet):
            return Response('Could not send message', status=HTTP_400_BAD_REQUEST)
 
 
+    @list_route(methods=["get"])
+    def verified(self,request):
+        """
+        Receive only verified and unverified sms
+        """
+        verifiedSms = SmsMessage.objects.filter(status="verified").exclude(is_published=False)
+        serializer = SmsMessageSerializer(verifiedSms,many=True)
+        return Response(serializer.data)

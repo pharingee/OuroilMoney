@@ -114,3 +114,8 @@ class SmsMessage(models.Model):
     @property
     def get_status(self):
         return self.status
+
+    @property
+    def get_user(self):
+        user= "+233" +"*****" + self.user[-4:]
+        return user

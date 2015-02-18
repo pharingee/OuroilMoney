@@ -4,8 +4,9 @@ from ouroilmoney.utils.models import SmsMessage
 
 class SmsMessageSerializer(serializers.ModelSerializer):
 
-    get_status = serializers.Field(source='get_status')
+    status = serializers.Field(source='get_status')
+    user = serializers.Field(source='get_user')
 
     class Meta:
         model = SmsMessage
-        fields = ('id', 'message', 'user', 'get_status', 'created')
+        fields = ('id', 'message', 'user', 'status', 'created')
