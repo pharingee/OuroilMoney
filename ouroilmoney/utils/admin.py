@@ -1,5 +1,5 @@
 from django.contrib import admin
-from ouroilmoney.utils.models import Region
+from ouroilmoney.utils.models import Region,SmsMessage
 
 
 # Register your models here.
@@ -7,3 +7,10 @@ from ouroilmoney.utils.models import Region
 @admin.register(Region)
 class RegionAdmin(admin.ModelAdmin):
     fields = ['region']
+
+
+
+
+@admin.register(SmsMessage)
+class SmsCommentAdmin(admin.ModelAdmin):
+    fields = ['message', 'user', 'status']
