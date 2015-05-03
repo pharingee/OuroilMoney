@@ -119,7 +119,7 @@ class AnnualBudgetProjectViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(serializer.data)
 
     @list_route(methods=["get"])
-    def ministry_of_finance and_economic_planning(self, request):
+    def ministry_of_finance_and_economic_planning(self, request):
         """
         Get a list of projects under ministry of finance and economic planning
         """
