@@ -4,7 +4,7 @@ from django.db import models
 from ouroilmoney.utils.models import (
     TimeStampedPublishModel,
     AmountModel,
-    Region)
+    Region, Ministry)
 
 from ouroilmoney.apps.allocations.models import AnnualBudgetAllocation
 from ouroilmoney.apps.allocations.models import ConfirmAllocation
@@ -13,6 +13,7 @@ from ouroilmoney.apps.allocations.models import ConfirmAllocation
 class ProjectModel(AmountModel, TimeStampedPublishModel):
 
     regions = models.ManyToManyField(Region)
+    ministry = models.ForeignKey(Ministry, null=True, blank=True)
 
     town = models.CharField(
         max_length=100,
@@ -48,7 +49,7 @@ class AnnualBudgetSector(AmountModel, TimeStampedPublishModel):
 
     allocation = models.ForeignKey(
         AnnualBudgetAllocation,
-        limit_choices_to={'title': 'ABFA'})
+        limit_choices_to={'title': 'ABFA'},verbose_name="ABFA REPORT")
 
     @property
     def amount_from_annual_budget(self):

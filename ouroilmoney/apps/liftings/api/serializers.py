@@ -10,5 +10,10 @@ class LiftingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lifting
         fields = (
-            'report', 'date', 'volume_of_lifting',
-            'selling_price', 'lifting_proceed','lifting_receipt_url')
+            'report',
+            'date',
+            'volume_of_lifting',
+            'selling_price',
+            'lifting_proceed',
+            'partner',
+            'lifting_receipt_url')

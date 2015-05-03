@@ -18,7 +18,7 @@ from apps.allocations.api.views import (
     ConfirmAllocationViewSet)
 from apps.knowledgehubs.api.views import (
     KnowledgeHubViewSet)
-from utils.api.views import SmsMessageViewSet
+from utils.api.views import SmsMessageViewSet, MinistryViewset
 
 
 router = DefaultRouter()
@@ -35,6 +35,8 @@ router.register(r'annualbudgetprojects', AnnualBudgetProjectViewSet)
 router.register(r'otherprojects', ConfirmProjectViewSet)
 router.register(r'knowledgehubs', KnowledgeHubViewSet)
 router.register(r'comments', SmsMessageViewSet)
+router.register(r'ministries', MinistryViewset)
+
 
 urlpatterns = patterns(
     '',

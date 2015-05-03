@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ouroilmoney.utils.models import SmsMessage
+from ouroilmoney.utils.models import SmsMessage, Ministry
 
 
 class SmsMessageSerializer(serializers.ModelSerializer):
@@ -10,3 +10,10 @@ class SmsMessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = SmsMessage
         fields = ('id', 'message', 'user', 'status', 'created')
+
+
+class MinistrySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Ministry
+        fields = ('ministry',)

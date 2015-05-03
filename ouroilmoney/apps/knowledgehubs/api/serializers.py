@@ -11,5 +11,6 @@ class KnowledgeHubSerializer(serializers.ModelSerializer):
             'id', 'created',
             'category',
             'document_url',
+            'subcategory',
             'is_published',
             'title', 'date')

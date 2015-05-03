@@ -104,4 +104,3 @@ class ReportViewSet(viewsets.ReadOnlyModelViewSet):
         calendar = CalendarOfReport.objects.exclude(is_published=False)
         serializer = CalendarSerializer(calendar, many=True)
         return Response(serializer.data)
-
