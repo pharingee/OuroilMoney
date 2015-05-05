@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='knowledgehub',
             name='subCategory',
-            field=models.ForeignKey(related_name=b'knowledgehubs', default=None, verbose_name=b'subcategory', to='utils.SubCategory'),
+            field=models.ForeignKey(related_name=b'knowledgehubs', null=True, blank=True, verbose_name=b'subcategory', to='utils.SubCategory'),
             preserve_default=True,
         ),
     ]
