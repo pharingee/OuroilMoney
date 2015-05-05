@@ -31,6 +31,6 @@ class AnnualBudgetProjectAdmin(admin.ModelAdmin):
 
 @admin.register(ConfirmProject)
 class ConfirmProjectAdmin(admin.ModelAdmin):
-     fields= ['image','video','amount','ministry','sector','regions', 'project','town','remarks','currency', 'is_published']
-     list_display = ('sector' ,'admin_image','ministry','amount_from_other_project', 'amount_from_annual_project','town','remarks','is_published')
-     list_filter  = ('sector','town','ministry','is_published','remarks','currency')
+     fields= ['image','video','amount','sector','regions', 'project','town','remarks','currency', 'is_published']
+     list_display = ('sector' ,'admin_image','amount_from_other_project', 'amount_from_annual_project','town','remarks','is_published')
+     list_filter  = ('sector','town','is_published','remarks','currency')

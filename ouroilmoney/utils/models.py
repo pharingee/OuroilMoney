@@ -35,7 +35,8 @@ class Ministry(models.Model):
         max_length=500,
         verbose_name='ministry',
         blank=True,
-        null=True)
+        null=True,
+        unique=True)
 
     def __unicode__(self):
         return self.ministry
@@ -133,7 +134,7 @@ class SmsMessage(models.Model):
 
 class Partner(TimeStampedPublishModel):
 
-    partner = models.CharField(max_length='500', verbose_name="oil partners")
+    partner = models.CharField(max_length='500', verbose_name="oil partners", unique=True)
 
     class Meta:
         verbose_name = 'oil partner'
@@ -145,7 +146,7 @@ class Partner(TimeStampedPublishModel):
 
 class Field(TimeStampedPublishModel):
 
-    field = models.CharField(max_length='500', verbose_name="oil field")
+    field = models.CharField(max_length='500', verbose_name="oil field", unique=True)
 
     class Meta:
         verbose_name = 'oil field'

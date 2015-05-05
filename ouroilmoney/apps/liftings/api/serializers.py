@@ -16,4 +16,5 @@ class LiftingSerializer(serializers.ModelSerializer):
             'selling_price',
             'lifting_proceed',
             'partner',
+            'field',
             'lifting_receipt_url')

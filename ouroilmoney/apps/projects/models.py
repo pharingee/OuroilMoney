@@ -13,7 +13,6 @@ from ouroilmoney.apps.allocations.models import ConfirmAllocation
 class ProjectModel(AmountModel, TimeStampedPublishModel):
 
     regions = models.ManyToManyField(Region)
-    ministry = models.ForeignKey(Ministry, null=True, blank=True)
 
     town = models.CharField(
         max_length=100,
@@ -98,6 +97,7 @@ class ConfirmSector(AmountModel, TimeStampedPublishModel):
 
 class AnnualBudgetProject(ProjectModel):
     title = models.CharField(max_length=500, verbose_name='name of Project')
+    ministry = models.ForeignKey(Ministry, null=True, blank=True, related_name="annualbudgetprojects")
     sector = models.ForeignKey(
         AnnualBudgetSector,
         verbose_name='choose Sector From Annual Budget Reports')
