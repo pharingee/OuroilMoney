@@ -17,7 +17,7 @@ class KnowledgeHub(TimeStampedPublishModel):
     date = models.DateField(max_length=4, verbose_name='date Released')
 
     category = models.CharField(max_length=14, choices=CATEGORIES)
-    subcategory = models.ForeignKey(SubCategory, verbose_name="subcategory", related_name="knowledgehubs", default=None)
+    subcategory = models.ForeignKey(SubCategory,null=True,blank=True, verbose_name="subcategory", related_name="knowledgehubs", default=None)
 
     document = models.FileField(
         upload_to='documents/%Y/%m/%d/',
