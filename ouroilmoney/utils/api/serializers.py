@@ -37,3 +37,6 @@ class OilFieldSerializer(serializers.ModelSerializer):
     class Meta:
         model = Field
         fields = ('field', 'id', 'liftings')
+
+
+

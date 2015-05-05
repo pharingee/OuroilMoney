@@ -154,3 +154,15 @@ class Field(TimeStampedPublishModel):
 
     def __unicode__(self):
         return self.field
+
+
+class SubCategory(TimeStampedPublishModel):
+
+    subcategories = models.CharField(max_length='500', verbose_name="subcategory for KnowledgeHub", unique=True)
+
+    class Meta:
+        verbose_name = 'subcategory for knowledge hub'
+        verbose_name_plural = 'subcategories for knowledge hub'
+
+    def __unicode__(self):
+        return self.subcategories

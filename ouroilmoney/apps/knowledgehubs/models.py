@@ -1,5 +1,5 @@
 from django.db import models
-from ouroilmoney.utils.models import TimeStampedPublishModel
+from ouroilmoney.utils.models import TimeStampedPublishModel, SubCategory
 
 
 class KnowledgeHub(TimeStampedPublishModel):
@@ -17,8 +17,7 @@ class KnowledgeHub(TimeStampedPublishModel):
     date = models.DateField(max_length=4, verbose_name='date Released')
 
     category = models.CharField(max_length=14, choices=CATEGORIES)
-
-    subcategory = models.CharField(max_length= 500, verbose_name= "subcategory",null=True, blank=True)
+    subcategory = models.ForeignKey(SubCategory, verbose_name="subcategory", related_name="knowledgehubs", default=None)
 
     document = models.FileField(
         upload_to='documents/%Y/%m/%d/',
