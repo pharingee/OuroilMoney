@@ -19,6 +19,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='lifting',
             name='project',
-            field=models.ForeignKey(related_name=b'liftings',null=True,blank=True to='utils.Project'),
+            field=models.ForeignKey(related_name=b'liftings',null=True, blank=True, to='utils.Project'),
         ),
     ]
