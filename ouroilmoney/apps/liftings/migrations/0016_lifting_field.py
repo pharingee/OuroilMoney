@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='lifting',
             name='field',
-            field=models.ForeignKey(related_name=b'liftings', default=None, to='utils.Field'),
+            field=models.ForeignKey(related_name=b'liftings', default=None, null=True, blank=True, to='utils.Field'),
             preserve_default=True,
         ),
     ]
