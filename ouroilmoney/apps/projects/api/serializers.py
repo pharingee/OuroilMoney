@@ -3,7 +3,8 @@ from ouroilmoney.apps.projects.models import (
     AnnualBudgetSector,
     ConfirmSector,
     AnnualBudgetProject,
-    ConfirmProject)
+    ConfirmProject,
+    AbaPriorityAreas)
 
 from ouroilmoney.apps.allocations.api.serializers import (
     AnnualBudgetAllocationSerializer,
@@ -15,17 +16,24 @@ class ConfirmSectorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ConfirmSector
-        fields = ('amount','currency','annual_budget_sector','allocation', 'currency')
+        fields = ('amount', 'currency', 'annual_budget_sector', 'allocation', 'currency')
 
+
+class AbaPriorityAreasSerializer(serializers.ModelSerializer):
+    abfa = AnnualBudgetAllocationSerializer()
+
+    class Meta:
+        model = AbaPriorityAreas
+        fields = ('amount', 'currency', 'title', 'abfa', 'currency')
 
 
 class AnnualBudgetSectorSerializer(serializers.ModelSerializer):
-    allocation =  AnnualBudgetAllocationSerializer()
+    allocation = AnnualBudgetAllocationSerializer()
     othersectors = ConfirmSectorSerializer(many=True)
 
     class Meta:
         model = AnnualBudgetSector
-        fields = ('title','amount', 'currency','allocation','othersectors')
+        fields = ('title', 'amount', 'currency', 'allocation', 'othersectors')
 
 
 class ConfirmProjectSerializer(serializers.ModelSerializer):
@@ -34,7 +42,7 @@ class ConfirmProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = ConfirmProject
         fields = (
-            'id', 'amount', 'currency','sector','created','modified',
+            'id', 'amount', 'currency', 'sector', 'created', 'modified',
             'image')
 
 

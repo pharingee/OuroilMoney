@@ -4,7 +4,7 @@ from django.contrib import admin
 from ouroilmoney.apps.projects.models import AnnualBudgetSector
 from ouroilmoney.apps.projects.models import ConfirmSector
 from ouroilmoney.apps.projects.models import AnnualBudgetProject
-from ouroilmoney.apps.projects.models import ConfirmProject
+from ouroilmoney.apps.projects.models import ConfirmProject, AbaPriorityAreas
 
 
 
@@ -34,3 +34,10 @@ class ConfirmProjectAdmin(admin.ModelAdmin):
      fields= ['image','video','amount','sector','regions', 'project','town','remarks','currency', 'is_published']
      list_display = ('sector' ,'admin_image','amount_from_other_project', 'amount_from_annual_project','town','remarks','is_published')
      list_filter  = ('sector','town','is_published','remarks','currency')
+
+
+@admin.register(AbaPriorityAreas)
+class AbaPriorityAreasAdmin(admin.ModelAdmin):
+    fields = ['title', 'abfa', 'amount', 'currency', 'is_published']
+    list_display = ('title', 'abfa', 'amount', 'is_published')
+    list_filter = ('abfa',)

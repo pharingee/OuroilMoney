@@ -158,7 +158,7 @@ class Field(TimeStampedPublishModel):
 
 class SubCategory(TimeStampedPublishModel):
 
-    subcategories = models.CharField(max_length='500', verbose_name="subcategory for KnowledgeHub", unique=True)
+    subcategory = models.CharField(max_length='500', verbose_name="subcategory for KnowledgeHub", unique=True)
 
     class Meta:
         verbose_name = 'subcategory for knowledge hub'

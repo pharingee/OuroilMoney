@@ -198,3 +198,17 @@ class ConfirmProject(ProjectModel):
         ordering = ('-sector',)
         verbose_name = ('Monitoring Report on Project')
         verbose_name_plural = ('Monitoring Reports on Projects')
+
+
+class AbaPriorityAreas(AmountModel, TimeStampedPublishModel):
+    title = models.CharField(max_length=500, verbose_name='name f Priority Area')
+    abfa = models.ForeignKey(
+        AnnualBudgetAllocation,
+        limit_choices_to={'title': 'ABFA'}, verbose_name="ABFA REPORT")
+
+    class Meta:
+        verbose_name = ('Abfa priority area ')
+        verbose_name_plural = ('Abfa priority areas')
+
+    def __unicode__(self):
+        self.title

@@ -132,7 +132,7 @@ SUIT_CONFIG = {
 
         {'app':'projects', 'label': 'Projects', 'icon': 'icon-calendar', 'models':(
             'projects.annualbudgetsector', 'projects.annualbudgetproject',
-            'projects.confirmsector','projects.confirmproject'
+            'projects.confirmsector','projects.confirmproject', 'projects.abapriorityareas'
             '')},
         {'app':'knowledgehubs', 'label': 'Knowledge Hub', 'icon': 'icon-upload'},
         {'app':'utils', 'label': 'Configurations', 'icon': 'icon-upload', 'models':('Region')}

@@ -3,7 +3,7 @@ from rest_framework.decorators import list_route
 from rest_framework.response import Response
 from ouroilmoney.apps.projects.models import (
     AnnualBudgetSector, ConfirmSector,
-    AnnualBudgetProject, ConfirmProject)
+    AnnualBudgetProject, ConfirmProject, AbaPriorityAreas)
 
 
 from ouroilmoney.apps.projects.api.serializers import (
@@ -11,10 +11,23 @@ from ouroilmoney.apps.projects.api.serializers import (
     ConfirmSectorSerializer,
     AnnualBudgetProjectSerializer,
     ConfirmProjectSerializer,
-    ProjectListSerializer)
+    ProjectListSerializer,
+    AbaPriorityAreasSerializer)
 
 
 # todo: group projects into sectors
+#
+#
+#
+class AbaPriorityAreasViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    Annual Budget Sector Resource
+
+    """
+    queryset = AbaPriorityAreas.objects.exclude(
+        is_published=False).order_by('title')
+    serializer_class = AbaPriorityAreasSerializer
+
 
 class AnnualBudgetSectorViewSet(viewsets.ReadOnlyModelViewSet):
     """
@@ -62,243 +75,243 @@ class AnnualBudgetProjectViewSet(viewsets.ReadOnlyModelViewSet):
         titles = ProjectListSerializer(titles, many=True)
         return Response(titles.data)
 
-    @list_route(methods=["get"])
-    def ministry_of_communication_and_technology(self, request):
-        """
-        Get a list of projects under the ministry of
-        communication and technology
-        """
-        projects = AnnualBudgetProject.objects.filter(
-            ministry__ministry='CN')
+    # @list_route(methods=["get"])
+    # def ministry_of_communication_and_technology(self, request):
+    #     """
+    #     Get a list of projects under the ministry of
+    #     communication and technology
+    #     """
+    #     projects = AnnualBudgetProject.objects.filter(
+    #         ministry__ministry='CN')
 
-        serializer = AnnualBudgetProjectSerializer(projects, many=True)
-        return Response(serializer.data)
+    #     serializer = AnnualBudgetProjectSerializer(projects, many=True)
+    #     return Response(serializer.data)
 
-    @list_route(methods=["get"])
-    def ministry_of_defence(self, request):
-        """
-        Get a list of projects under ministry of defence
-        """
-        projects = AnnualBudgetProject.objects.filter(
-            ministry__ministry='DF')
+    # @list_route(methods=["get"])
+    # def ministry_of_defence(self, request):
+    #     """
+    #     Get a list of projects under ministry of defence
+    #     """
+    #     projects = AnnualBudgetProject.objects.filter(
+    #         ministry__ministry='DF')
 
-        serializer = AnnualBudgetProjectSerializer(projects, many=True)
-        return Response(serializer.data)
+    #     serializer = AnnualBudgetProjectSerializer(projects, many=True)
+    #     return Response(serializer.data)
 
-    @list_route(methods=["get"])
-    def ministry_of_education_and_sports(self, request):
-        """
-        Get a list of projects under the ministry of education and sports
-        """
-        projects = AnnualBudgetProject.objects.filter(
-            ministry__ministry='ES')
+    # @list_route(methods=["get"])
+    # def ministry_of_education_and_sports(self, request):
+    #     """
+    #     Get a list of projects under the ministry of education and sports
+    #     """
+    #     projects = AnnualBudgetProject.objects.filter(
+    #         ministry__ministry='ES')
 
-        serializer = AnnualBudgetProjectSerializer(projects, many=True)
-        return Response(serializer.data)
+    #     serializer = AnnualBudgetProjectSerializer(projects, many=True)
+    #     return Response(serializer.data)
 
-    @list_route(methods=["get"])
-    def ministry_of_energy(self, request):
-        """
-        Get a list of projects under the ministry of energy
-        """
-        projects = AnnualBudgetProject.objects.filter(
-            ministry__ministry='EG')
+    # @list_route(methods=["get"])
+    # def ministry_of_energy(self, request):
+    #     """
+    #     Get a list of projects under the ministry of energy
+    #     """
+    #     projects = AnnualBudgetProject.objects.filter(
+    #         ministry__ministry='EG')
 
-        serializer = AnnualBudgetProjectSerializer(projects, many=True)
-        return Response(serializer.data)
+    #     serializer = AnnualBudgetProjectSerializer(projects, many=True)
+    #     return Response(serializer.data)
 
-    @list_route(methods=["get"])
-    def ministry_of_environment_and_science(self, request):
-        """
-        Get a list of projects under environment and science
-        """
-        projects = AnnualBudgetProject.objects.filter(
-            ministry__ministry='ENS')
+    # @list_route(methods=["get"])
+    # def ministry_of_environment_and_science(self, request):
+    #     """
+    #     Get a list of projects under environment and science
+    #     """
+    #     projects = AnnualBudgetProject.objects.filter(
+    #         ministry__ministry='ENS')
 
-        serializer = AnnualBudgetProjectSerializer(projects, many=True)
-        return Response(serializer.data)
+    #     serializer = AnnualBudgetProjectSerializer(projects, many=True)
+    #     return Response(serializer.data)
 
-    @list_route(methods=["get"])
-    def ministry_of_finance_and_economic_planning(self, request):
-        """
-        Get a list of projects under ministry of finance and economic planning
-        """
-        projects = AnnualBudgetProject.objects.filter(
-            ministry__ministry='FP')
+    # @list_route(methods=["get"])
+    # def ministry_of_finance_and_economic_planning(self, request):
+    #     """
+    #     Get a list of projects under ministry of finance and economic planning
+    #     """
+    #     projects = AnnualBudgetProject.objects.filter(
+    #         ministry__ministry='FP')
 
-        serializer = AnnualBudgetProjectSerializer(projects, many=True)
-        return Response(serializer.data)
+    #     serializer = AnnualBudgetProjectSerializer(projects, many=True)
+    #     return Response(serializer.data)
 
-    @list_route(methods=["get"])
-    def ministry_of_information(self, request):
-        """
-        Get a list of projects under ministry of information
-        """
-        projects = AnnualBudgetProject.objects.filter(
-            ministry__ministry='IN')
+    # @list_route(methods=["get"])
+    # def ministry_of_information(self, request):
+    #     """
+    #     Get a list of projects under ministry of information
+    #     """
+    #     projects = AnnualBudgetProject.objects.filter(
+    #         ministry__ministry='IN')
 
-        serializer = AnnualBudgetProjectSerializer(projects, many=True)
-        return Response(serializer.data)
+    #     serializer = AnnualBudgetProjectSerializer(projects, many=True)
+    #     return Response(serializer.data)
 
-    @list_route(methods=["get"])
-    def ministry_of_food_and_agriculture(self, request):
-        """
-        Get a list of projects under the ministry of food and agriculture
-        """
-        projects = AnnualBudgetProject.objects.filter(
-            ministry__ministry='FAA')
+    # @list_route(methods=["get"])
+    # def ministry_of_food_and_agriculture(self, request):
+    #     """
+    #     Get a list of projects under the ministry of food and agriculture
+    #     """
+    #     projects = AnnualBudgetProject.objects.filter(
+    #         ministry__ministry='FAA')
 
-        serializer = AnnualBudgetProjectSerializer(projects, many=True)
-        return Response(serializer.data)
+    #     serializer = AnnualBudgetProjectSerializer(projects, many=True)
+    #     return Response(serializer.data)
 
-    @list_route(methods=["get"])
-    def ministry_of_foreign_affairs(self, request):
-        """
-        Get a list of first of projects under the ministry of foreign affairs
-        """
-        projects = AnnualBudgetProject.objects.filter(
-            ministry__ministry='DF')
+    # @list_route(methods=["get"])
+    # def ministry_of_foreign_affairs(self, request):
+    #     """
+    #     Get a list of first of projects under the ministry of foreign affairs
+    #     """
+    #     projects = AnnualBudgetProject.objects.filter(
+    #         ministry__ministry='DF')
 
-        serializer = AnnualBudgetProjectSerializer(projects, many=True)
-        return Response(serializer.data)
+    #     serializer = AnnualBudgetProjectSerializer(projects, many=True)
+    #     return Response(serializer.data)
 
-    @list_route(methods=["get"])
-    def ministry_of_health(self, request):
-        """
-        Get a list of projects under the ministry of health
-        """
-        projects = AnnualBudgetProject.objects.filter(
-            ministry__ministry='HT')
+    # @list_route(methods=["get"])
+    # def ministry_of_health(self, request):
+    #     """
+    #     Get a list of projects under the ministry of health
+    #     """
+    #     projects = AnnualBudgetProject.objects.filter(
+    #         ministry__ministry='HT')
 
-        serializer = AnnualBudgetProjectSerializer(projects, many=True)
-        return Response(serializer.data)
+    #     serializer = AnnualBudgetProjectSerializer(projects, many=True)
+    #     return Response(serializer.data)
 
-    @list_route(methods=["get"])
-    def ministry_of_justice_and_attorney_generals_department(self, request):
-        """
-        Get a list of projects under the ministry of
-        justice and attorney general's departments
-        """
-        projects = AnnualBudgetProject.objects.filter(
-            ministry__ministry='JS')
+    # @list_route(methods=["get"])
+    # def ministry_of_justice_and_attorney_generals_department(self, request):
+    #     """
+    #     Get a list of projects under the ministry of
+    #     justice and attorney general's departments
+    #     """
+    #     projects = AnnualBudgetProject.objects.filter(
+    #         ministry__ministry='JS')
 
-        serializer = AnnualBudgetProjectSerializer(projects, many=True)
-        return Response(serializer.data)
+    #     serializer = AnnualBudgetProjectSerializer(projects, many=True)
+    #     return Response(serializer.data)
 
-    @list_route(methods=["get"])
-    def ministry_of_lands_and_forestry_and_mines(self, request):
-        """
-        Get a list of projects under the ministry of lands and forestry
-        """
-        projects = AnnualBudgetProject.objects.filter(
-            ministry__ministry='LS')
+    # @list_route(methods=["get"])
+    # def ministry_of_lands_and_forestry_and_mines(self, request):
+    #     """
+    #     Get a list of projects under the ministry of lands and forestry
+    #     """
+    #     projects = AnnualBudgetProject.objects.filter(
+    #         ministry__ministry='LS')
 
-        serializer = AnnualBudgetProjectSerializer(projects, many=True)
-        return Response(serializer.data)
+    #     serializer = AnnualBudgetProjectSerializer(projects, many=True)
+    #     return Response(serializer.data)
 
-    @list_route(methods=["get"])
-    def ministry_of_local_government_and_rural_developement(self, request):
-        """
-        Get a list of projects under the ministry of local government and rural
-         development
-        """
-        projects = AnnualBudgetProject.objects.filter(
-            ministry__ministry='LG')
+    # @list_route(methods=["get"])
+    # def ministry_of_local_government_and_rural_developement(self, request):
+    #     """
+    #     Get a list of projects under the ministry of local government and rural
+    #      development
+    #     """
+    #     projects = AnnualBudgetProject.objects.filter(
+    #         ministry__ministry='LG')
 
-        serializer = AnnualBudgetProjectSerializer(projects, many=True)
-        return Response(serializer.data)
+    #     serializer = AnnualBudgetProjectSerializer(projects, many=True)
+    #     return Response(serializer.data)
 
-    @list_route(methods=["get"])
-    def ministry_of_mampower_youth_and_employment(self, request):
-        """
-        Get a list of projects under the ministry of local government
-        and rural development
-        """
-        projects = AnnualBudgetProject.objects.filter(
-            ministry__ministry='YH')
+    # @list_route(methods=["get"])
+    # def ministry_of_mampower_youth_and_employment(self, request):
+    #     """
+    #     Get a list of projects under the ministry of local government
+    #     and rural development
+    #     """
+    #     projects = AnnualBudgetProject.objects.filter(
+    #         ministry__ministry='YH')
 
-        serializer = AnnualBudgetProjectSerializer(projects, many=True)
-        return Response(serializer.data)
+    #     serializer = AnnualBudgetProjectSerializer(projects, many=True)
+    #     return Response(serializer.data)
 
-    @list_route(methods=["get"])
-    def ministry_of_parliamentary_affairs(self, request):
-        """
-        Get a list of projects under the ministry of parliamentary affairs
-        """
-        projects = AnnualBudgetProject.objects.filter(
-            ministry__ministry='PA')
+    # @list_route(methods=["get"])
+    # def ministry_of_parliamentary_affairs(self, request):
+    #     """
+    #     Get a list of projects under the ministry of parliamentary affairs
+    #     """
+    #     projects = AnnualBudgetProject.objects.filter(
+    #         ministry__ministry='PA')
 
-        serializer = AnnualBudgetProjectSerializer(projects, many=True)
-        return Response(serializer.data)
+    #     serializer = AnnualBudgetProjectSerializer(projects, many=True)
+    #     return Response(serializer.data)
 
-    @list_route(methods=["get"])
-    def ministry_of_private_sector_development(self, request):
-        """
-        Get a list of projects under the ministry of private sector
-        """
-        projects = AnnualBudgetProject.objects.filter(
-            ministry__ministry='PD')
+    # @list_route(methods=["get"])
+    # def ministry_of_private_sector_development(self, request):
+    #     """
+    #     Get a list of projects under the ministry of private sector
+    #     """
+    #     projects = AnnualBudgetProject.objects.filter(
+    #         ministry__ministry='PD')
 
-        serializer = AnnualBudgetProjectSerializer(projects, many=True)
-        return Response(serializer.data)
+    #     serializer = AnnualBudgetProjectSerializer(projects, many=True)
+    #     return Response(serializer.data)
 
-    @list_route(methods=["get"])
-    def ministry_of_regional_cooperation_and_nepad(self, request):
-        """
-        Get a list of projects under the ministry of
-        regional coperation and nepad
-        """
-        projects = AnnualBudgetProject.objects.filter(
-            ministry__ministry='RC')
+    # @list_route(methods=["get"])
+    # def ministry_of_regional_cooperation_and_nepad(self, request):
+    #     """
+    #     Get a list of projects under the ministry of
+    #     regional coperation and nepad
+    #     """
+    #     projects = AnnualBudgetProject.objects.filter(
+    #         ministry__ministry='RC')
 
-        serializer = AnnualBudgetProjectSerializer(projects, many=True)
-        return Response(serializer.data)
+    #     serializer = AnnualBudgetProjectSerializer(projects, many=True)
+    #     return Response(serializer.data)
 
-    @list_route(methods=["get"])
-    def ministry_of_road_transport(self, request):
-        """
-        Get a list of projects under the ministry of road and transport
-        """
-        projects = AnnualBudgetProject.objects.filter(
-            ministry__ministry='RT')
+    # @list_route(methods=["get"])
+    # def ministry_of_road_transport(self, request):
+    #     """
+    #     Get a list of projects under the ministry of road and transport
+    #     """
+    #     projects = AnnualBudgetProject.objects.filter(
+    #         ministry__ministry='RT')
 
-        serializer = AnnualBudgetProjectSerializer(projects, many=True)
-        return Response(serializer.data)
+    #     serializer = AnnualBudgetProjectSerializer(projects, many=True)
+    #     return Response(serializer.data)
 
-    @list_route(methods=["get"])
-    def ministry_of_tourism_and_modernization_capital_city(self, request):
-        """
-        Get a list of projects under the ministry of tourism
-         and modernization of the capital city.
-        """
-        projects = AnnualBudgetProject.objects.filter(
-            ministry__ministry='TM')
+    # @list_route(methods=["get"])
+    # def ministry_of_tourism_and_modernization_capital_city(self, request):
+    #     """
+    #     Get a list of projects under the ministry of tourism
+    #      and modernization of the capital city.
+    #     """
+    #     projects = AnnualBudgetProject.objects.filter(
+    #         ministry__ministry='TM')
 
-        serializer = AnnualBudgetProjectSerializer(projects, many=True)
-        return Response(serializer.data)
+    #     serializer = AnnualBudgetProjectSerializer(projects, many=True)
+    #     return Response(serializer.data)
 
-    @list_route(methods=["get"])
-    def ministry_of_trade_and_housing(self, request):
-        """
-        Get a list of projects under the ministry of trade and housing
-        """
-        projects = AnnualBudgetProject.objects.filter(
-            ministry__ministry='TI')
+    # @list_route(methods=["get"])
+    # def ministry_of_trade_and_housing(self, request):
+    #     """
+    #     Get a list of projects under the ministry of trade and housing
+    #     """
+    #     projects = AnnualBudgetProject.objects.filter(
+    #         ministry__ministry='TI')
 
-        serializer = AnnualBudgetProjectSerializer(projects, many=True)
-        return Response(serializer.data)
+    #     serializer = AnnualBudgetProjectSerializer(projects, many=True)
+    #     return Response(serializer.data)
 
-    @list_route(methods=["get"])
-    def ministry_of_women_and_children_affairs(self, request):
-        """
-        Get a list of projects under the ministry of women
-        and children's affairs
-        """
-        projects = AnnualBudgetProject.objects.filter(
-            ministry__ministry='WA')
+    # @list_route(methods=["get"])
+    # def ministry_of_women_and_children_affairs(self, request):
+    #     """
+    #     Get a list of projects under the ministry of women
+    #     and children's affairs
+    #     """
+    #     projects = AnnualBudgetProject.objects.filter(
+    #         ministry__ministry='WA')
 
-        serializer = AnnualBudgetProjectSerializer(projects, many=True)
-        return Response(serializer.data)
+    #     serializer = AnnualBudgetProjectSerializer(projects, many=True)
+    #     return Response(serializer.data)
 
 
 class ConfirmProjectViewSet(viewsets.ReadOnlyModelViewSet):

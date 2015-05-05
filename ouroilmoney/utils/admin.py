@@ -1,5 +1,5 @@
 from django.contrib import admin
-from ouroilmoney.utils.models import Region, SmsMessage, Ministry, Partner, Field
+from ouroilmoney.utils.models import Region, SmsMessage, Ministry, Partner, Field, SubCategory
 
 
 # Register your models here.
@@ -33,3 +33,11 @@ class SmsCommentAdmin(admin.ModelAdmin):
         'user',
         'message',
         'status')
+
+
+@admin.register(SubCategory)
+class SubCategoryAdmin(admin.ModelAdmin):
+    fields = ['subcategory', 'is_published']
+    list_display = (
+        'subcategory',
+        'is_published')
