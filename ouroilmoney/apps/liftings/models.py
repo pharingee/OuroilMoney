@@ -12,8 +12,8 @@ class Lifting(TimeStampedPublishModel):
     volume_of_lifting = models.IntegerField()
     selling_price = models.DecimalField(max_digits=10, decimal_places=3)
     lifting_proceed = models.DecimalField(max_digits=19, decimal_places=3)
-    partner = models.ForeignKey(Partner, related_name="liftings")
-    field = models.ForeignKey(Field, related_name="liftings")
+    partner = models.ForeignKey(Partner, related_name="liftings", null=True, blank=True)
+    field = models.ForeignKey(Field, related_name="liftings", null=True, blank=True)
     # todo: automatically populate lifting_proceed on save
     # todo: make sure lifting _proceed is multiplication of the barrel_price
     # and the volume

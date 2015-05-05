@@ -24,7 +24,7 @@ class AbaPriorityAreasSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AbaPriorityAreas
-        fields = ('amount', 'currency', 'title', 'abfa', 'currency')
+        fields = ('amount', 'currency', 'title', 'abfa')
 
 
 class AnnualBudgetSectorSerializer(serializers.ModelSerializer):
