@@ -1,24 +1,19 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from ouroilmoney.apps.reports.models import ConfirmReport
-from ouroilmoney.utils.models import TimeStampedPublishModel
+from ouroilmoney.utils.models import TimeStampedPublishModel, Partner, Field
 
 
 # Create your models here.
 class Lifting(TimeStampedPublishModel):
-    JUBILEE = "GJ"
-    TEN = "TN"
-
-    PARTNERS = (
-        (JUBILEE, 'GHANA JUBILEE'),
-        (TEN, 'TEN'))
 
     report = models.ForeignKey(ConfirmReport)
     date = models.DateField()
     volume_of_lifting = models.IntegerField()
     selling_price = models.DecimalField(max_digits=10, decimal_places=3)
     lifting_proceed = models.DecimalField(max_digits=19, decimal_places=3)
-    partner = models.CharField(choices=PARTNERS, default="JUBILEE", max_length=500, verbose_name='Partner', null=True, blank=True)
+    partner = models.ForeignKey(Partner, default=None, related_name="liftings")
+    field = models.ForeignKey(Field, default=None, related_name="liftings")
     # todo: automatically populate lifting_proceed on save
     # todo: make sure lifting _proceed is multiplication of the barrel_price
     # and the volume

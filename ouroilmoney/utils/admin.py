@@ -1,5 +1,5 @@
 from django.contrib import admin
-from ouroilmoney.utils.models import Region, SmsMessage, Ministry
+from ouroilmoney.utils.models import Region, SmsMessage, Ministry, Partner, Field
 
 
 # Register your models here.
@@ -12,6 +12,19 @@ class RegionAdmin(admin.ModelAdmin):
 @admin.register(Ministry)
 class MinistryAdmin(admin.ModelAdmin):
     fields = ['ministry']
+
+
+@admin.register(Partner)
+class PartnerAdmin(admin.ModelAdmin):
+    fields = ['partner', 'is_published']
+    list_display = ('partner', 'is_published')
+
+
+@admin.register(Field)
+class FieldAdmin(admin.ModelAdmin):
+    fields = ['field', 'is_published']
+    list_display = ('field', 'is_published')
+
 
 @admin.register(SmsMessage)
 class SmsCommentAdmin(admin.ModelAdmin):

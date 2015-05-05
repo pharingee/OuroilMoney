@@ -14,7 +14,7 @@ class AmountModel(models.Model):
     currency= models.CharField(max_length='5', choices=CURRENCY, default=DOLLARS)
 
     class Meta:
-        abstract=True
+        abstract = True
 
 
 class TimeStampedPublishModel(models.Model):
@@ -30,71 +30,19 @@ class TimeStampedPublishModel(models.Model):
         abstract = True
 
 
-
-
 class Ministry(models.Model):
-    # todo:write validations to avoid adding regions if dey already exists.
-    # or if you are about to delete a region dat does not exist.
-    COMMUNICATION = 'MINISTRY OF COMMUNICATON AND TECHNOLOGY'
-    DEFENCE = 'MINISTRY OF DEFENCE'
-    EDUCATIONANDSPORTS = 'MINISTRY OF EDUCATION AND SPORTS'
-    ENERGY = 'MINISTRY OF ENERGY'
-    ENVIRONMENTANDSCIENCE = 'MINISTRY OF ENVIRONMENT AND SCIENCE'
-    FINCANCEANDPLANNING = 'MINISTRY OF FINANCE AND ECONOMIC PLANNING'
-    FOODANDAGRICULTURE = 'MINISTRY OF FOOD AND AGRICULTURE'
-    FOREIGNAFFAIRS = 'MINISTRY OF FOREIGN AFFAIRS'
-    HEALTH = 'MINISTRY OF HEALTH'
-    INFORMATION = 'MINISTRY OF INFORMATION'
-    JUSTICE = "MINISTRY OF JUSTICE AND ATTORNEY GENERAL'S DEPARTMENT"
-    LANDS = 'MINISTRY OF LANDS, AND FORESTRY & MINES'
-    LOCALGOVERNMENT = 'MINISTRY OF LOCAL GOVERNMENT AND RURAL DEVELOPMENT'
-    YOUTH = 'MINISTRY OF MANPOWER, YOUTH & EMPLOYMENT'
-    PARLIAMENTARYAFFAIRS = 'MINISTRY OF PARLIAMENTARY AFFAIRS'
-    PRIVATESECTORDEVELOPMENT ="MINISTRY OF PRIVATE SECTOR DEVELOPMENT & PSI"
-    REGIONALCOOPERATION ='MINISTY OF REGIONAL COOPERATION AND NEPAD (MRCN)'
-    ROADTRANSPORT='MINISTRY OF ROAD TRANSPORT'
-    TOURISMMODERNIZATION = 'Ministry of Tourism & Modernization of The Capital City '
-    TRADEINDUSTRY= 'MINISITRY OF TRADE & INDUSTRY'
-    WOMENCHILDRENSAFFAIRS = "MINISTY OF WOMEN & CHILDERN'S Affairs"
-    WORKSHOUSING = 'MINISTRY OF WORKS AND HOUSING'
-
-    MINISTRIES = (
-        ('WS', WORKSHOUSING),
-        ('DF', DEFENCE),
-        ('FP', FINCANCEANDPLANNING),
-        ('FAA', FOODANDAGRICULTURE),
-        ('FA', FOREIGNAFFAIRS),
-        ('WA', WOMENCHILDRENSAFFAIRS),
-        ('TI', TRADEINDUSTRY),
-        ('TM', TOURISMMODERNIZATION),
-        ('RT', ROADTRANSPORT),
-        ('RC', REGIONALCOOPERATION),
-        ('PD', PRIVATESECTORDEVELOPMENT),
-        ('PA', PARLIAMENTARYAFFAIRS),
-        ('YH', YOUTH),
-        ('LG', LOCALGOVERNMENT),
-        ('ES', EDUCATIONANDSPORTS),
-        ('EG', ENERGY),
-        ('ENS', ENVIRONMENTANDSCIENCE),
-        ('CN', COMMUNICATION),
-        ('HT', HEALTH),
-        ('IN', INFORMATION),
-        ('JS', JUSTICE),
-        ('LS', LANDS))
-
     ministry = models.CharField(
         max_length=500,
-        verbose_name='ministry of Project',
-        choices=MINISTRIES,
+        verbose_name='ministry',
         blank=True,
         null=True)
 
     def __unicode__(self):
-        return self.get_ministry_display()
+        return self.ministry
 
     class Meta:
         verbose_name = 'Ministry'
-        verbose_name_plural = "Ministries"
+        verbose_name_plural = "Ministries in Ghana"
 
 
 class Region(models.Model):
@@ -181,3 +129,27 @@ class SmsMessage(models.Model):
     def get_user(self):
         user= "+233" +"*****" + self.user[-4:]
         return user
+
+
+class Partner(TimeStampedPublishModel):
+
+    partner = models.CharField(max_length='500', verbose_name="oil partners")
+
+    class Meta:
+        verbose_name = 'oil partner'
+        verbose_name_plural = 'Oil partners'
+
+    def __unicode__(self):
+        return self.partner
+
+
+class Field(TimeStampedPublishModel):
+
+    field = models.CharField(max_length='500', verbose_name="oil field")
+
+    class Meta:
+        verbose_name = 'oil field'
+        verbose_name_plural = 'Oil field'
+
+    def __unicode__(self):
+        return self.field

@@ -18,8 +18,11 @@ from apps.allocations.api.views import (
     ConfirmAllocationViewSet)
 from apps.knowledgehubs.api.views import (
     KnowledgeHubViewSet)
-from utils.api.views import SmsMessageViewSet, MinistryViewset
-
+from utils.api.views import (
+    SmsMessageViewSet,
+    MinistryViewset,
+    OilPartnerViewset,
+    OilFieldViewset)
 
 router = DefaultRouter()
 router.register(r'reports', ReportViewSet, base_name="reports")
@@ -36,6 +39,8 @@ router.register(r'otherprojects', ConfirmProjectViewSet)
 router.register(r'knowledgehubs', KnowledgeHubViewSet)
 router.register(r'comments', SmsMessageViewSet)
 router.register(r'ministries', MinistryViewset)
+router.register(r'fields', OilFieldViewset)
+router.register(r'partner', OilPartnerViewset)
 
 
 urlpatterns = patterns(

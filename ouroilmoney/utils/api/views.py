@@ -3,13 +3,21 @@ from rest_framework.permissions import AllowAny
 from rest_framework.decorators import (
     api_view, permission_classes
 )
-from ouroilmoney.utils.models import SmsMessage,Ministry
+from ouroilmoney.utils.models import (
+    SmsMessage,
+    Ministry,
+    Partner,
+    Field)
+
 from rest_framework.status import (
     HTTP_200_OK,
     HTTP_400_BAD_REQUEST,
 )
 
-from  ouroilmoney.utils.api.serializers import SmsMessageSerializer, MinistrySerializer
+from ouroilmoney.utils.api.serializers import (
+    SmsMessageSerializer,
+    MinistrySerializer, OilPartnerSerializer, OilFieldSerializer)
+
 from rest_framework import viewsets
 from rest_framework.decorators import list_route
 
@@ -50,4 +58,14 @@ class SmsMessageViewSet(viewsets.ReadOnlyModelViewSet):
 # todod:convert response into list of ministries
 class MinistryViewset(viewsets.ReadOnlyModelViewSet):
     serializer_class = MinistrySerializer
-    queryset = Ministry.objects.all().values()
+    queryset = Ministry.objects.all()
+
+
+class OilFieldViewset(viewsets.ReadOnlyModelViewSet):
+    serializer_class = OilFieldSerializer
+    queryset = Field.objects.all()
+
+
+class OilPartnerViewset(viewsets.ReadOnlyModelViewSet):
+    serializer_class = OilPartnerSerializer
+    queryset = Partner.objects.all()
