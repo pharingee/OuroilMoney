@@ -165,4 +165,4 @@ class SubCategory(TimeStampedPublishModel):
         verbose_name_plural = 'subcategories for knowledge hub'
 
     def __unicode__(self):
-        return self.subcategories
+        return self.subcategory
