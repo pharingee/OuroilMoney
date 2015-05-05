@@ -15,13 +15,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='lifting',
             name='partner',
-            field=models.ForeignKey(default=None, to='utils.Partner'),
+            field=models.ForeignKey(to='utils.Partner'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='lifting',
             name='project',
-            field=models.ForeignKey(default=None, to='utils.Project'),
+            field=models.ForeignKey(to='utils.Project'),
             preserve_default=True,
         ),
     ]
