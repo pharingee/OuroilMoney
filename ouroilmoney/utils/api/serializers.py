@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from ouroilmoney.utils.models import SmsMessage, Ministry, Partner, Field
-from ouroilmoney.apps.liftings.api.serializers import LiftingSerializer
 from ouroilmoney.apps.projects.api.serializers import AnnualBudgetProjectSerializer
 
 
@@ -24,19 +23,14 @@ class MinistrySerializer(serializers.ModelSerializer):
 
 
 class OilPartnerSerializer(serializers.ModelSerializer):
-    liftings = LiftingSerializer(many=True)
 
     class Meta:
         model = Partner
-        fields = ('partner', 'liftings')
+        fields = ('partner',)
 
 
 class OilFieldSerializer(serializers.ModelSerializer):
-    liftings = LiftingSerializer(many=True)
 
     class Meta:
         model = Field
-        fields = ('field', 'id', 'liftings')
-
-
-
+        fields = ('field',)
