@@ -116,6 +116,9 @@ class AnnualBudgetProject(ProjectModel):
     def sector_title(self):
         return self.sector.title
 
+    @property
+    def ministry_name(self):
+        return self.ministry.ministry
     # def clean(self):
     #     if self.amount:
     #         if self.amount > self.sector.amount:
