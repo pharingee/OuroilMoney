@@ -38,6 +38,14 @@ class AnnualBudgetSectorSerializer(serializers.ModelSerializer):
         fields = ('title', 'amount', 'currency', 'allocation', 'othersectors')
 
 
+class AnnualBudgetSectorProjectSerializer(serializers.ModelSerializer):
+    allocation_report_date = serializers.Field(source='allocation_date')
+
+    class Meta:
+        model = AnnualBudgetSector
+        fields = ('allocation_report_date',)
+
+
 class ConfirmProjectSerializer(serializers.ModelSerializer):
     sector = ConfirmSectorSerializer()
 
@@ -48,10 +56,19 @@ class ConfirmProjectSerializer(serializers.ModelSerializer):
             'image')
 
 
+class ConfirmAnnualProjectSerializer(serializers.ModelSerializer):
+    other_allocation_report_date = serializers.Field(source='other_allocation_date')
+
+
+    class Meta:
+        model = ConfirmProject
+        fields = ('other_allocation_report_date',)
+
+
 class AnnualBudgetProjectSerializer(serializers.ModelSerializer):
-    sector = AnnualBudgetSectorSerializer()
-    otherprojects = ConfirmProjectSerializer(many=True)
-    ministry =  MinistrySerializer()
+    sector = AnnualBudgetSectorProjectSerializer()
+    otherprojects = ConfirmAnnualProjectSerializer()
+    ministry = MinistrySerializer()
 
     class Meta:
         model = AnnualBudgetProject

@@ -56,6 +56,10 @@ class AnnualBudgetSector(AmountModel, TimeStampedPublishModel):
             return '{currency} {amount}'.format(
                 currency=self.currency,
                 amount=self.amount)
+    @property
+    def allocation_date(self):
+        if self.allocation is not None:
+            return self.allocation.report.date
 
     def __unicode__(self):
         return '{title} {currency} {amount}'.format(
@@ -182,6 +186,11 @@ class ConfirmProject(ProjectModel):
         return '{currency} {amount}'.format(
             currency=self.currency,
             amount=self.amount)
+
+    @property
+    def other_allocation_date(self):
+        if self.sector.allocation is not None:
+            return self.sector.allocation.report.date
 
     # def clean(self):
     #     if self.amount:

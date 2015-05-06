@@ -14,9 +14,10 @@ class SmsMessageSerializer(serializers.ModelSerializer):
 
 
 class MinistrySerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Ministry
-        fields = ('ministry', 'annualbudgetprojects')
+        fields = ('ministry',)
 
 
 class OilPartnerSerializer(serializers.ModelSerializer):
