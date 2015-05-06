@@ -10,6 +10,8 @@ from ouroilmoney.apps.allocations.api.serializers import (
     AnnualBudgetAllocationSerializer,
     ConfirmAllocationSerializer)
 
+from ouroilmoney.utils.api.serializers import MinistrySerializer
+
 
 class ConfirmSectorSerializer(serializers.ModelSerializer):
     allocation = ConfirmAllocationSerializer()
@@ -49,12 +51,13 @@ class ConfirmProjectSerializer(serializers.ModelSerializer):
 class AnnualBudgetProjectSerializer(serializers.ModelSerializer):
     sector = AnnualBudgetSectorSerializer()
     otherprojects = ConfirmProjectSerializer(many=True)
+    ministry =  MinistrySerializer()
 
     class Meta:
         model = AnnualBudgetProject
         fields = (
             'id', 'title','amount','currency', 'sector','otherprojects',
-            'created','modified','regions', 'town')
+            'created','modified','regions', 'town','ministry')
 
 
 class ProjectListSerializer(serializers.ModelSerializer):
