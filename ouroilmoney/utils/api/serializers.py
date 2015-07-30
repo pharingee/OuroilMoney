@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ouroilmoney.utils.models import SmsMessage, Ministry, Partner, Field
+from ouroilmoney.utils.models import SmsMessage, Ministry, Partner, Field, Region
 
 
 
@@ -32,3 +32,10 @@ class OilFieldSerializer(serializers.ModelSerializer):
     class Meta:
         model = Field
         fields = ('field',)
+
+
+class RegionSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Region
+        fields = ('region',)

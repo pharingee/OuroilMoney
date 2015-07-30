@@ -10,7 +10,7 @@ from ouroilmoney.apps.allocations.api.serializers import (
     AnnualBudgetAllocationSerializer,
     ConfirmAllocationSerializer)
 
-from ouroilmoney.utils.api.serializers import MinistrySerializer
+from ouroilmoney.utils.api.serializers import MinistrySerializer, RegionSerializer
 
 
 class ConfirmSectorSerializer(serializers.ModelSerializer):
@@ -81,6 +81,7 @@ class ProjectListSerializer(serializers.ModelSerializer):
     sector_title = serializers.CharField()
     allocation_date = serializers.CharField()
     ministry = serializers.Field(source='ministry_name')
+    regions = RegionSerializer(many=True)
 
 
     class Meta:
