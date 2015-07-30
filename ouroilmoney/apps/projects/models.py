@@ -117,6 +117,10 @@ class AnnualBudgetProject(ProjectModel):
         return self.sector.title
 
     @property
+    def allocation_date(self):
+        return self.sector.allocation.report.date
+
+    @property
     def ministry_name(self):
         if self.ministry is not None:
             return self.ministry.ministry

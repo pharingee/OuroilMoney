@@ -79,9 +79,12 @@ class AnnualBudgetProjectSerializer(serializers.ModelSerializer):
 
 class ProjectListSerializer(serializers.ModelSerializer):
     sector_title = serializers.CharField()
+    allocation_date = serializers.CharField()
     ministry = serializers.Field(source='ministry_name')
 
 
     class Meta:
         model = AnnualBudgetProject
-        fields = ('id', 'title', 'sector_title','ministry')
+        fields = (
+            'id', 'title', 'sector_title', 'amount', 'allocation_date',
+            'regions', 'ministry')
