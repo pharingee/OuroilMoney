@@ -1,0 +1,90 @@
+{% extends 'layout.html' %}
+{% load staticfiles %}
+{% load ouroilmoney_filters %}
+{% load humanize %}
+
+{% block page_title %} Projects - {% endblock %}
+
+{% block body %}
+  <section id="data">
+    <div class="container">
+    <div class="row"></div>
+      <div class="row breadcrumbs"><div class="chip"><a href="{% url 'frontend:home' %}">Home</a></div> > <div class="chip">Projects</div>
+
+      <div class="row center-align"><h5>Projects</h5><p></p><div class="divider"></div></div>
+
+      <div class="row">
+        <div class="col s9 l10">
+          <div>
+            <form action="{% url 'frontend:projects' %}" method="GET">
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="search" type="text" class="validate" name="search" value="{% if search %}{{search}}{% endif %}">
+                  <label for="search"><i class="material-icons left">search</i>Search</label>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div>
+            <table class="bordered striped highlight responsive-table">
+              <thead>
+                <tr>
+                  <th id="title">Project Title</th>
+                  <th id="region">Region(s)</th>
+                  <th id="town">Town</th>
+                  <th id="sector">Sector</th>
+                  <th id="ministry">Ministry</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for project in projects %}
+                <tr>
+                  <td><a href="{% url 'frontend:project' project.id %}">{{project.title}}</a></td>
+                  <td>{% for region in project.regions.all %}{{region.region}}{% endfor %}</td>
+                  <td><a href="{% url 'frontend:projects' %}?search={{project.town}}">{{project.town}}</a></td>
+                  <td><a href="{% url 'frontend:projects' %}?search={{project.sector.title}}">{{project.sector.title}}</a></td>
+                  <td><a href="{% url 'frontend:projects' %}?search={{project.ministry.ministry}}">{{project.ministry.ministry}}</a></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            {% if not projects %}<p class="grey-text center-align">There are no projects that match your criteria</p>{% endif %}
+            {% if projects %}
+            <ul class="pagination center-align">
+              {% if projects.has_previous %}
+              <li class="disabled"><a href="{% url 'frontend:projects' %}?page={{projects.previous_page_number}}{% if search %}&search={{search}}{% endif %}{% if sector %}&sector={{sector}}{% endif %}{% if sort_by %}&sort={{sort_by}}{% endif %}"><i class="material-icons">chevron_left</i></a></li>{% endif %}
+              {% for page_num in projects.paginator.page_range %}
+              <li class="waves-effect {% if projects.number == page_num %}active teal{% endif %}">
+                <a href="{% url 'frontend:projects' %}?page={{page_num}}{% if search %}&search={{search}}{% endif %}{% if sector %}&sector={{sector}}{% endif %}{% if sort_by %}&sort={{sort_by}}{% endif %}">{{page_num}}</a>
+              </li>
+              {% endfor %}
+              {% if projects.has_next %}
+              <li class="waves-effect">
+                <a href="{% url 'frontend:projects' %}?page={{projects.next_page_number}}{% if search %}&search={{search}}{% endif %}{% if sector %}&sector={{sector}}{% endif %}{% if sort_by %}&sort={{sort_by}}{% endif %}"><i class="material-icons">chevron_right</i></a>
+              </li>
+              {% endif %}
+            </ul>
+            {% endif %}
+          </div>
+        </div>
+        <div class="col s3 l2">
+          <div class="tabs-wrapper pin-top" style="top: 0px;">
+            <div style="height: 1px;">
+              <ul class="section table-of-contents">
+                <li>
+                  <a href="{% url 'frontend:projects' %}?sort=sector{% if search %}&search={{search}}{% endif %}{% if sector %}&sector={{sector}}{% endif %}" class="{{sorter.sector}}">Sort by Sector</a>
+                </li>
+                <li>
+                  <a href="{% url 'frontend:projects' %}?sort=town{% if search %}&search={{search}}{% endif %}{% if sector %}&sector={{sector}}{% endif %}" class="{{sorter.town}}">Sort by Town</a>
+                </li>
+                <li>
+                  <a href="{% url 'frontend:projects' %}?sort=ministry{% if search %}&search={{search}}{% endif %}{% if sector %}&sector={{sector}}{% endif %}" class="{{sorter.ministry}}">Sort by Ministry</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

@@ -3,13 +3,13 @@
 {% load ouroilmoney_filters %}
 {% load humanize %}
 
-{% block page_title %} {{year}} Revenues {% endblock %}
+{% block page_title %} {{year}} Revenues - {% endblock %}
 
 {% block body %}
   <section id="data">
     <div class="container">
     <div class="row"></div>
-      <div class="row breadcrumbs"><div class="chip"><a href="{% url 'frontend:home' %}">Home</a></div> > <div class="chip"><a href="">Data</a></div> > <div class="chip">Yearly {{type}}</div></div>
+      <div class="row breadcrumbs"><div class="chip"><a href="{% url 'frontend:home' %}">Home</a></div> > <div class="chip"><a href="{% url 'frontend:data' %}">Data</a></div> > <div class="chip">Yearly {{type}}</div></div>
 
       <div class="row center-align"><h5>Yearly {{type}} Chart</h5><div class="divider"></div></div>
 
@@ -35,7 +35,7 @@
       <div class="row center-align"><h5>Yearly {{type}} Table</h5><div class="divider"></div></div>
 
       <div class="row">
-        <table>
+        <table class="bordered striped highlight responsive-table">
           <thead>
             <tr>
                 <th data-field="id">Category</th>
@@ -54,6 +54,36 @@
             {% endfor %}
           </tbody>
         </table>
+        <div class='center-align' style="padding-top: 5px">
+          <a href="#" id ="export" role='button'>Click me to export the table data into a CSV file</a>
+        </div>
+      </div>
+
+      <div class="row">
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+             *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+
+            var disqus_config = function () {
+                this.page.url = "http://www.ouroilmoney.org/data/{{type}}/{{year}}";  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = 'frontend_{{type}}_{{year}}'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+            };
+
+            (function() {  // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = '//ouroilmoney.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>
+          Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+        </noscript>
       </div>
     </div>
   </section>
@@ -124,6 +154,52 @@
           {% endfor %}
           ]
         }]
+      });
+    });
+  </script>
+  <script type='text/javascript'>
+    $(document).ready(function () {
+      console.log("HELLO")
+      function exportTableToCSV($table, filename) {
+        var $headers = $table.find('tr:has(th)')
+        ,$rows = $table.find('tr:has(td)')
+        ,tmpColDelim = String.fromCharCode(11)
+        ,tmpRowDelim = String.fromCharCode(0)
+        ,colDelim = '","'
+        ,rowDelim = '"\r\n"';
+        var csv = '"';
+        csv += formatRows($headers.map(grabRow));
+        csv += rowDelim;
+        csv += formatRows($rows.map(grabRow)) + '"';
+        var csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
+        $(this)
+        .attr({
+          'download': filename
+          ,'href': csvData
+        });
+
+        function formatRows(rows){
+          return rows.get().join(tmpRowDelim)
+          .split(tmpRowDelim).join(rowDelim)
+          .split(tmpColDelim).join(colDelim);
+        }
+        function grabRow(i,row){
+          var $row = $(row);
+          var $cols = $row.find('td');
+          if(!$cols.length) $cols = $row.find('th');
+          return $cols.map(grabCol)
+          .get().join(tmpColDelim);
+        }
+        function grabCol(j,col){
+          var $col = $(col),
+          $text = $col.text();
+          return $text.replace('"', '""');
+        }
+      }
+      $("#export").click(function (event) {
+        var outputFile = window.prompt("What do you want to name your output file (Note: This won't have any effect on Safari)") || 'export';
+        outputFile = outputFile.replace('.csv','') + '.csv'
+        exportTableToCSV.apply(this, [$('table'), outputFile]);
       });
     });
   </script>

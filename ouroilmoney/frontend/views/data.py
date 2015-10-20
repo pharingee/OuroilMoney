@@ -61,7 +61,6 @@ def liftings(request, year):
     total = 0
     for lifting in lifting_objects:
         years.add(lifting.date.year)
-        print lifting.date.year, year
         if lifting.date.year == int(year):
             liftings[lifting.partner] = (
                 float(lifting.volume_of_lifting) *
@@ -71,8 +70,6 @@ def liftings(request, year):
                 float(lifting.volume_of_lifting) *
                 float(lifting.selling_price)
             )
-
-    print liftings, total
 
     return render(
         request, 'liftings.html',
@@ -107,5 +104,6 @@ def abfa_priority(request):
 
 
 def abfa_sectors(request):
-    abfas = AnnualBudgetSector.objects.all()
+    abfas = AnnualBudgetSector.objects.all().order_by(
+        'title').distinct('title')
     return render(request, 'abfa-sectors.html', {'abfas': abfas})

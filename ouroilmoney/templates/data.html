@@ -1,0 +1,71 @@
+{% extends 'layout.html' %}
+
+{% block page_title %} {{year}} Data - {% endblock %}
+
+{% block body %}
+  <section id="data">
+    <div class="container">
+    <div class="row"></div>
+      <div class="row breadcrumbs"><div class="chip"><a href="{% url 'frontend:home' %}">Home</a></div> > <div class="chip">Data</div></div>
+
+      <div class="row center-align">
+        <h5>Data</h5>
+        <p class="align-center grey-text">Data visualization options</p>
+        <div class="divider"></div>
+      </div>
+
+      <div class="row">
+        <div class="col s4">
+          <a href="{% url 'frontend:revenues' 2011 %}" class="white-text">
+            <div class="card panel teal valign-wrapper hoverable" style="height: 90px; padding-left: 10px">
+              <div class="white-text valign ">
+                <p class="center-align" style="padding-left: 30px">Revenues</p>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col s4">
+          <a href="{% url 'frontend:allocations' 2011 %}" class="white-text">
+            <div class="card panel teal valign-wrapper hoverable" style="height: 90px; padding-left: 10px">
+              <div class="white-text valign ">
+                <p class="center-align" style="padding-left: 30px">Allocations</p>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col s4">
+          <a href="{% url 'frontend:revenues' 2011 %}" class="white-text">
+            <div class="card panel teal valign-wrapper hoverable" style="height: 90px; padding-left: 10px">
+              <div class="white-text valign ">
+                <p class="center-align" style="padding-left: 30px">Liftings</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s4 offset-s2">
+          <a href="{% url 'frontend:abfa_sectors' %}" class="white-text">
+            <div class="card panel teal valign-wrapper hoverable" style="height: 90px; padding-left: 10px">
+              <div class="white-text valign ">
+                <p class="center-align" style="padding-left: 30px">ABFA Sectors</p>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col s4">
+          <a href="{% url 'frontend:abfa_priority' %}" class="white-text">
+            <div class="card panel teal valign-wrapper hoverable" style="height: 90px; padding-left: 10px">
+              <div class="white-text valign ">
+                <p class="center-align" style="padding-left: 30px">ABFA By Priority Areas</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

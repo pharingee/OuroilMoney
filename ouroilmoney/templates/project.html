@@ -1,0 +1,92 @@
+{% extends 'layout.html' %}
+{% load ouroilmoney_filters %}
+
+{% block page_title %} Project: {{project.title}} - {% endblock %}
+
+{% block body %}
+  <section id="data">
+    <div class="container">
+    <div class="row"></div>
+      <div class="row breadcrumbs"><div class="chip"><a href="{% url 'frontend:home' %}">Home</a></div> > <div class="chip"><a href="{% url 'frontend:projects' %}">Projects</a></div> > <div class="chip">{{project.title}}</div></div>
+
+      <div class="row center-align">
+        <h5>Project</h5>
+        <p class="align-center ">{{project.title}}</p>
+        <div class="divider"></div>
+      </div>
+
+      <div class="row">
+        <div class="col s12 m6">
+          <p class="center-align" style="font-size: 1.5em">Project Information</p>
+          <div class="row">
+            <div class="col s4 right-align"><p><strong class="grey-text">Region{% if regions|get_iter_size > 1 %}s{% endif %}</strong>:</p></div>
+            <div class="col s8"><p>{% for region in project.regions.all %}{{region.region}}{% endfor %}</p></div>
+          </div>
+          <div class="row">
+            <div class="col s4 right-align"><p><strong class="grey-text">Town/City</strong>:</p></div>
+            <div class="col s8"><p>{{project.town}}</p></div>
+          </div>
+          <div class="row">
+            <div class="col s4 right-align"><p><strong class="grey-text">Ministry</strong>:</p></div>
+            <div class="col s8"><p>{{project.ministry.ministry}}</p></div>
+          </div>
+          <div class="row">
+            <div class="col s4 right-align"><p><strong class="grey-text">Sector</strong>:</p></div>
+            <div class="col s8"><p>{{project.sector.title}}</p></div>
+          </div>
+        </div>
+        <div class="col s12 m6">
+          <p class="center-align" style="font-size: 1.5em">Project Funding</p>
+          <table class="bordered striped highlight responsive-table">
+            <thead>
+              <tr>
+                <th id="year">Year</th>
+                <th id="amount">Amount (GHS)</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>{{project.allocation_date.year}}</td>
+                <td>{{project.amount}}</td>
+              </tr>
+              {% for allocation in project.other_projects %}
+                <tr>
+                  <td>{{allocation.other_allocation_date}}</td>
+                  <td>{{allocation.amount}}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="row">
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+             *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+
+            var disqus_config = function () {
+                this.page.url = "http://www.ouroilmoney.org{% url 'frontend:project' project.id %}";  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = 'frontend_project_{{project.id}}'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+            };
+
+            (function() {  // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = '//ouroilmoney.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>
+          Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+  </section>
+{% endblock %}

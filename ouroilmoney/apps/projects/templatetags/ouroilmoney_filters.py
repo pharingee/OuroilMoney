@@ -30,3 +30,8 @@ def remove_commas(val):
 def is_equal(string, compare):
     print string, compare
     return True
+
+
+@register.filter
+def get_iter_size(iterable):
+    return len(iterable)

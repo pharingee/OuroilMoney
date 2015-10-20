@@ -22,7 +22,7 @@
         <li><a href="{% url 'frontend:allocations' 2011 %}">Allocations</a></li>
         <li><a href="{% url 'frontend:liftings' 2011 %}">Liftings</a></li>
         <li role="separator" class="divider"></li>
-        <li><a href="{% url 'frontend:abfa_sectors' %}">ABFA by Sectors</a></li>
+        <li><a href="{% url 'frontend:abfa_sectors' %}">ABFA Sectors</a></li>
         <li><a href="{% url 'frontend:abfa_priority' %}">ABFA by Priority Areas</a></li>
       </ul>
       <ul id="resource-dropdown" class="dropdown-content">
@@ -36,18 +36,18 @@
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
               <li>
-                <a class="dropdown-button" href="#!" data-activates="data-dropdown" data-constrainwidth="false">
+                <a class="dropdown-button" href="{% url 'frontend:data' %}" data-activates="data-dropdown" data-constrainwidth="false">
                   Data <i class="material-icons right">arrow_drop_down</i>
                 </a>
               </li>
               <li>
-                <a class="dropdown-button" href="#!" data-activates="resource-dropdown" data-constrainwidth="false">
+                <a class="dropdown-button" href="{% url 'frontend:resources' %}" data-activates="resource-dropdown" data-constrainwidth="false">
                   Resources <i class="material-icons right">arrow_drop_down</i>
                 </a>
               </li>
-              <li><a href="">Projects</a></li>
+              <li><a href="{% url 'frontend:projects' %}">Projects</a></li>
               <li><a href="/#partners">Partners</a></li>
-              <li><a href="">Comments</a></li>
+              <li><a href="{% url 'frontend:comments' %}">Comments</a></li>
             </ul>
             <ul class="side-nav" id="mobile-demo">
               <li class="no-padding">
@@ -60,7 +60,7 @@
                         <li><a href="{% url 'frontend:allocations' 2011 %}">Allocations</a></li>
                         <li><a href="{% url 'frontend:liftings' 2011 %}">Liftings</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="{% url 'frontend:abfa_sectors' %}">ABFA by Sectors</a></li>
+                        <li><a href="{% url 'frontend:abfa_sectors' %}">ABFA Sectors</a></li>
                         <li><a href="{% url 'frontend:abfa_priority' %}">ABFA by Priority Areas</a></li>
                       </ul>
                     </div>
@@ -80,9 +80,9 @@
                   </li>
                 </ul>
               </li>
-              <li><a href="">Projects</a></li>
+              <li><a href="{% url 'frontend:projects' %}">Projects</a></li>
               <li><a href="/#partners">Partners</a></li>
-              <li><a href="">Comments</a></li>
+              <li><a href="{% url 'frontend:comments' %}">Comments</a></li>
             </ul>
           </div>
         </div>
@@ -112,5 +112,15 @@
   <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
   {% block extra_scripts %}
   {% endblock %}
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-68608778-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
 </body>
 </html>

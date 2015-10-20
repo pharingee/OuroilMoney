@@ -1,17 +1,17 @@
 {% extends 'layout.html' %}
 {% load ouroilmoney_filters %}
 
-{% block page_title %} {{year}} Knowledge Hub {% endblock %}
+{% block page_title %} {{year}} Knowledge Hub - {% endblock %}
 
 {% block body %}
   <section id="data">
     <div class="container">
     <div class="row"></div>
-      <div class="row breadcrumbs"><div class="chip"><a href="{% url 'frontend:home' %}">Home</a></div> > <div class="chip"><a href="">Resources</a></div> > <div class="chip">Knowledge Hub</div></div>
+      <div class="row breadcrumbs"><div class="chip"><a href="{% url 'frontend:home' %}">Home</a></div> > <div class="chip"><a href="{% url 'frontend:resources' %}">Resources</a></div> > <div class="chip">Knowledge Hub</div></div>
 
       <div class="row center-align">
         <h5>Knowledge Hub</h5>
-        {% if knowledgehub %}<p class="align-center grey-text">Released reports</p>{% endif %}
+        {% if subcategories %}<p class="align-center grey-text">Released reports</p>{% endif %}
         <div class="divider"></div>
       </div>
 
@@ -19,7 +19,7 @@
         <ul class="collapsible" data-collapsible="accordion">
           {% for category, subcategory in subcategories.items %}
             <li>
-              <div class="collapsible-header">{{category}}</div>
+              <div class="collapsible-header {% if forloop.counter == 1 %}active{% endif %}">{{category}}</div>
               <div class="collapsible-body">
                 {% for subcategory_item, knowledges in subcategory.items %}
                   {% if subcategory_item == 'all' %}
@@ -45,9 +45,36 @@
             </li>
           {% endfor %}
         </ul>
-        {% if not knowledgehub %}
+        {% if not subcategories %}
         <p class="center-align">No reports released</p>
         {% endif %}
+      </div>
+
+      <div class="row">
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+             *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+
+            var disqus_config = function () {
+                this.page.url = "http://www.ouroilmoney.org{% url 'frontend:knowledgehub' %}";  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = 'frontend_knowledgehub'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+            };
+
+            (function() {  // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = '//ouroilmoney.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>
+          Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+        </noscript>
       </div>
     </div>
   </section>

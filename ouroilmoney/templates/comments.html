@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+
+{% block page_title %} {{year}} Comments - {% endblock %}
+
+{% block body %}
+  <section id="data">
+    <div class="container">
+    <div class="row"></div>
+      <div class="row breadcrumbs"><div class="chip"><a href="{% url 'frontend:home' %}">Home</a></div> > <div class="chip">Comments</div></div>
+
+      <div class="row center-align">
+        <h5>SMS Comments</h5>
+        <div class="divider"></div>
+      </div>
+
+      <div class="row">
+        <ul class="collection">
+          {% for comment in comments %}
+            <li class="collection-item">
+              <!--<p><strong class="grey-text">By: </strong><strong>{{comment.user}}</strong></p>-->
+              <p><strong class="grey-text">Message: </strong></p>
+              <p style="border: 1px solid #dedede; padding: 5px;">{{comment.message}}</p>
+              <p class="right-align">{{comment.created}}</p>
+            </li>
+          {% endfor %}
+        </ul>
+        {% if comments %}
+          <ul class="pagination center-align">
+            {% if comments.has_previous %}
+            <li class="disabled"><a href="{% url 'frontend:comments' %}?page={{comments.previous_page_number}}"><i class="material-icons">chevron_left</i></a></li>{% endif %}
+            {% for page_num in comments.paginator.page_range %}
+            <li class="waves-effect {% if comments.number == page_num %}active teal{% endif %}">
+              <a href="{% url 'frontend:comments' %}?page={{page_num}}">{{page_num}}</a>
+            </li>
+            {% endfor %}
+            {% if comments.has_next %}
+            <li class="waves-effect">
+              <a href="{% url 'frontend:comments' %}?page={{comments.next_page_number}}"><i class="material-icons">chevron_right</i></a>
+            </li>
+            {% endif %}
+          </ul>
+          {% endif %}
+        {% if not comments %}
+        <p class="center-align">No SMS comments made.</p>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+{% endblock %}

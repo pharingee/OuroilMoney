@@ -3,101 +3,177 @@
 {% load ouroilmoney_filters %}
 {% load humanize %}
 
-{% block page_title %} {{year}} Revenues {% endblock %}
+{% block page_title %} ABFA By Priority Areas - {% endblock %}
 
 {% block body %}
-  <section id="data">
-    <div class="container">
+<section id="data">
+  <div class="container">
     <div class="row"></div>
-      <div class="row breadcrumbs"><div class="chip"><a href="{% url 'frontend:home' %}">Home</a></div> > <div class="chip"><a href="">Data</a></div> > <div class="chip">ABFA By Priority Areas</div></div>
+    <div class="row breadcrumbs"><div class="chip"><a href="{% url 'frontend:home' %}">Home</a></div> > <div class="chip"><a href="{% url 'frontend:data' %}">Data</a></div> > <div class="chip">ABFA By Priority Areas</div></div>
 
-      <div class="row center-align"><h5>Chart of ABFA By Priority Areas</h5><div class="divider"></div></div>
+    <div class="row center-align"><h5>Chart of ABFA By Priority Areas</h5><div class="divider"></div></div>
 
-      <div class="row">
-        <div class="col s12">
-          <div id="other-chart"></div>
-        </div>
-      </div>
-
-      <div class="row center-align"><h5>Table of ABFA By Priority Areas</h5><div class="divider"></div></div>
-
-      <div class="row">
-        <table>
-          <thead>
-            <tr>
-                <th data-field="id">Category</th>
-                {% for year in years %}<th data-field="year-{{year}}">{{year}}</th>{% endfor %}
-            </tr>
-          </thead>
-
-          <tbody>
-            {% for title, abfa in abfas.items %}
-              <tr>
-                <td>{{title}}</td>
-                {% for year, amount in abfa.items %}
-                  <td>$ {{amount | intcomma}}</td>
-                {% endfor %}
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+    <div class="row">
+      <div class="col s12">
+        <div id="other-chart"></div>
       </div>
     </div>
-  </section>
+
+    <div class="row center-align"><h5>Table of ABFA By Priority Areas</h5><div class="divider"></div></div>
+
+    <div class="row">
+      <table class="bordered striped highlight responsive-table">
+        <thead>
+          <tr>
+            <th data-field="id">Category</th>
+            {% for year in years %}<th data-field="year-{{year}}">{{year}}</th>{% endfor %}
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for title, abfa in abfas.items %}
+          <tr>
+            <td>{{title}}</td>
+            {% for year in years %}
+              <td>$ {{abfa|get_item:year|remove_commas}}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class='center-align' style="padding-top: 5px">
+        <a href="#" id ="export" role='button'>Click me to export the table data into a CSV file</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div id="disqus_thread"></div>
+      <script>
+          /**
+           *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+           *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+           */
+
+          var disqus_config = function () {
+              this.page.url = "http://www.ouroilmoney.org{% url 'frontend:abfa_priority' %}";  // Replace PAGE_URL with your page's canonical URL variable
+              this.page.identifier = 'frontend_abfa_priority'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+          };
+
+          (function() {  // DON'T EDIT BELOW THIS LINE
+              var d = document, s = d.createElement('script');
+
+              s.src = '//ouroilmoney.disqus.com/embed.js';
+
+              s.setAttribute('data-timestamp', +new Date());
+              (d.head || d.body).appendChild(s);
+          })();
+      </script>
+      <noscript>
+        Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+      </noscript>
+    </div>
+  </div>
+</section>
 {% endblock %}
 
 {% block extra_scripts %}
-  <script type="text/javascript">
-    $(function () {
+<script type="text/javascript">
+  $(function () {
 
-      Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color) {
-        return {
-          radialGradient: {
-            cx: 0.5,
-            cy: 0.3,
-            r: 0.7
-          },
-          stops: [
-            [0, color],
-            [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
-          ]
-        };
-      });
-      $('#other-chart').highcharts({
-        credits: {
-          enabled: true,
-          href: '',
-          position: {
-            align: 'center'
-          },
-          text: 'Click on the top right corner to download the chart'
+    Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color) {
+      return {
+        radialGradient: {
+          cx: 0.5,
+          cy: 0.3,
+          r: 0.7
         },
-        exporting: {
-          buttons: {
-            contextButton: {
-              text: 'Download'
-            }
+        stops: [
+        [0, color],
+[1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
+]
+};
+});
+    $('#other-chart').highcharts({
+      credits: {
+        enabled: true,
+        href: '',
+        position: {
+          align: 'center'
+        },
+        text: 'Click on the top right corner to download the chart'
+      },
+      exporting: {
+        buttons: {
+          contextButton: {
+            text: 'Download'
           }
-        },
-        chart: {
-          type: 'column'
-        },
+        }
+      },
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: 'ABFAs by across the years'
+      },
+      xAxis: {
+        categories: [{% for year in years %}{{year}},{% endfor %}]
+      },
+      yAxis: {
         title: {
-          text: 'ABFAs by across the years'
-        },
-        xAxis: {
-          categories: [{% for year in years %}{{year}},{% endfor %}]
-        },
-        yAxis: {
-          title: {
-            text: 'Amount in Dollars'
-          }
-        },
-        series: [{% for abfa_title, abfa in abfas.items %}{
-          name: '{{abfa_title}}',
-          data: [{% for year in years %}{{abfa|get_item:year|remove_commas}},{% endfor %}]
-        },{% endfor %} ]
-      });
+          text: 'Amount in Dollars'
+        }
+      },
+      series: [{% for abfa_title, abfa in abfas.items %}{
+        name: '{{abfa_title}}',
+        data: [{% for year in years %}{{abfa|get_item:year|remove_commas}},{% endfor %}]
+      },{% endfor %} ]
     });
-  </script>
+  });
+</script>
+<script type='text/javascript'>
+  $(document).ready(function () {
+    console.log("HELLO")
+    function exportTableToCSV($table, filename) {
+      var $headers = $table.find('tr:has(th)')
+      ,$rows = $table.find('tr:has(td)')
+      ,tmpColDelim = String.fromCharCode(11)
+      ,tmpRowDelim = String.fromCharCode(0)
+      ,colDelim = '","'
+      ,rowDelim = '"\r\n"';
+      var csv = '"';
+      csv += formatRows($headers.map(grabRow));
+      csv += rowDelim;
+      csv += formatRows($rows.map(grabRow)) + '"';
+      var csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
+      $(this)
+      .attr({
+        'download': filename
+        ,'href': csvData
+      });
+
+      function formatRows(rows){
+        return rows.get().join(tmpRowDelim)
+        .split(tmpRowDelim).join(rowDelim)
+        .split(tmpColDelim).join(colDelim);
+      }
+      function grabRow(i,row){
+        var $row = $(row);
+        var $cols = $row.find('td');
+        if(!$cols.length) $cols = $row.find('th');
+        return $cols.map(grabCol)
+        .get().join(tmpColDelim);
+      }
+      function grabCol(j,col){
+        var $col = $(col),
+        $text = $col.text();
+        return $text.replace('"', '""');
+      }
+    }
+    $("#export").click(function (event) {
+      var outputFile = window.prompt("What do you want to name your output file (Note: This won't have any effect on Safari)") || 'export';
+      outputFile = outputFile.replace('.csv','') + '.csv'
+      exportTableToCSV.apply(this, [$('table'), outputFile]);
+    });
+  });
+</script>
 {% endblock %}

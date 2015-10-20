@@ -16,11 +16,16 @@ def knowledgehub(request):
     subcategories = {}
     for knowledge in knowledgehub:
         if knowledge.subcategory:
+            print knowledge.category, knowledge.subcategory.subcategory
             try:
                 subcategories[knowledge.category][
                     knowledge.subcategory.subcategory].append(knowledge)
             except KeyError:
-                subcategories[knowledge.category] = {}
+                if subcategories.get(knowledge.category):
+                    subcategories[knowledge.category][
+                        knowledge.subcategory.subcategory] = []
+                else:
+                    subcategories[knowledge.category] = {}
                 subcategories[knowledge.category][
                     knowledge.subcategory.subcategory] = [knowledge]
         else:

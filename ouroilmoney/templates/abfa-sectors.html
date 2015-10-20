@@ -1,30 +1,26 @@
 {% extends 'layout.html' %}
 
-{% block page_title %} {{year}} Calendar of Reports - {% endblock %}
+{% block page_title %} {{year}} ABFA Sectors - {% endblock %}
 
 {% block body %}
   <section id="data">
     <div class="container">
     <div class="row"></div>
-      <div class="row breadcrumbs"><div class="chip"><a href="{% url 'frontend:home' %}">Home</a></div> > <div class="chip"><a href="{% url 'frontend:resources' %}">Resources</a></div> > <div class="chip">Calendar of Reports</div></div>
+      <div class="row breadcrumbs"><div class="chip"><a href="{% url 'frontend:home' %}">Home</a></div> > <div class="chip"><a href="{% url 'frontend:data' %}">Data</a></div> > <div class="chip">ABFA Sectors</div></div>
 
       <div class="row center-align">
-        <h5>Calendar of reports</h5>
-        {% if calendar %}<p class="align-center grey-text">Reports scheduled for release</p>{% endif %}
+        <h5>ABFA Sectors</h5>
         <div class="divider"></div>
       </div>
 
       <div class="row">
-        {% for calendar_obj in calendar %}
-        <div class="col s5 m4">
-          <div class="card panel" style="height: 100px;">
-            <p style="padding-left: 10px">{{calendar_obj.title}}</p>
-            <p style="padding-left: 10px" class="teal white-text">{{calendar_obj.date}}</p>
-          </div>
-        </div>
-        {% endfor %}
-        {% if not calendar %}
-        <p class="center-align">No reports scheduled for release</p>
+        <ul class="collection">
+          {% for abfa in abfas %}
+            <li class="collection-item"><a href="{% url 'frontend:projects' %}?sector={{abfa.title}}">{{abfa.title}}</a></li>
+          {% endfor %}
+        </ul>
+        {% if not abfas %}
+        <p class="center-align">No ABFA sectors available.</p>
         {% endif %}
       </div>
 
@@ -37,8 +33,8 @@
              */
 
             var disqus_config = function () {
-                this.page.url = "http://www.ouroilmoney.org{% url 'frontend:calendar' %}";  // Replace PAGE_URL with your page's canonical URL variable
-                this.page.identifier = 'frontend_calendar'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                this.page.url = "http://www.ouroilmoney.org{% url 'frontend:abfa_sectors' %}";  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = 'frontend_abfa_sectors'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
             };
 
             (function() {  // DON'T EDIT BELOW THIS LINE

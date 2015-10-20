@@ -4,6 +4,12 @@ urlpatterns = patterns(
     '',
     url(r'^$', 'ouroilmoney.frontend.views.general.home', name='home'),
 
+    url(r'^data/$', 'ouroilmoney.frontend.views.general.data', name='data'),
+    url(r'^comments/$', 'ouroilmoney.frontend.views.general.comments',
+        name='comments'),
+    url(r'^resources/$', 'ouroilmoney.frontend.views.general.resources',
+        name='resources'),
+
     url(r'^data/revenues/(?P<year>[0-9]{4})/$',
         'ouroilmoney.frontend.views.data.revenues', name='revenues'),
     url(r'^data/allocations/(?P<year>[0-9]{4})/$',
@@ -21,4 +27,9 @@ urlpatterns = patterns(
     url(r'^resources/calendar/$',
         'ouroilmoney.frontend.views.resources.report_calendar',
         name='calendar'),
+
+    url(r'^projects/(?P<project_id>[0-9]+)/$',
+        'ouroilmoney.frontend.views.projects.project', name='project'),
+    url(r'^projects/$',
+        'ouroilmoney.frontend.views.projects.projects', name='projects')
 )
