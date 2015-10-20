@@ -3,11 +3,9 @@
 from base import *
 
 
-DEBUG = False
+DEBUG = True
 
 TEMPLATE_DEBUG = DEBUG
-
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 
 STATIC_URL = '/static/'
 
