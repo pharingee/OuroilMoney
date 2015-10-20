@@ -1,0 +1,8 @@
+{% extends 'revenues.html' %}
+{% block table_of_contents %}
+  <ul class="section table-of-contents">
+    {% for rev_year in years %}
+      <li><a href="{% url 'frontend:allocations' rev_year %}" class="{% if rev_year == year %}active{% endif %}">{{rev_year}}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}

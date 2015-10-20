@@ -1,0 +1,103 @@
+{% extends 'layout.html' %}
+{% load staticfiles %}
+{% load ouroilmoney_filters %}
+{% load humanize %}
+
+{% block page_title %} {{year}} Revenues {% endblock %}
+
+{% block body %}
+  <section id="data">
+    <div class="container">
+    <div class="row"></div>
+      <div class="row breadcrumbs"><div class="chip"><a href="{% url 'frontend:home' %}">Home</a></div> > <div class="chip"><a href="">Data</a></div> > <div class="chip">ABFA By Priority Areas</div></div>
+
+      <div class="row center-align"><h5>Chart of ABFA By Priority Areas</h5><div class="divider"></div></div>
+
+      <div class="row">
+        <div class="col s12">
+          <div id="other-chart"></div>
+        </div>
+      </div>
+
+      <div class="row center-align"><h5>Table of ABFA By Priority Areas</h5><div class="divider"></div></div>
+
+      <div class="row">
+        <table>
+          <thead>
+            <tr>
+                <th data-field="id">Category</th>
+                {% for year in years %}<th data-field="year-{{year}}">{{year}}</th>{% endfor %}
+            </tr>
+          </thead>
+
+          <tbody>
+            {% for title, abfa in abfas.items %}
+              <tr>
+                <td>{{title}}</td>
+                {% for year, amount in abfa.items %}
+                  <td>$ {{amount | intcomma}}</td>
+                {% endfor %}
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block extra_scripts %}
+  <script type="text/javascript">
+    $(function () {
+
+      Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color) {
+        return {
+          radialGradient: {
+            cx: 0.5,
+            cy: 0.3,
+            r: 0.7
+          },
+          stops: [
+            [0, color],
+            [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
+          ]
+        };
+      });
+      $('#other-chart').highcharts({
+        credits: {
+          enabled: true,
+          href: '',
+          position: {
+            align: 'center'
+          },
+          text: 'Click on the top right corner to download the chart'
+        },
+        exporting: {
+          buttons: {
+            contextButton: {
+              text: 'Download'
+            }
+          }
+        },
+        chart: {
+          type: 'column'
+        },
+        title: {
+          text: 'ABFAs by across the years'
+        },
+        xAxis: {
+          categories: [{% for year in years %}{{year}},{% endfor %}]
+        },
+        yAxis: {
+          title: {
+            text: 'Amount in Dollars'
+          }
+        },
+        series: [{% for abfa_title, abfa in abfas.items %}{
+          name: '{{abfa_title}}',
+          data: [{% for year in years %}{{abfa|get_item:year|remove_commas}},{% endfor %}]
+        },{% endfor %} ]
+      });
+    });
+  </script>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% block page_title %} {{year}} Calendar of Reports {% endblock %}
+
+{% block body %}
+  <section id="data">
+    <div class="container">
+    <div class="row"></div>
+      <div class="row breadcrumbs"><div class="chip"><a href="{% url 'frontend:home' %}">Home</a></div> > <div class="chip"><a href="">Resources</a></div> > <div class="chip">Calendar of Reports</div></div>
+
+      <div class="row center-align">
+        <h5>Calendar of reports</h5>
+        {% if calendar %}<p class="align-center grey-text">Reports scheduled for release</p>{% endif %}
+        <div class="divider"></div>
+      </div>
+
+      <div class="row">
+        {% for calendar_obj in calendar %}
+        <div class="col s5 m4">
+          <div class="card panel" style="height: 100px;">
+            <p style="padding-left: 10px">{{calendar_obj.title}}</p>
+            <p style="padding-left: 10px" class="teal white-text">{{calendar_obj.date}}</p>
+          </div>
+        </div>
+        {% endfor %}
+        {% if not calendar %}
+        <p class="center-align">No reports scheduled for release</p>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+{% endblock %}

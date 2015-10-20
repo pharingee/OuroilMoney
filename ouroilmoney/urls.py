@@ -12,7 +12,7 @@ from apps.projects.api.views import (
     AnnualBudgetSectorViewSet,
     ConfirmSectorViewSet,
     AnnualBudgetProjectViewSet,
-    ConfirmProjectViewSet,AbaPriorityAreasViewSet)
+    ConfirmProjectViewSet, AbaPriorityAreasViewSet)
 from apps.allocations.api.views import (
     AnnualBudgetAllocationViewSet,
     ConfirmAllocationViewSet)
@@ -46,7 +46,8 @@ router.register(r'partner', OilPartnerViewset)
 
 urlpatterns = patterns(
     '',
-    url(r'', include(admin.site.urls)),
+    url(r'', include('ouroilmoney.frontend.urls', namespace='frontend')),
+    url(r'^admin/', include(admin.site.urls)),
     url(r'^api/v1.0/docs/', include('rest_framework_swagger.urls')),
-    url(r'api/v1.0/', include(router.urls)),
+    url(r'^api/v1.0/', include(router.urls)),
 )

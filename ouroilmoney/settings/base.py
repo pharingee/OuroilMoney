@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
 )
 
 
@@ -146,7 +147,13 @@ TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'django.core.context_processors.request',
 )
 
+TEMPLATE_DIRS = (
+    BASE_DIR('templates'),
+)
 
+STATICFILES_DIRS = (
+    BASE_DIR('static'),
+)
 
 SWAGGER_SETTINGS = {
     "exclude_namespaces": [],

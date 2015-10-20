@@ -1,0 +1,136 @@
+{% extends 'layout.html' %}
+{% load staticfiles %}
+{% load ouroilmoney_filters %}
+{% load humanize %}
+
+{% block body %}
+  <section id="revenue" class="teal lighten-4">
+    <div class="container">
+      <div class="row">
+        <div class="col m6">
+          <div class="card">
+            <div class="card-content">
+              <h5>Total Oil Revenue</h5><br>
+              <p>till Saturday August 1, 2015 is</p><br>
+              <h4>$ {{total|intcomma}}</h4>
+            </div>
+            <div class="card-action">
+              <a href="https://play.google.com/store/apps/details?id=org.ouroilmoney" target="_blank" class="waves-effect waves-light btn">Download the mobile app</a>
+              <a href="{% url 'frontend:revenues' 2011 %}">More...</a>
+            </div>
+          </div>
+        </div>
+        <div class="col m6">
+          <div id="main-chart" class="z-depth-1"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="recent">
+    <div class="container">
+      <div class="row center-align"><h5>Recent Projects</h5><div class="divider"></div></div>
+      <div class="row">
+        {% for project in projects %}{{project.title}}{% endfor %}
+        {% if not projects %} <p class="center-align">No projects yet</p>{% endif %}
+      </div>
+    </div>
+  </section>
+
+  <section id="social-media">
+    <div class="container">
+      <div class="row center-align"><h5>Social Media</h5><div class="divider"></div></div>
+      <div class="row center-align teal lighten-5">
+        <div class="col m6">
+          <p>Twitter</p>
+          <div id="twitter">
+            <a class="twitter-timeline" href="https://twitter.com/AcepPower" data-widget-id="545504243416059904">Tweets by @AcepPower</a>
+            <script>
+              !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+            </script>
+          </div>
+        </div>
+        <div class="col m6">
+          <p>Facebook</p>
+          <div id="fb-root"></div>
+          <div class="fb-page" data-href="https://www.facebook.com/AfricaCentreForEnergyPolicy" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="false">
+            <div class="fb-xfbml-parse-ignore">
+              <blockquote cite="https://www.facebook.com/AfricaCentreForEnergyPolicy">
+                <a href="https://www.facebook.com/AfricaCentreForEnergyPolicy">African Center for Energy Policy</a>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="partners">
+    <div class="container">
+      <div class="row center-align"><h5>Partners</h5><div class="divider"></div></div>
+      <div class="row">
+        <div class="col m6 l4 center-align">
+          <p>Implemented By</p>
+          <img src="{% static 'images/partners/partner1.jpg' %}" alt="" class="responsive-img">
+        </div>
+        <div class="col m6 l4 center-align">
+          <p>Tech Partner</p>
+          <img src="{% static 'images/partners/partner2.jpg' %}" alt="" class="responsive-img">
+        </div>
+        <div class="col m6 l4 center-align">
+          <p>Financial Support</p>
+          <img src="{% static 'images/partners/partner3.jpg' %}" alt="" class="responsive-img">
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block extra_scripts %}
+  <script type="text/javascript">
+    $(function () {
+      $('#main-chart').highcharts({
+        credits: {
+          enabled: true,
+          href: '',
+          position: {
+            align: 'center'
+          },
+          text: 'Click on the top right corner to download the chart'
+        },
+        exporting: {
+          buttons: {
+            contextButton: {
+              text: 'Download'
+            }
+          }
+        },
+        chart: {
+          type: 'column'
+        },
+        title: {
+          text: '<a href="https://www.google.com">Yearly oil money revenues</a>'
+        },
+        xAxis: {
+          categories: [{% for year in years %}{{year}},{% endfor %}]
+        },
+        yAxis: {
+          title: {
+            text: 'Amount in Dollars'
+          }
+        },
+        series: [{% for revenue_title, revenue in revenues.items %}{
+          name: '{{revenue_title}}',
+          data: [{% for year in years %}{{revenue|get_item:year}},{% endfor %}]
+        },{% endfor %} ]
+      });
+    });
+  </script>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+{% endblock %}

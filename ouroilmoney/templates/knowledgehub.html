@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+{% load ouroilmoney_filters %}
+
+{% block page_title %} {{year}} Knowledge Hub {% endblock %}
+
+{% block body %}
+  <section id="data">
+    <div class="container">
+    <div class="row"></div>
+      <div class="row breadcrumbs"><div class="chip"><a href="{% url 'frontend:home' %}">Home</a></div> > <div class="chip"><a href="">Resources</a></div> > <div class="chip">Knowledge Hub</div></div>
+
+      <div class="row center-align">
+        <h5>Knowledge Hub</h5>
+        {% if knowledgehub %}<p class="align-center grey-text">Released reports</p>{% endif %}
+        <div class="divider"></div>
+      </div>
+
+      <div class="row">
+        <ul class="collapsible" data-collapsible="accordion">
+          {% for category, subcategory in subcategories.items %}
+            <li>
+              <div class="collapsible-header">{{category}}</div>
+              <div class="collapsible-body">
+                {% for subcategory_item, knowledges in subcategory.items %}
+                  {% if subcategory_item == 'all' %}
+                    <ul class="collection">
+                      {% for knowledge in knowledges %}
+                        <li class="collection-item"><a href="{{knowledge.get_document}}" download="{{knowledge.title}}">{{knowledge.title}}</a></li>
+                      {% endfor %}
+                    </ul>
+                  {% else %}
+                    <ul class="collection" style="padding-left: 25px">
+                      <li class="grey-text">
+                        {{subcategory_item}}
+                        <ul class="collection">
+                          {% for knowledge in knowledges %}
+                            <li class="collection-item"><a href="{{knowledge.get_document}}" download="{{knowledge.title}}">{{knowledge.title}}</a></li>
+                          {% endfor %}
+                        </ul>
+                      </li>
+                    </ul>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+        {% if not knowledgehub %}
+        <p class="center-align">No reports released</p>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+{% endblock %}

@@ -33,16 +33,13 @@ SWAGGER_SETTINGS = {
     "is_superuser": True,  # Set to True to enforce admin only access
 }
 
-
-
-
 STATICFILES_STORAGE = 'ouroilmoney.utils.s3.StaticRootS3BotoStorage'
 
-DEFAULT_FILE_STORAGE ='ouroilmoney.utils.s3.MediaRootS3BotoStorage'
+DEFAULT_FILE_STORAGE = 'ouroilmoney.utils.s3.MediaRootS3BotoStorage'
 
 THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE
 
-AWS_ACCESS_KEY_ID= os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 

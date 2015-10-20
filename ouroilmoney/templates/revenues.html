@@ -1,0 +1,130 @@
+{% extends 'layout.html' %}
+{% load staticfiles %}
+{% load ouroilmoney_filters %}
+{% load humanize %}
+
+{% block page_title %} {{year}} Revenues {% endblock %}
+
+{% block body %}
+  <section id="data">
+    <div class="container">
+    <div class="row"></div>
+      <div class="row breadcrumbs"><div class="chip"><a href="{% url 'frontend:home' %}">Home</a></div> > <div class="chip"><a href="">Data</a></div> > <div class="chip">Yearly {{type}}</div></div>
+
+      <div class="row center-align"><h5>Yearly {{type}} Chart</h5><div class="divider"></div></div>
+
+      <div class="row">
+        <div class="col s9 l10">
+          <div id="other-chart"></div>
+        </div>
+        <div class="col s3 l2">
+          <div class="tabs-wrapper pin-top" style="top: 0px;">
+            <div style="height: 1px;">
+              {% block table_of_contents %}
+              <ul class="section table-of-contents">
+                {% for rev_year in years %}
+                  <li><a href="{% url 'frontend:revenues' rev_year %}" class="{% if rev_year == year %}active{% endif %}">{{rev_year}}</a></li>
+                {% endfor %}
+              </ul>
+              {% endblock %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row center-align"><h5>Yearly {{type}} Table</h5><div class="divider"></div></div>
+
+      <div class="row">
+        <table>
+          <thead>
+            <tr>
+                <th data-field="id">Category</th>
+                <th data-field="amount">Amount ($)</th>
+                <th data-field="percentage">Percentage</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {% for title, amount in monies.items %}
+              <tr>
+                <td>{{title}}</td>
+                <td>{{amount | intcomma}}</td>
+                <td>{{amount | get_percentage:total}}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block extra_scripts %}
+  <script type="text/javascript">
+    $(function () {
+
+      Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color) {
+        return {
+          radialGradient: {
+            cx: 0.5,
+            cy: 0.3,
+            r: 0.7
+          },
+          stops: [
+            [0, color],
+            [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
+          ]
+        };
+      });
+      $('#other-chart').highcharts({
+        credits: {
+          enabled: true,
+          href: '',
+          position: {
+            align: 'center'
+          },
+          text: 'Click on the top right corner to download the chart'
+        },
+        exporting: {
+          buttons: {
+            contextButton: {
+              text: 'Download'
+            }
+          }
+        },
+        chart: {
+          type: 'pie'
+        },
+        title: {
+          text: 'Oil Money {{type}} Breakdown for {{year}}'
+        },
+        plotOptions: {
+          pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            showInLegend: true,
+            dataLabels: {
+              enabled: true,
+              format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+              style: {
+                  color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+              }
+            }
+          }
+        },
+        series: [{
+          name: 'Yearly breakdown',
+          colorByPoint: true,
+          data: [
+          {% for title, amount in monies.items %}
+            {
+              name: '{{title}}',
+              y: {{amount}}
+            },
+          {% endfor %}
+          ]
+        }]
+      });
+    });
+  </script>
+{% endblock %}

@@ -1,0 +1,116 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% block page_title %}{% endblock %}Our Oil Money - Ghana</title>
+  <!--Import Google Icon Font-->
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--<link href="{% static 'css/fonts.css' %}" rel="stylesheet">-->
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}"  media="screen,projection"/>
+  <link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}"/>
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<body>
+  <header>
+    <div class="navbar-fixed">
+      <ul id="data-dropdown" class="dropdown-content">
+        <li><a href="{% url 'frontend:revenues' 2011 %}">Revenues</a></li>
+        <li><a href="{% url 'frontend:allocations' 2011 %}">Allocations</a></li>
+        <li><a href="{% url 'frontend:liftings' 2011 %}">Liftings</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a href="{% url 'frontend:abfa_sectors' %}">ABFA by Sectors</a></li>
+        <li><a href="{% url 'frontend:abfa_priority' %}">ABFA by Priority Areas</a></li>
+      </ul>
+      <ul id="resource-dropdown" class="dropdown-content">
+        <li><a href="{% url 'frontend:knowledgehub' %}">Knowledge Hub</a></li>
+        <li><a href="{% url 'frontend:calendar' %}">Calendar of Reports</a></li>
+      </ul>
+      <nav class="teal">
+        <div class="nav-wrapper">
+          <div class="container">
+            <a href="{% url 'frontend:home' %}" class="brand-logo" title="Our Oil Money Ghana, Tracking oil and gas revenues, projects, liftings, contracts, abfa breakdown, updates, analysis, transparency acountability">Our Oil Money - Ghana</a>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+              <li>
+                <a class="dropdown-button" href="#!" data-activates="data-dropdown" data-constrainwidth="false">
+                  Data <i class="material-icons right">arrow_drop_down</i>
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-button" href="#!" data-activates="resource-dropdown" data-constrainwidth="false">
+                  Resources <i class="material-icons right">arrow_drop_down</i>
+                </a>
+              </li>
+              <li><a href="">Projects</a></li>
+              <li><a href="/#partners">Partners</a></li>
+              <li><a href="">Comments</a></li>
+            </ul>
+            <ul class="side-nav" id="mobile-demo">
+              <li class="no-padding">
+                <ul class="collapsible collapsible-accordion">
+                  <li>
+                    <a class="collapsible-header">Data<i class="mdi-navigation-arrow-drop-down"></i></a>
+                    <div class="collapsible-body">
+                      <ul>
+                        <li><a href="{% url 'frontend:revenues' 2011 %}">Revenues</a></li>
+                        <li><a href="{% url 'frontend:allocations' 2011 %}">Allocations</a></li>
+                        <li><a href="{% url 'frontend:liftings' 2011 %}">Liftings</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{% url 'frontend:abfa_sectors' %}">ABFA by Sectors</a></li>
+                        <li><a href="{% url 'frontend:abfa_priority' %}">ABFA by Priority Areas</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+              <li class="no-padding">
+                <ul class="collapsible collapsible-accordion">
+                  <li>
+                    <a class="collapsible-header">Resources<i class="mdi-navigation-arrow-drop-down"></i></a>
+                    <div class="collapsible-body">
+                      <ul>
+                        <li><a href="{% url 'frontend:knowledgehub' %}">Knowledge Hub</a></li>
+                        <li><a href="{% url 'frontend:calendar' %}">Calendar of Reports</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+              <li><a href="">Projects</a></li>
+              <li><a href="/#partners">Partners</a></li>
+              <li><a href="">Comments</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    {% block body %}
+    {% endblock %}
+  </main>
+
+  <footer class="page-footer teal">
+    <div class="footer-copyright">
+      <div class="container center-align">
+        &copy; 2014. Our Oil Money. All rights reserved.
+      </div>
+    </div>
+  </footer>
+  <!--Import jQuery before materialize.js-->
+  <script type="text/javascript" src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/highcharts.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/exporting.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/offline-exporting.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/export-csv.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+  {% block extra_scripts %}
+  {% endblock %}
+</body>
+</html>
