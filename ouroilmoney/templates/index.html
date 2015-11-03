@@ -43,6 +43,8 @@
         </div>
         {% endfor %}
         {% if not projects %} <p class="center-align">No projects yet</p>{% endif %}
+        <br><br>
+        <p class="center-align"><a href="{% url 'frontend:projects' %}">Load more projects</a></p>
       </div>
     </div>
   </section>
@@ -81,15 +83,15 @@
       <div class="row">
         <div class="col m6 l4 center-align">
           <p>Implemented By</p>
-          <img src="{% static 'images/partners/partner1.jpg' %}" alt="" class="responsive-img">
+          <a href="http://www.acepghana.com" class="hoverable" target="_blank"><img src="{% static 'images/partners/partner1.jpg' %}" alt="" class="responsive-img"></a>
         </div>
         <div class="col m6 l4 center-align">
           <p>Tech Partner</p>
-          <img src="{% static 'images/partners/partner2.jpg' %}" alt="" class="responsive-img">
+          <a href="http://penplusbytes.net" class="hoverable" target="_blank"><img src="{% static 'images/partners/partner2.jpg' %}" alt="" class="responsive-img"></a>
         </div>
         <div class="col m6 l4 center-align">
           <p>Financial Support</p>
-          <img src="{% static 'images/partners/partner3.jpg' %}" alt="" class="responsive-img">
+          <a href="https://www.gov.uk/government/world/ghana" class="hoverable" target="_blank"><img src="{% static 'images/partners/partner3.jpg' %}" alt="" class="responsive-img"></a>
         </div>
       </div>
     </div>
