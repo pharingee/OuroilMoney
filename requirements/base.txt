@@ -9,4 +9,4 @@ static3==0.5.1
 django-suit==0.2.11
 django-rest-swagger==0.1.14
 Pillow==2.6.1
-
+gunicorn==19.3.0
