@@ -35,7 +35,7 @@
           <tr>
             <td>{{title}}</td>
             {% for year in years %}
-              <td>$ {{abfa|get_item:year|remove_commas}}</td>
+              <td>GH₵ {{abfa|get_item:year|remove_commas}}</td>
             {% endfor %}
           </tr>
           {% endfor %}
@@ -120,7 +120,7 @@
       },
       yAxis: {
         title: {
-          text: 'Amount in Dollars'
+          text: 'Amount in Cedis(₵)'
         }
       },
       series: [{% for abfa_title, abfa in abfas.items %}{
