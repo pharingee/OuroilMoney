@@ -24,7 +24,7 @@ def revenues(request, year):
         request, 'revenues.html',
         {
             'monies': revenues,
-            'years': years,
+            'years': sorted(years),
             'total': total,
             'year': int(year),
             'type': 'Revenue'
@@ -47,7 +47,7 @@ def allocations(request, year):
         request, 'allocations.html',
         {
             'monies': allocations,
-            'years': years,
+            'years': sorted(years),
             'total': total,
             'year': int(year),
             'type': 'Allocation'
@@ -75,7 +75,7 @@ def liftings(request, year):
         request, 'liftings.html',
         {
             'monies': liftings,
-            'years': years,
+            'years': sorted(years),
             'total': total,
             'year': int(year),
             'type': 'Lifting'
@@ -98,7 +98,7 @@ def abfa_priority(request):
         request, 'abfa-priority.html',
         {
             'abfas': abfas,
-            'years': years
+            'years': sorted(years)
         }
     )
 

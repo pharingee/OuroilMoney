@@ -14,6 +14,8 @@ def home(request):
     revenues = {}
     years = Set([])
     total = AnnualBudgetReportRevenue.revenue_objects.totalRevenue()
+    last_date = AnnualBudgetReportRevenue.revenue_objects.filter(
+        is_published=True)[0].report.date.strftime('%A %B %d, %Y')
     for revenue in revenue_objects:
         years.add(revenue.year)
         try:
@@ -25,9 +27,10 @@ def home(request):
         request, 'index.html',
         {
             'revenues': revenues,
-            'years': years,
+            'years': sorted(years),
             'total': total,
-            'projects': projects
+            'projects': projects,
+            'last_date': last_date
         })
 
 
